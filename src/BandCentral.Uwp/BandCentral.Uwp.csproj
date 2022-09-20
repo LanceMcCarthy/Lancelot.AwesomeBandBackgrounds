@@ -1,0 +1,585 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{3D49DCE6-08DF-4BDF-9ECE-57552E136EDD}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BandCentral.Uwp</RootNamespace>
+    <AssemblyName>BandCentral.Uwp</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PackageCertificateKeyFile>BandCentral.Uwp_StoreKey.pfx</PackageCertificateKeyFile>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <RuntimeIdentifiers>win10-arm;win10-arm-aot;win10-x86;win10-x86-aot;win10-x64;win10-x64-aot</RuntimeIdentifiers>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VoiceCommandDefinitions.xml">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Behaviors\FadeHeaderBehavior.cs" />
+    <Compile Include="Behaviors\HeaderDesaturationBehavior.cs" />
+    <Compile Include="Behaviors\BlurBehavior.cs" />
+    <Compile Include="Behaviors\FrostedGlassBehavior.cs" />
+    <Compile Include="Behaviors\ParallaxBehavior.cs" />
+    <Compile Include="Behaviors\PivotParallaxBehavior.cs" />
+    <Compile Include="Behaviors\ScrollToTopBehavior.cs" />
+    <Compile Include="Commands\AddToFavoritesCommand.cs" />
+    <Compile Include="Commands\EditImageCommand.cs" />
+    <Compile Include="Commands\EditPaletteCommand.cs" />
+    <Compile Include="Commands\RemoveFavoriteCommand.cs" />
+    <Compile Include="Commands\SendToBandCommand.cs" />
+    <Compile Include="Common\AdsHelper.cs" />
+    <Compile Include="Common\AutoWidthItemsPanel.cs" />
+    <Compile Include="Common\BackgroundFav.cs" />
+    <Compile Include="Common\BackgroundTaskEngine.cs" />
+    <Compile Include="Common\BandColorTheme.cs" />
+    <Compile Include="Common\BandConnectionHelper.cs" />
+    <Compile Include="Common\Base58.cs" />
+    <Compile Include="Common\BingImageHelper.cs" />
+    <Compile Include="Common\BingImagesResult.cs" />
+    <Compile Include="Common\ConsolidatedImageInfo.cs" />
+    <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\ContinuationManager.cs" />
+    <Compile Include="Common\DelegateCommand.cs" />
+    <Compile Include="Common\DeviceInfoHelper.cs" />
+    <Compile Include="Common\DiagnosticsHelper.cs" />
+    <Compile Include="Common\DisplayAttribute.cs" />
+    <Compile Include="Common\DownloadProgressArgs.cs" />
+    <Compile Include="Common\Enums\ContentType.cs" />
+    <Compile Include="Common\Enums\ListLayoutMode.cs" />
+    <Compile Include="Common\ExceptionLogger.cs" />
+    <Compile Include="Common\FavBase.cs" />
+    <Compile Include="Common\FavPalette.cs" />
+    <Compile Include="Common\FilterEffectsHelper.cs" />
+    <Compile Include="Common\FilterListItem.cs" />
+    <Compile Include="Common\FiveHundredPix.cs" />
+    <Compile Include="Common\FiveHundredPixRoot.cs" />
+    <Compile Include="Common\FlickrFav.cs" />
+    <Compile Include="Common\FlickrHelpers.cs" />
+    <Compile Include="Common\FrameService.cs" />
+    <Compile Include="Common\GroupedObservableCollection.cs" />
+    <Compile Include="Common\Helpers.cs" />
+    <Compile Include="Common\HttpClientExtensions.cs" />
+    <Compile Include="Common\IapHelper.cs" />
+    <Compile Include="Common\ImageHelpers.cs" />
+    <Compile Include="Common\IncrementalLoadingCollection.cs" />
+    <Compile Include="Common\LocalFav.cs" />
+    <Compile Include="Common\NavigationHelper.cs" />
+    <Compile Include="Common\NetworkHelpers.cs" />
+    <Compile Include="Common\NotificationHelpers.cs" />
+    <Compile Include="Common\PaneMenuItem.cs" />
+    <Compile Include="Common\PictaliciousRoot.cs" />
+    <Compile Include="Common\PortableHelpers.cs" />
+    <Compile Include="Common\RatioScalingItemsPanel.cs" />
+    <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Common\SplitPanel.cs" />
+    <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Common\TaskHelpers.cs" />
+    <Compile Include="Common\VisualTreeHelperExtensions.cs" />
+    <Compile Include="Controls\AdaptiveGridView.cs" />
+    <Compile Include="Controls\BandBusyIndicator.xaml.cs">
+      <DependentUpon>BandBusyIndicator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\BingImages.xaml.cs">
+      <DependentUpon>BingImages.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\BlurredImageControl.cs" />
+    <Compile Include="Controls\ColorPicker.xaml.cs">
+      <DependentUpon>ColorPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CompositionImage.cs" />
+    <Compile Include="Controls\FiveHundredPixSearch.xaml.cs">
+      <DependentUpon>FiveHundredPixSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ImageCropper\Helpers\CropBitmap.cs" />
+    <Compile Include="Controls\ImageCropper\Helpers\SelectedRegion.cs" />
+    <Compile Include="Controls\ImageCropper\Helpers\WriteableBitmapExtensions.cs" />
+    <Compile Include="Controls\ImageCropper\ImageCropper.cs" />
+    <Compile Include="Controls\NavMenuListView.cs" />
+    <Compile Include="Controls\NetworkImage.xaml.cs">
+      <DependentUpon>NetworkImage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PathControl\PathControl.cs" />
+    <Compile Include="Converters\BingImagePathConverter.cs" />
+    <Compile Include="Converters\BitmapImageWithProgressConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\EmptyCountToVisibilityConverter.cs" />
+    <Compile Include="Converters\EnumToDisplayConverter.cs" />
+    <Compile Include="Converters\FavImageSourceConverter.cs" />
+    <Compile Include="Converters\FileNameToFilePathConverter.cs" />
+    <Compile Include="Converters\HexToBrushConverter.cs" />
+    <Compile Include="Converters\ImageHeightConverter.cs" />
+    <Compile Include="Converters\InvertBoolConverter.cs" />
+    <Compile Include="Converters\JsonIntToBoolConverter.cs" />
+    <Compile Include="Converters\ListLayoutModeConverter.cs" />
+    <Compile Include="Converters\PhotoSizeConverter.cs" />
+    <Compile Include="Converters\ScaleFactorConverter.cs" />
+    <Compile Include="Converters\StringToDoubleConverter.cs" />
+    <Compile Include="Converters\TimespanToStringConverter.cs" />
+    <Compile Include="Converters\UnixToDateTimeConverter.cs" />
+    <Compile Include="Dialogs\ConnectToBandDialog.xaml.cs">
+      <DependentUpon>ConnectToBandDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ImageThemeDialog.xaml.cs">
+      <DependentUpon>ImageThemeDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\PickFlickrFavDialog.xaml.cs">
+      <DependentUpon>PickFlickrFavDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Methods.cs" />
+    <Compile Include="Extensions\XAML\Extension.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Selectors\ImageTemplateSelector.cs" />
+    <Compile Include="Shell.xaml.cs">
+      <DependentUpon>Shell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Triggers\ContinuumModeTrigger.cs" />
+    <Compile Include="UI\ContinuityTransition.cs" />
+    <Compile Include="UI\SurfaceLoader.cs" />
+    <Compile Include="UserControls\BandPreview.xaml.cs">
+      <DependentUpon>BandPreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ColorPicker.xaml.cs">
+      <DependentUpon>ColorPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\InAppPurchaseManager.xaml.cs">
+      <DependentUpon>InAppPurchaseManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\LancelotSoftware.xaml.cs">
+      <DependentUpon>LancelotSoftware.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PaletteSelector.xaml.cs">
+      <DependentUpon>PaletteSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ReviewReminder.xaml.cs">
+      <DependentUpon>ReviewReminder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\FlickrViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelCore.cs" />
+    <Compile Include="Views\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BackgroundRotatorPage.xaml.cs">
+      <DependentUpon>BackgroundRotatorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BingImagePage.xaml.cs">
+      <DependentUpon>BingImagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LocalPhotoPage.xaml.cs">
+      <DependentUpon>LocalPhotoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\CropImageView.xaml.cs">
+      <DependentUpon>CropImageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PairedThemePage.xaml.cs">
+      <DependentUpon>PairedThemePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PhotoDetailsPage.xaml.cs">
+      <DependentUpon>PhotoDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PhotoSearchPage.xaml.cs">
+      <DependentUpon>PhotoSearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TempSearchPage.xaml.cs">
+      <DependentUpon>TempSearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ThemesPage.xaml.cs">
+      <DependentUpon>ThemesPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-125.png" />
+    <Content Include="Assets\SplashScreen.scale-150.png" />
+    <Content Include="Assets\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\Square150x150Logo.scale-125.png" />
+    <Content Include="Assets\Square150x150Logo.scale-150.png" />
+    <Content Include="Assets\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\Square310x310Logo.scale-100.png" />
+    <Content Include="Assets\Square310x310Logo.scale-125.png" />
+    <Content Include="Assets\Square310x310Logo.scale-150.png" />
+    <Content Include="Assets\Square310x310Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\Square44x44Logo.scale-150.png" />
+    <Content Include="Assets\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\Square71x71Logo.scale-100.png" />
+    <Content Include="Assets\Square71x71Logo.scale-125.png" />
+    <Content Include="Assets\Square71x71Logo.scale-150.png" />
+    <Content Include="Assets\Square71x71Logo.scale-200.png" />
+    <Content Include="Assets\Square71x71Logo.scale-400.png" />
+    <Content Include="Assets\StoreLogo.scale-100.png" />
+    <Content Include="Assets\StoreLogo.scale-125.png" />
+    <Content Include="Assets\StoreLogo.scale-150.png" />
+    <Content Include="Assets\StoreLogo.scale-200.png" />
+    <Content Include="Assets\StoreLogo.scale-400.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-125.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-150.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+    <Content Include="Images\BandDesignIcon.jpg" />
+    <Content Include="Images\BandOverlay.png" />
+    <Content Include="Images\BandTilesOverlay.png" />
+    <Content Include="Images\BothBands.png" />
+    <Content Include="Images\ClippedBandOverlay.png" />
+    <Content Include="Images\ImageLoadingPreview.png" />
+    <Content Include="Images\ImagingSDK\AntiqueFilter.jpg" />
+    <Content Include="Images\ImagingSDK\AutoLevelsFilter.jpg" />
+    <Content Include="Images\ImagingSDK\Blur.jpg" />
+    <Content Include="Images\ImagingSDK\Cartoon.jpg" />
+    <Content Include="Images\ImagingSDK\ColorBoostFilter.jpg" />
+    <Content Include="Images\ImagingSDK\Despeckle.jpg" />
+    <Content Include="Images\ImagingSDK\Emboss.jpg" />
+    <Content Include="Images\ImagingSDK\Fog.jpg" />
+    <Content Include="Images\ImagingSDK\GaussianNoise.jpg" />
+    <Content Include="Images\ImagingSDK\Grayscale.jpg" />
+    <Content Include="Images\ImagingSDK\HueSaturation.jpg" />
+    <Content Include="Images\ImagingSDK\LocalBoostAutomatic.jpg" />
+    <Content Include="Images\ImagingSDK\Lomo.jpg" />
+    <Content Include="Images\ImagingSDK\Magicpen.jpg" />
+    <Content Include="Images\ImagingSDK\Mirror.jpg" />
+    <Content Include="Images\ImagingSDK\Moonlight.jpg" />
+    <Content Include="Images\ImagingSDK\Negative.jpg" />
+    <Content Include="Images\ImagingSDK\Posterize.jpg" />
+    <Content Include="Images\ImagingSDK\Sepia.jpg" />
+    <Content Include="Images\ImagingSDK\Sharpness.jpg" />
+    <Content Include="Images\ImagingSDK\Sketch.jpg" />
+    <Content Include="Images\ImagingSDK\Solarize.jpg" />
+    <Content Include="Images\ImagingSDK\TemperatureAndTintFilter.jpg" />
+    <Content Include="Images\ImagingSDK\Vibrance.jpg" />
+    <Content Include="Images\ImagingSDK\Watercolor.jpg" />
+    <Content Include="Images\ImagingSDK\WhiteBalance.jpg" />
+    <Content Include="Properties\Default.rd.xml" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <DesignData Include="SampleData\ColorPickerViewModelSampleData.xaml">
+      <SubType>Designer</SubType>
+    </DesignData>
+    <DesignData Include="SampleData\FlickrViewModelSampleData.xaml">
+      <SubType>Designer</SubType>
+    </DesignData>
+    <DesignData Include="SampleData\MainViewModelSampleData.xaml">
+      <SubType>Designer</SubType>
+    </DesignData>
+    <Page Include="Controls\BandBusyIndicator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\BingImages.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ColorPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\FiveHundredPixSearch.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\NetworkImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\ConnectToBandDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\ImageThemeDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\PickFlickrFavDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SharedResources\LightTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Shell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\BandPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ColorPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\InAppPurchaseManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\LancelotSoftware.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\PaletteSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ReviewReminder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BackgroundRotatorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BingImagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LocalPhotoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CropImageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PairedThemePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PhotoDetailsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PhotoSearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TempSearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ThemesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BandCentral.UwpBackgroundTasks\BandCentral.UwpBackgroundTasks.csproj">
+      <Project>{17e8370c-80c5-42b9-a113-88f9756e0a27}</Project>
+      <Name>BandCentral.UwpBackgroundTasks</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Microsoft.Advertising.Xaml, Version=10.0">
+      <Name>Microsoft Advertising SDK for XAML</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">
+      <Name>Microsoft Engagement Framework</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs, Version=14.0">
+      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
+    <SDKReference Include="WindowsMobile, Version=10.0.19041.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="FlickrNetWS">
+      <HintPath>..\Flickr\FlickrNetWS.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="HockeySDK.UWP">
+      <Version>4.1.6</Version>
+    </PackageReference>
+    <PackageReference Include="Intense">
+      <Version>0.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="LumiaImagingSDK.UWP">
+      <Version>3.0.593</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Advertising.XAML">
+      <Version>10.1811.22001</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Band">
+      <Version>1.3.20628</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.2.14</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Services.Store.SDK">
+      <Version>10.1705.16001</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
+      <Version>2.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="PlatformSpecific.Analyzer">
+      <Version>2.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Telerik.UI.for.UniversalWindowsPlatform">
+      <Version>2022.3.913.3</Version>
+    </PackageReference>
+    <PackageReference Include="Win2D.uwp">
+      <Version>1.26.0</Version>
+    </PackageReference>
+    <PackageReference Include="WriteableBitmapEx">
+      <Version>1.6.8</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FlickrNet.chm" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

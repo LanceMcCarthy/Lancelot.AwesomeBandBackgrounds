@@ -1,0 +1,142 @@
+﻿<Controls:ColorPickerViewModel xmlns:Controls="using:BandCentral.Controls" 
+                               ColorsViewVisibility="Visible"
+                               SwatchViewVisibility="Collapsed">
+	<Controls:ColorPickerViewModel.SelectedSwatch>
+        <Controls:Swatch ThumbFour="#FF5BAFB4"
+                         ThumbOne="#FF19FF62"
+                         ThumbThree="#FF445BCE"
+                         Title="Swatch One" ThumbTwo="#FF804D7C">
+			<Controls:Swatch.SwatchColors>
+				<Controls:SwatchColor Four="#FFFC6417" Five="#FF7DF715" One="#FFD01BE4" Six="#FF9D2B35" Two="#FFF3CBC8" Three="#FFCF5DB1"/>
+				<Controls:SwatchColor Four="#FFB9F941" Five="#FF48172E" One="#FFFAB5E1" Six="#FF61B0D1" Two="#FFB430FC" Three="#FF6BD098"/>
+				<Controls:SwatchColor Four="#FF555915" Five="#FFF324AE" One="#FF59E49C" Six="#FF16EBAF" Two="#FF36D305" Three="#FF8839FA"/>
+				<Controls:SwatchColor Four="#FFBB8955" Five="#FFAECE2A" One="#FF96F36D" Six="#FF7CE4F9" Two="#FF407CF9" Three="#FFAC10B7"/>
+				<Controls:SwatchColor Four="#FF700997" Five="#FF15ED52" One="#FFB2F850" Six="#FFB6C759" Two="#FFD348AD" Three="#FFC0B6FE"/>
+				<Controls:SwatchColor Four="#FF81886F" Five="#FF2FE2C3" One="#FF8367B2" Six="#FF15A2EC" Two="#FF024E12" Three="#FFE0C0DF"/>
+				<Controls:SwatchColor Four="#FF00C65B" Five="#FF4E50CC" One="#FF7F5E86" Six="#FF7C208D" Two="#FF233CE4" Three="#FF5B9DF4"/>
+				<Controls:SwatchColor Four="#FFF09AAA" Five="#FF116742" One="#FF9A8153" Six="#FF142C34" Two="#FFB50AC1" Three="#FFA4561D"/>
+				<Controls:SwatchColor Four="#FF3FFE03" Five="#FFD41E87" One="#FFBEA8BF" Six="#FFFE01B3" Two="#FFAA1368" Three="#FF61A517"/>
+				<Controls:SwatchColor Four="#FF4CD7B6" Five="#FFEB1A48" One="#FF365AF0" Six="#FF85571B" Two="#FF8DBD03" Three="#FF7C3A84"/>
+			</Controls:Swatch.SwatchColors>
+		</Controls:Swatch>
+	</Controls:ColorPickerViewModel.SelectedSwatch>
+	<Controls:ColorPickerViewModel.Swatches>
+        <Controls:Swatch ThumbFour="#FF79BA9A"
+                         ThumbOne="#FF672F16"
+                         ThumbThree="#FF0C0D61"
+                         Title="Swatch Two" ThumbTwo="#FF7C247C">
+			<Controls:Swatch.SwatchColors>
+				<Controls:SwatchColor Four="#FFE7BCAE" Five="#FF5A26FD" One="#FFE2E532" Six="#FF3BC884" Two="#FF3775D8" Three="#FFEDE944"/>
+				<Controls:SwatchColor Four="#FF518F09" Five="#FFFC8921" One="#FF878CBE" Six="#FFC5490C" Two="#FFAF7E59" Three="#FFCE9EFF"/>
+				<Controls:SwatchColor Four="#FFC97ECE" Five="#FF60D51F" One="#FFC2BC2A" Six="#FF53DC2D" Two="#FF764991" Three="#FF45BC36"/>
+				<Controls:SwatchColor Four="#FF5D5D52" Five="#FFC15436" One="#FF38FE89" Six="#FF372D8A" Two="#FF46275D" Three="#FF602DD7"/>
+				<Controls:SwatchColor Four="#FF763D16" Five="#FF3F2C3E" One="#FF7D1DA6" Six="#FFA8786F" Two="#FFBFA0F1" Three="#FFD75675"/>
+			</Controls:Swatch.SwatchColors>
+		</Controls:Swatch>
+        <Controls:Swatch ThumbFour="#FFBDF6BA"
+                         ThumbOne="#FF0DF7FD"
+                         ThumbThree="#FFF52347"
+                         Title="Swatch Three" ThumbTwo="#FF43BB4B">
+			<Controls:Swatch.SwatchColors>
+				<Controls:SwatchColor Four="#FF3F76B7" Five="#FFEC261D" One="#FF3FBB66" Six="#FF4BE7C1" Two="#FF94060F" Three="#FF285D55"/>
+				<Controls:SwatchColor Four="#FF2C34D9" Five="#FF432314" One="#FFAB6CA3" Six="#FF1AB32A" Two="#FFBAC0BE" Three="#FFCA367A"/>
+				<Controls:SwatchColor Four="#FFD6EC77" Five="#FF0787F0" One="#FFF744A0" Six="#FF28796F" Two="#FFAD0497" Three="#FF9D444F"/>
+				<Controls:SwatchColor Four="#FFB3FD32" Five="#FF83EF11" One="#FF5E2390" Six="#FF0074E6" Two="#FF809B93" Three="#FF0D5C6C"/>
+				<Controls:SwatchColor Four="#FF07BFA6" Five="#FF28E7A9" One="#FFDACE37" Six="#FFCBEFFB" Two="#FFE5D472" Three="#FFB52AD3"/>
+			</Controls:Swatch.SwatchColors>
+		</Controls:Swatch>
+        <Controls:Swatch ThumbFour="#FF34F4ED"
+                         ThumbOne="#FFDD95CA"
+                         ThumbThree="#FFAF1C4F"
+                         Title="Swatch Four" ThumbTwo="#FF5D6AD7">
+			<Controls:Swatch.SwatchColors>
+				<Controls:SwatchColor Four="#FFB64285" Five="#FF696641" One="#FF96B48C" Six="#FFB914E9" Two="#FF3B66AF" Three="#FF488DA7"/>
+				<Controls:SwatchColor Four="#FF66E5DE" Five="#FF5C75B0" One="#FF20BE88" Six="#FFDF9EA9" Two="#FF58B3FC" Three="#FFFD38B5"/>
+				<Controls:SwatchColor Four="#FFAC3C8B" Five="#FF0FDA5F" One="#FFCCDBDF" Six="#FF2029BE" Two="#FFA3AA76" Three="#FFD3ECE8"/>
+				<Controls:SwatchColor Four="#FF6032AD" Five="#FF2FEA87" One="#FF7A8EB9" Six="#FF447043" Two="#FF4B5078" Three="#FF11114E"/>
+				<Controls:SwatchColor Four="#FFB50BCC" Five="#FFB92EC2" One="#FFFC097D" Six="#FF01CE27" Two="#FF508484" Three="#FFD0C42B"/>
+			</Controls:Swatch.SwatchColors>
+		</Controls:Swatch>
+        <Controls:Swatch ThumbFour="#FFF488D7"
+                         ThumbOne="#FFCA59D7"
+                         ThumbThree="#FF184C67"
+                         Title="Swatch Five" ThumbTwo="#FFAF4FEF">
+			<Controls:Swatch.SwatchColors>
+				<Controls:SwatchColor Four="#FF51CB3D" Five="#FF14CDAE" One="#FFA73537" Six="#FF88EBB5" Two="#FF7FD465" Three="#FF25855F"/>
+				<Controls:SwatchColor Four="#FF0F463F" Five="#FFA95FCE" One="#FF709F2D" Six="#FF6693D4" Two="#FFA68CAF" Three="#FF6EE0FD"/>
+				<Controls:SwatchColor Four="#FF11CA49" Five="#FF8A9A53" One="#FF55EF0D" Six="#FF5309B9" Two="#FF44AC6C" Three="#FFF791AB"/>
+				<Controls:SwatchColor Four="#FF8B0476" Five="#FF49F673" One="#FFF1E61F" Six="#FFC5CF29" Two="#FF4D28F5" Three="#FF45BE2C"/>
+				<Controls:SwatchColor Four="#FF8A9827" Five="#FFFD6FB9" One="#FFDA0D57" Six="#FF942117" Two="#FF6FB450" Three="#FF87141F"/>
+			</Controls:Swatch.SwatchColors>
+		</Controls:Swatch>
+		<Controls:Swatch ThumbFour="#FFA7D0BF" ThumbOne="#FF417B43" ThumbThree="#FFB1C452" Title="Vestibulum aenean accumsan sed dis" ThumbTwo="#FF27F01A">
+			<Controls:Swatch.SwatchColors>
+				<Controls:SwatchColor Four="#FF30F7D3" Five="#FF5CEA1C" One="#FF0732B0" Six="#FFF3CE96" Two="#FFD66977" Three="#FF9FC2D2"/>
+				<Controls:SwatchColor Four="#FF8990CE" Five="#FF225994" One="#FF384317" Six="#FFAB65E5" Two="#FF980C27" Three="#FFBD654D"/>
+				<Controls:SwatchColor Four="#FFD3C50E" Five="#FF2FEC17" One="#FFE0F7D5" Six="#FF15E174" Two="#FF3896F3" Three="#FF6AEF5F"/>
+				<Controls:SwatchColor Four="#FF98F05E" Five="#FF666259" One="#FFE0B3C3" Six="#FF543A05" Two="#FF4B313F" Three="#FF5B567B"/>
+				<Controls:SwatchColor Four="#FF4EBCC6" Five="#FFD169CF" One="#FF4A6814" Six="#FFBBA01D" Two="#FFB1BF76" Three="#FF1BE38E"/>
+			</Controls:Swatch.SwatchColors>
+		</Controls:Swatch>
+        <Controls:Swatch ThumbFour="#FF8B9BE9"
+                         ThumbOne="#FF4881CF"
+                         ThumbThree="#FFC416E1"
+                         Title="Swatch Six" ThumbTwo="#FFE55019">
+			<Controls:Swatch.SwatchColors>
+				<Controls:SwatchColor Four="#FF6C0CEA" Five="#FF265759" One="#FFD15C3B" Six="#FF0458D3" Two="#FFB190E7" Three="#FF7997A5"/>
+				<Controls:SwatchColor Four="#FFE13A9C" Five="#FF54BF0A" One="#FFE53340" Six="#FF1EB584" Two="#FF0A24DB" Three="#FF92D8AE"/>
+				<Controls:SwatchColor Four="#FF03C6E0" Five="#FF40A83E" One="#FF1270B3" Six="#FF03A967" Two="#FF7D9AE3" Three="#FFC8A79B"/>
+				<Controls:SwatchColor Four="#FF8B47BB" Five="#FF8EAA9A" One="#FF6E5F3C" Six="#FF92121B" Two="#FF3B6838" Three="#FFF95F55"/>
+				<Controls:SwatchColor Four="#FF3F2A74" Five="#FF191BF1" One="#FF600F22" Six="#FF6D8A95" Two="#FFACC289" Three="#FF90D41B"/>
+			</Controls:Swatch.SwatchColors>
+		</Controls:Swatch>
+        <Controls:Swatch ThumbFour="#FFBE645B"
+                         ThumbOne="#FFA3D5B2"
+                         ThumbThree="#FF806E44"
+                         Title="Swatch Seven" ThumbTwo="#FF90625E">
+			<Controls:Swatch.SwatchColors>
+				<Controls:SwatchColor Four="#FFE188FB" Five="#FFF0E61E" One="#FF0EDBCB" Six="#FFC9AE1D" Two="#FF1F6808" Three="#FF3122C1"/>
+				<Controls:SwatchColor Four="#FF18F2CC" Five="#FFCAE8B6" One="#FF229AF1" Six="#FFE40409" Two="#FF34393D" Three="#FFF5F7CC"/>
+				<Controls:SwatchColor Four="#FFD06DD4" Five="#FF3A8DAE" One="#FF74265A" Six="#FFCA5507" Two="#FF76C17B" Three="#FFE4CDD9"/>
+				<Controls:SwatchColor Four="#FF3A7D3A" Five="#FF2ABD4C" One="#FFAA24A6" Six="#FF584423" Two="#FFFB3397" Three="#FF916660"/>
+				<Controls:SwatchColor Four="#FF0D7820" Five="#FFA176D0" One="#FF685FD1" Six="#FF25E30D" Two="#FF100139" Three="#FF864525"/>
+			</Controls:Swatch.SwatchColors>
+		</Controls:Swatch>
+        <Controls:Swatch ThumbFour="#FFD5EE0E"
+                         ThumbOne="#FFFDAFBE"
+                         ThumbThree="#FF04F0F0"
+                         Title="Swatch Eight" ThumbTwo="#FFAF8A5C">
+			<Controls:Swatch.SwatchColors>
+				<Controls:SwatchColor Four="#FF98B9EC" Five="#FFA40972" One="#FFAA20EE" Six="#FF76D1A0" Two="#FFA466AF" Three="#FF8B24E1"/>
+				<Controls:SwatchColor Four="#FFF1C55A" Five="#FFD0C4E3" One="#FF092871" Six="#FF170145" Two="#FF726669" Three="#FF27F4AD"/>
+				<Controls:SwatchColor Four="#FF4A48B7" Five="#FF43325F" One="#FFF10A1C" Six="#FF812A49" Two="#FF63D770" Three="#FF23C019"/>
+				<Controls:SwatchColor Four="#FF06596D" Five="#FF83EEE5" One="#FFC50FF1" Six="#FFD8E24C" Two="#FFC59C1B" Three="#FF7057CA"/>
+				<Controls:SwatchColor Four="#FF33E37B" Five="#FF2D74E8" One="#FF85A2C5" Six="#FFC4C9E7" Two="#FFD728B4" Three="#FF91489E"/>
+			</Controls:Swatch.SwatchColors>
+		</Controls:Swatch>
+        <Controls:Swatch ThumbFour="#FFFA3FF9"
+                         ThumbOne="#FFE8D912"
+                         ThumbThree="#FF8BCA64"
+                         Title="Swatch Nine" ThumbTwo="#FF25BC2C">
+			<Controls:Swatch.SwatchColors>
+				<Controls:SwatchColor Four="#FF388A39" Five="#FF8C5CC8" One="#FFE99AC6" Six="#FF90DC12" Two="#FF8F3D9B" Three="#FF338F87"/>
+				<Controls:SwatchColor Four="#FF635F10" Five="#FF1B3A48" One="#FF503125" Six="#FFD625A8" Two="#FF92B4DB" Three="#FF8DC6B7"/>
+				<Controls:SwatchColor Four="#FFC6E3F6" Five="#FF2EE376" One="#FF326210" Six="#FF923438" Two="#FFE3EA4E" Three="#FFB2566D"/>
+				<Controls:SwatchColor Four="#FF9F2002" Five="#FF1BC811" One="#FF03251D" Six="#FFB7EC52" Two="#FF1774E1" Three="#FF370493"/>
+				<Controls:SwatchColor Four="#FF603035" Five="#FF185597" One="#FFA75028" Six="#FF371E92" Two="#FFED0CF0" Three="#FF549FB3"/>
+			</Controls:Swatch.SwatchColors>
+		</Controls:Swatch>
+        <Controls:Swatch ThumbFour="#FF981951"
+                         ThumbOne="#FF67C161"
+                         ThumbThree="#FF0F9CBC"
+                         Title="Swatch Ten" ThumbTwo="#FF5AAD48">
+			<Controls:Swatch.SwatchColors>
+				<Controls:SwatchColor Four="#FFA469DD" Five="#FFB80DEE" One="#FF284898" Six="#FFEE8368" Two="#FFE7A712" Three="#FF6CE0DE"/>
+				<Controls:SwatchColor Four="#FF39B6D1" Five="#FF719C82" One="#FFE9B2EA" Six="#FF935614" Two="#FF11A949" Three="#FF5FC54B"/>
+				<Controls:SwatchColor Four="#FFD7C9BD" Five="#FF158801" One="#FF276B7B" Six="#FF3FD82D" Two="#FF21377F" Three="#FF289D0C"/>
+				<Controls:SwatchColor Four="#FF89C991" Five="#FF3A1237" One="#FF582F4C" Six="#FF296C88" Two="#FFD0999F" Three="#FF8C288A"/>
+				<Controls:SwatchColor Four="#FF0BE1CA" Five="#FFAAC260" One="#FFAD30CA" Six="#FF9B3AEA" Two="#FF38B803" Three="#FFEB6209"/>
+			</Controls:Swatch.SwatchColors>
+		</Controls:Swatch>
+	</Controls:ColorPickerViewModel.Swatches>
+</Controls:ColorPickerViewModel>

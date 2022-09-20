@@ -1,0 +1,569 @@
+﻿<Page x:Name="Page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:BandCentral"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+      xmlns:controls="using:BandCentral.Controls"
+      xmlns:common="using:BandCentral.Common"
+      xmlns:data="using:Telerik.UI.Xaml.Controls.Data"
+      xmlns:viewModels="using:BandCentral.ViewModels"
+      xmlns:input="using:Telerik.UI.Xaml.Controls.Input"
+      xmlns:converters="using:BandCentral.Converters"
+      xmlns:selectors="using:BandCentral.Selectors"
+      xmlns:converters1="using:BandCentral.WindowsBase.Converters"
+      x:Class="BandCentral.ImageSearchPage"
+      mc:Ignorable="d"
+      RequestedTheme="Light"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <ContinuumNavigationTransitionInfo />
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+
+    <Page.Resources>
+        <converters1:BoolToVisibilityConverter x:Key="InvertedBoolToVisibilityConverter"
+                                                 IsInverted="True" />
+        <converters1:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"
+                                                 IsInverted="False" />
+        <converters:EnumToDisplayConverter x:Key="EnumToDisplayConverter" />
+        
+        <DataTemplate x:Key="ComboItemTemplate">
+            <TextBlock Text="{Binding Converter={StaticResource EnumToDisplayConverter}}"
+                       FontFamily="Century Gothic"
+                       Foreground="{StaticResource BlueAgainGrayBrush}"
+                       FontSize="20" />
+        </DataTemplate>
+        
+        <DataTemplate x:Key="NormalPhotoTemplate">
+            <Grid Background="{StaticResource BlueAgainGrayBrush}"
+                  VerticalAlignment="Top"
+                  Margin="0,0,0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid x:Name="PhotoInfoGrid"
+                      HorizontalAlignment="Stretch"
+                      Background="{StaticResource BlueAgainBrownBrush}"
+                      VerticalAlignment="Top">
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="5,0,0,0">
+                        <Path Data="M227.021411376515,3.11325970428836E-13C292.695346313039,-4.3625252046181E-06 349.218234496632,45.8481483459476 349.218234496632,133.302810668946 349.218234496632,190.189529418946 323.333255248585,247.996154785157 289.467563109914,283.886108398438L289.652011352101,283.886108398438C276.65625329546,324.550872802735 297.448031859914,334.195098876953 300.739657836476,335.297546386719 372.904391723195,359.878662109375 454.00000329546,406.17953491211 454.00000329546,453.633880615235 454.00000329546,456.130737304688 454.00000329546,457.795288085938 454.00000329546,458.999969482422L0,458.999969482422C3.29546037391992E-06,457.795288085938 3.29546037391992E-06,456.130737304688 0,453.633880615235 3.29546037391992E-06,407.566680908203 80.7056917720229,360.900848388672 149.47250695757,335.297546386719 154.445147948781,333.421112060547 178.202105956593,320.112030029297 164.915606933156,284.25863647461 130.85141320757,248.441528320313 105.108210998097,190.408523559571 105.108210998097,133.302810668946 105.108210998097,45.8481483459476 161.304889159718,-4.3625252046181E-06 227.021411376515,3.11325970428836E-13z"
+                              Stretch="Uniform"
+                              Fill="{StaticResource LightBrush}"
+                              Width="15"
+                              Height="15"
+                              Margin="5" />
+                        <TextBlock Text="{Binding ownername}"
+                                   FontFamily="Century Gothic"
+                                   FontSize="12"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"
+                                   Margin="5" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Margin="0,0,5,0">
+                        <Path Data="M33.597977,10.759002C37.946865,10.759002 41.485962,14.285001 41.485962,18.649 41.485962,23 37.946865,26.535 33.597977,26.535 29.23909,26.535 25.709992,23 25.709992,18.649 25.709992,17.784 25.849955,16.953001 26.109888,16.174002 26.779719,16.881001 27.70948,17.327002 28.759213,17.327002 30.778696,17.327002 32.418278,15.691001 32.418278,13.668001 32.418278,12.663001 32.008381,11.748001 31.348551,11.087002 32.058369,10.876001 32.818176,10.759002 33.597977,10.759002z M33.606682,4.3679962C25.92741,4.3679957 19.698065,10.594956 19.698065,18.27293 19.698065,25.953894 25.92741,32.177862 33.606682,32.177862 41.295838,32.177862 47.515175,25.953894 47.515175,18.27293 47.515175,10.594956 41.295838,4.3679957 33.606682,4.3679962z M34.867642,1.546141E-09C36.890393,2.6508449E-05 58.705193,0.41938579 68.893006,18.299923 68.893006,18.299923 57.1442,36.139837 34.44656,34.768854 34.44656,34.768854 14.428583,36.59984 0,18.299923 0,18.299923 9.0791523,0.4590019 34.716553,0.0010111886 34.716553,0.0010114873 34.768162,-1.4442128E-06 34.867642,1.546141E-09z"
+                              Stretch="Uniform"
+                              Width="10"
+                              Height="10"
+                              Margin="5"
+                              Fill="{StaticResource LightBrush}" />
+                        <TextBlock Text="{Binding views}"
+                                   FontFamily="Century Gothic"
+                                   FontSize="12"
+                                   Margin="5"
+                                   VerticalAlignment="Center"
+                                   Foreground="{StaticResource LightBrush}" />
+                        <Path Data="M98.3943,0C139.588,3E-06 159.372,18.688 182,46.9911 204.628,18.688 224.372,3E-06 265.586,0 270.745,3E-06 276.209,0.287865 282.08,0.895517 317.728,4.53071 358.983,38.8146 364,104.504L364,126.347C359.348,189.201 314.113,266.729 182,364 49.867,266.729 4.6722,189.201 0,126.347L0,104.504C5.01682,38.8146 46.2514,4.53071 81.92,0.895517 87.7698,0.287865 93.2542,3E-06 98.3943,0z"
+                              Stretch="Uniform"
+                              Width="10"
+                              Height="10"
+                              Margin="5"
+                              Fill="{StaticResource LightBrush}" />
+                        <TextBlock Text="{Binding count_faves}"
+                                   FontFamily="Century Gothic"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="5"
+                                   Foreground="{StaticResource LightBrush}" />
+                    </StackPanel>
+                </Grid>
+
+                <Image Stretch="UniformToFill"
+                       Grid.Row="1"
+                       Width="{Binding ElementName=Page, Path=ListItemSize.Width}"
+                       Height="{Binding ElementName=Page,Path=ListItemSize.Height}">
+                    <Image.Source>
+                        <BitmapImage UriSource="{Binding url_n}" />
+                    </Image.Source>
+                </Image>
+            </Grid>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="ExpandedPhotoTemplate">
+            <Grid Background="{StaticResource BlueAgainGrayBrush}"
+                  VerticalAlignment="Top"
+                  Margin="0,0,0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid x:Name="PhotoInfoGrid"
+                      HorizontalAlignment="Stretch"
+                      Background="{StaticResource BlueAgainBrownBrush}"
+                      VerticalAlignment="Top"
+                      Grid.ColumnSpan="3">
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="5,0,0,0">
+                        <Path Data="M227.021411376515,3.11325970428836E-13C292.695346313039,-4.3625252046181E-06 349.218234496632,45.8481483459476 349.218234496632,133.302810668946 349.218234496632,190.189529418946 323.333255248585,247.996154785157 289.467563109914,283.886108398438L289.652011352101,283.886108398438C276.65625329546,324.550872802735 297.448031859914,334.195098876953 300.739657836476,335.297546386719 372.904391723195,359.878662109375 454.00000329546,406.17953491211 454.00000329546,453.633880615235 454.00000329546,456.130737304688 454.00000329546,457.795288085938 454.00000329546,458.999969482422L0,458.999969482422C3.29546037391992E-06,457.795288085938 3.29546037391992E-06,456.130737304688 0,453.633880615235 3.29546037391992E-06,407.566680908203 80.7056917720229,360.900848388672 149.47250695757,335.297546386719 154.445147948781,333.421112060547 178.202105956593,320.112030029297 164.915606933156,284.25863647461 130.85141320757,248.441528320313 105.108210998097,190.408523559571 105.108210998097,133.302810668946 105.108210998097,45.8481483459476 161.304889159718,-4.3625252046181E-06 227.021411376515,3.11325970428836E-13z"
+                              Stretch="Uniform"
+                              Fill="{StaticResource LightBrush}"
+                              Width="15"
+                              Height="15"
+                              Margin="5" />
+                        <TextBlock Text="{Binding ownername}"
+                                   FontFamily="Century Gothic"
+                                   FontSize="12"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"
+                                   Margin="5" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Margin="0,0,5,0">
+                        <Path Data="M33.597977,10.759002C37.946865,10.759002 41.485962,14.285001 41.485962,18.649 41.485962,23 37.946865,26.535 33.597977,26.535 29.23909,26.535 25.709992,23 25.709992,18.649 25.709992,17.784 25.849955,16.953001 26.109888,16.174002 26.779719,16.881001 27.70948,17.327002 28.759213,17.327002 30.778696,17.327002 32.418278,15.691001 32.418278,13.668001 32.418278,12.663001 32.008381,11.748001 31.348551,11.087002 32.058369,10.876001 32.818176,10.759002 33.597977,10.759002z M33.606682,4.3679962C25.92741,4.3679957 19.698065,10.594956 19.698065,18.27293 19.698065,25.953894 25.92741,32.177862 33.606682,32.177862 41.295838,32.177862 47.515175,25.953894 47.515175,18.27293 47.515175,10.594956 41.295838,4.3679957 33.606682,4.3679962z M34.867642,1.546141E-09C36.890393,2.6508449E-05 58.705193,0.41938579 68.893006,18.299923 68.893006,18.299923 57.1442,36.139837 34.44656,34.768854 34.44656,34.768854 14.428583,36.59984 0,18.299923 0,18.299923 9.0791523,0.4590019 34.716553,0.0010111886 34.716553,0.0010114873 34.768162,-1.4442128E-06 34.867642,1.546141E-09z"
+                              Stretch="Uniform"
+                              Width="10"
+                              Height="10"
+                              Margin="5"
+                              Fill="{StaticResource LightBrush}" />
+                        <TextBlock Text="{Binding views}"
+                                   FontFamily="Century Gothic"
+                                   FontSize="12"
+                                   Margin="5"
+                                   VerticalAlignment="Center"
+                                   Foreground="{StaticResource LightBrush}" />
+                        <Path Data="M98.3943,0C139.588,3E-06 159.372,18.688 182,46.9911 204.628,18.688 224.372,3E-06 265.586,0 270.745,3E-06 276.209,0.287865 282.08,0.895517 317.728,4.53071 358.983,38.8146 364,104.504L364,126.347C359.348,189.201 314.113,266.729 182,364 49.867,266.729 4.6722,189.201 0,126.347L0,104.504C5.01682,38.8146 46.2514,4.53071 81.92,0.895517 87.7698,0.287865 93.2542,3E-06 98.3943,0z"
+                              Stretch="Uniform"
+                              Width="10"
+                              Height="10"
+                              Margin="5"
+                              Fill="{StaticResource LightBrush}" />
+                        <TextBlock Text="{Binding count_faves}"
+                                   FontFamily="Century Gothic"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="5"
+                                   Foreground="{StaticResource LightBrush}" />
+
+                    </StackPanel>
+
+                </Grid>
+
+                <Grid x:Name="BandContainerGrid" 
+                      Grid.Row="1"
+                      Width="400"
+                      Height="136">
+                    <Image Stretch="UniformToFill"
+                           Margin="98,33,100,34">
+                        <Image.Source>
+                            <BitmapImage UriSource="{Binding url_n}" />
+                        </Image.Source>
+                    </Image>
+                    <Image Source="/Images/BandOverlay.png" />
+                </Grid>
+
+                <Grid x:Name="ButtonsGrid"
+                      Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <AppBarButton x:Name="FavsButton"
+                                  Style="{StaticResource DarkAppbarButtonStyle}"
+                                  Command="{Binding ElementName=Page, Path=DataContext.AddToFavoritesCommand}"
+                                  CommandParameter="{Binding}"
+                                  Grid.Column="0"
+                                  Label="Add to Favorites">
+                        <AppBarButton.Icon>
+                            <PathIcon HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Data="M5.40628051757813,0L6.90407800674438,0.184738308191299 8.08567523956299,0.707796037197113 10,2.58192849159241 11.9133653640747,0.707796037197113 13.0945377349854,0.184738308191299 14.5926370620728,0 15.4989004135132,0.0492042303085327 16.9897518157959,0.5154048204422 18.3805828094482,1.61700177192688 19.4558486938477,3.35789346694946 20,5.74197816848755 20,6.94214296340942 19.3504581451416,9.68780708312988 17.626256942749,12.7619304656982 16.2866382598877,14.4303245544434 14.5889282226563,16.1906242370605 12.5033187866211,18.0460948944092 10,20 7.49641180038452,18.0460948944092 5.41076469421387,16.1906242370605 3.71317195892334,14.4303245544434 2.3737473487854,12.7619304656982 0.649856150150299,9.68780708312988 0,6.94214296340942 0,5.74197816848755 0.543987572193146,3.35789346694946 1.61898803710938,1.61700177192688 3.00976920127869,0.5154048204422 4.5010986328125,0.0492042303085327 5.40628051757813,0z" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
+
+                    <AppBarButton x:Name="SendToBandButton"
+                                  Style="{StaticResource DarkAppbarButtonStyle}"
+                                  Command="{Binding ElementName=Page, Path=DataContext.SendToBandCommand}"
+                                  CommandParameter="{Binding}"
+                                  Grid.Column="1"
+                                  Label="Send to Band now">
+                        <AppBarButton.Icon>
+                            <PathIcon HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Data="M0,11.8211221694946L20,11.8211221694946 20,13.1542682647705 0,13.1542682647705 0,11.8211221694946z M2.87470769882202,5.31289529800415L5.10612964630127,5.31289529800415 9.99995422363281,9.39380645751953 14.8937110900879,5.31289529800415 17.125244140625,5.31289529800415 20,10.8123569488525 0,10.8123569488525 2.87470769882202,5.31289529800415z M8.56193733215332,0L11.4380254745483,0 11.4380254745483,4.47752141952515 14.3336629867554,4.47752141952515 9.99995803833008,8.0907506942749 5.66633892059326,4.47752141952515 8.56193733215332,4.47752141952515 8.56193733215332,0z" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
+
+                    <AppBarButton x:Name="EditButton"
+                                  Style="{StaticResource DarkAppbarButtonStyle}"
+                                  Command="{Binding ElementName=Page, Path=DataContext.EditImageCommand}"
+                                  CommandParameter="{Binding}"
+                                  Grid.Column="2"
+                                  Label="Use Image Editor First">
+                        <AppBarButton.Icon>
+                            <PathIcon HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Data="M13.7467927932739,7.34883594512939L7.81252431869507,13.8524799346924 13.7467927932739,13.8524799346924 13.7467927932739,7.34883594512939z M6.2099814414978,5.63929462432861L6.2099814414978,12.6848249435425 12.6371755599976,5.63929462432861 6.2099814414978,5.63929462432861z M4.15470504760742,0L6.2099814414978,0 6.2099814414978,3.77266144752502 14.3393115997314,3.77266144752502 17.6751308441162,0.116051658987999 19.2585926055908,1.30841243267059 15.8030462265015,5.09568500518799 15.8030462265015,13.8524799346924 20,13.8524799346924 20,15.7191638946533 15.8442411422729,15.7191638946533 15.8442411422729,19.4917736053467 13.790018081665,19.4917736053467 13.790018081665,15.7191638946533 4.15470504760742,15.7191638946533 4.15470504760742,5.63929462432861 0,5.63929462432861 0,3.77266144752502 4.15470504760742,3.77266144752502 4.15470504760742,0z" />
+                        </AppBarButton.Icon>
+                    </AppBarButton>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+        
+        <selectors:ImageTemplateSelector x:Key="TemplateSelector" 
+                                         NormalTemplate="{StaticResource NormalPhotoTemplate}"
+                                         ExpandedTemplate="{StaticResource ExpandedPhotoTemplate}"/>
+
+        <DataTemplate x:Key="AdaptiveTemplate">
+            <Grid Background="{StaticResource LightGrayBrush}"
+                  VerticalAlignment="Top"
+                  Margin="0,0,0,10"
+                  MinHeight="131"
+                  MinWidth="400">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid x:Name="PhotoInfoGrid"
+                      HorizontalAlignment="Stretch"
+                      Background="{StaticResource BlueAgainBrownBrush}"
+                      VerticalAlignment="Top">
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="5,0,0,0">
+                        <Path Data="M227.021411376515,3.11325970428836E-13C292.695346313039,-4.3625252046181E-06 349.218234496632,45.8481483459476 349.218234496632,133.302810668946 349.218234496632,190.189529418946 323.333255248585,247.996154785157 289.467563109914,283.886108398438L289.652011352101,283.886108398438C276.65625329546,324.550872802735 297.448031859914,334.195098876953 300.739657836476,335.297546386719 372.904391723195,359.878662109375 454.00000329546,406.17953491211 454.00000329546,453.633880615235 454.00000329546,456.130737304688 454.00000329546,457.795288085938 454.00000329546,458.999969482422L0,458.999969482422C3.29546037391992E-06,457.795288085938 3.29546037391992E-06,456.130737304688 0,453.633880615235 3.29546037391992E-06,407.566680908203 80.7056917720229,360.900848388672 149.47250695757,335.297546386719 154.445147948781,333.421112060547 178.202105956593,320.112030029297 164.915606933156,284.25863647461 130.85141320757,248.441528320313 105.108210998097,190.408523559571 105.108210998097,133.302810668946 105.108210998097,45.8481483459476 161.304889159718,-4.3625252046181E-06 227.021411376515,3.11325970428836E-13z"
+                              Stretch="Uniform"
+                              Fill="{StaticResource LightBrush}"
+                              Width="15"
+                              Height="15"
+                              Margin="5" />
+                        <TextBlock Text="{Binding ownername}"
+                                   FontFamily="Century Gothic"
+                                   FontSize="12"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"
+                                   Margin="5" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Margin="0,0,5,0">
+                        <Path Data="M33.597977,10.759002C37.946865,10.759002 41.485962,14.285001 41.485962,18.649 41.485962,23 37.946865,26.535 33.597977,26.535 29.23909,26.535 25.709992,23 25.709992,18.649 25.709992,17.784 25.849955,16.953001 26.109888,16.174002 26.779719,16.881001 27.70948,17.327002 28.759213,17.327002 30.778696,17.327002 32.418278,15.691001 32.418278,13.668001 32.418278,12.663001 32.008381,11.748001 31.348551,11.087002 32.058369,10.876001 32.818176,10.759002 33.597977,10.759002z M33.606682,4.3679962C25.92741,4.3679957 19.698065,10.594956 19.698065,18.27293 19.698065,25.953894 25.92741,32.177862 33.606682,32.177862 41.295838,32.177862 47.515175,25.953894 47.515175,18.27293 47.515175,10.594956 41.295838,4.3679957 33.606682,4.3679962z M34.867642,1.546141E-09C36.890393,2.6508449E-05 58.705193,0.41938579 68.893006,18.299923 68.893006,18.299923 57.1442,36.139837 34.44656,34.768854 34.44656,34.768854 14.428583,36.59984 0,18.299923 0,18.299923 9.0791523,0.4590019 34.716553,0.0010111886 34.716553,0.0010114873 34.768162,-1.4442128E-06 34.867642,1.546141E-09z"
+                              Stretch="Uniform"
+                              Width="10"
+                              Height="10"
+                              Margin="5"
+                              Fill="{StaticResource LightBrush}" />
+                        <TextBlock Text="{Binding views}"
+                                   FontFamily="Century Gothic"
+                                   FontSize="12"
+                                   Margin="5"
+                                   VerticalAlignment="Center"
+                                   Foreground="{StaticResource LightBrush}" />
+                        <Path Data="M98.3943,0C139.588,3E-06 159.372,18.688 182,46.9911 204.628,18.688 224.372,3E-06 265.586,0 270.745,3E-06 276.209,0.287865 282.08,0.895517 317.728,4.53071 358.983,38.8146 364,104.504L364,126.347C359.348,189.201 314.113,266.729 182,364 49.867,266.729 4.6722,189.201 0,126.347L0,104.504C5.01682,38.8146 46.2514,4.53071 81.92,0.895517 87.7698,0.287865 93.2542,3E-06 98.3943,0z"
+                              Stretch="Uniform"
+                              Width="10"
+                              Height="10"
+                              Margin="5"
+                              Fill="{StaticResource LightBrush}" />
+                        <TextBlock Text="{Binding count_faves}"
+                                   FontFamily="Century Gothic"
+                                   FontSize="12"
+                                   VerticalAlignment="Center"
+                                   Margin="5"
+                                   Foreground="{StaticResource LightBrush}" />
+                    </StackPanel>
+                </Grid>
+
+                <Grid x:Name="NormalGrid"
+                      Visibility="{Binding IsExpanded, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
+                      Grid.Row="1">
+                    <Image Stretch="UniformToFill"
+                           Width="{Binding ElementName=Page, Path=ListItemSize.Width}"
+                           Height="{Binding ElementName=Page,Path=ListItemSize.Height}">
+                        <Image.Source>
+                            <BitmapImage UriSource="{Binding url_n}" />
+                        </Image.Source>
+                    </Image>
+                </Grid>
+
+                <Grid x:Name="PreviewGrid"
+                      Visibility="{Binding IsExpanded, Converter={StaticResource BoolToVisibilityConverter}}"
+                      Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid x:Name="BandContainerGrid"
+                          Grid.Row="0"
+                          Width="400"
+                          Height="136">
+                        <Image Stretch="UniformToFill"
+                               Margin="98,33,100,34">
+                            <Image.Source>
+                                <BitmapImage UriSource="{Binding url_n}" />
+                            </Image.Source>
+                        </Image>
+                        <Image Source="/Images/BandOverlay.png" />
+                    </Grid>
+
+                    <Grid x:Name="ButtonsGrid"
+                          Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <AppBarButton x:Name="FavsButton"
+                                      Style="{StaticResource DarkAppbarButtonStyle}"
+                                      Command="{Binding ElementName=Page, Path=DataContext.AddToFavoritesCommand}"
+                                      CommandParameter="{Binding}"
+                                      Grid.Column="0"
+                                      Label="Add to Favorites">
+                            <AppBarButton.Icon>
+                                <PathIcon HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="M5.40628051757813,0L6.90407800674438,0.184738308191299 8.08567523956299,0.707796037197113 10,2.58192849159241 11.9133653640747,0.707796037197113 13.0945377349854,0.184738308191299 14.5926370620728,0 15.4989004135132,0.0492042303085327 16.9897518157959,0.5154048204422 18.3805828094482,1.61700177192688 19.4558486938477,3.35789346694946 20,5.74197816848755 20,6.94214296340942 19.3504581451416,9.68780708312988 17.626256942749,12.7619304656982 16.2866382598877,14.4303245544434 14.5889282226563,16.1906242370605 12.5033187866211,18.0460948944092 10,20 7.49641180038452,18.0460948944092 5.41076469421387,16.1906242370605 3.71317195892334,14.4303245544434 2.3737473487854,12.7619304656982 0.649856150150299,9.68780708312988 0,6.94214296340942 0,5.74197816848755 0.543987572193146,3.35789346694946 1.61898803710938,1.61700177192688 3.00976920127869,0.5154048204422 4.5010986328125,0.0492042303085327 5.40628051757813,0z" />
+                            </AppBarButton.Icon>
+                        </AppBarButton>
+
+                        <AppBarButton x:Name="SendToBandButton"
+                                      Style="{StaticResource DarkAppbarButtonStyle}"
+                                      Command="{Binding ElementName=Page, Path=DataContext.SendToBandCommand}"
+                                      CommandParameter="{Binding}"
+                                      Grid.Column="1"
+                                      Label="Send to Band now">
+                            <AppBarButton.Icon>
+                                <PathIcon HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="M0,11.8211221694946L20,11.8211221694946 20,13.1542682647705 0,13.1542682647705 0,11.8211221694946z M2.87470769882202,5.31289529800415L5.10612964630127,5.31289529800415 9.99995422363281,9.39380645751953 14.8937110900879,5.31289529800415 17.125244140625,5.31289529800415 20,10.8123569488525 0,10.8123569488525 2.87470769882202,5.31289529800415z M8.56193733215332,0L11.4380254745483,0 11.4380254745483,4.47752141952515 14.3336629867554,4.47752141952515 9.99995803833008,8.0907506942749 5.66633892059326,4.47752141952515 8.56193733215332,4.47752141952515 8.56193733215332,0z" />
+                            </AppBarButton.Icon>
+                        </AppBarButton>
+
+                        <AppBarButton x:Name="EditButton"
+                                      Style="{StaticResource DarkAppbarButtonStyle}"
+                                      Command="{Binding ElementName=Page, Path=DataContext.EditImageCommand}"
+                                      CommandParameter="{Binding}"
+                                      Grid.Column="2"
+                                      Label="Apply Crop &amp; Add Filters">
+                            <AppBarButton.Icon>
+                                <PathIcon HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="M13.7467927932739,7.34883594512939L7.81252431869507,13.8524799346924 13.7467927932739,13.8524799346924 13.7467927932739,7.34883594512939z M6.2099814414978,5.63929462432861L6.2099814414978,12.6848249435425 12.6371755599976,5.63929462432861 6.2099814414978,5.63929462432861z M4.15470504760742,0L6.2099814414978,0 6.2099814414978,3.77266144752502 14.3393115997314,3.77266144752502 17.6751308441162,0.116051658987999 19.2585926055908,1.30841243267059 15.8030462265015,5.09568500518799 15.8030462265015,13.8524799346924 20,13.8524799346924 20,15.7191638946533 15.8442411422729,15.7191638946533 15.8442411422729,19.4917736053467 13.790018081665,19.4917736053467 13.790018081665,15.7191638946533 4.15470504760742,15.7191638946533 4.15470504760742,5.63929462432861 0,5.63929462432861 0,3.77266144752502 4.15470504760742,3.77266144752502 4.15470504760742,0z" />
+                            </AppBarButton.Icon>
+                        </AppBarButton>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </DataTemplate>
+
+        <Style x:Key="SideButtonStyle"
+               TargetType="Button">
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="MinWidth"
+                    Value="50" />
+            <Setter Property="MinHeight"
+                    Value="50" />
+            <Setter Property="BorderThickness"
+                    Value="0" />
+            <Setter Property="Margin"
+                    Value="0,0,0,0" />
+            <Setter Property="Foreground"
+                    Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Grid>
+                                <FontIcon Glyph="&#xE16E;" />
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid x:Name="LayoutRoot"
+          Margin="0,0,0,0">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition />
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <primitives:RadSideDrawer x:Name="SideDrawer" 
+                                  DrawerLocation="Top"
+                                  DrawerButtonStyle="{StaticResource SideButtonStyle}"
+                                  AnimationDuration="0:0:0.2">
+            <primitives:RadSideDrawer.MainContent>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Grid x:Name="HeaderGrid"
+                          Background="{StaticResource BlueAgainBlueBrush}"
+                          Height="50">
+
+                        <TextBlock Text="Wallpapers"
+                                   FontSize="24"
+                                   HorizontalAlignment="Center"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"
+                                   Margin="0,5,0,0" />
+
+                        <StackPanel VerticalAlignment="Center"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,0,19.5,0">
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Right">
+                                <TextBlock Text="{Binding PhotosReceived}"
+                                           FontFamily="Century Gothic"
+                                           Foreground="White"
+                                           FontWeight="Bold" />
+                                <TextBlock Text="loaded"
+                                           FontFamily="Century Gothic"
+                                           Foreground="White"
+                                           Margin="5,0,0,0" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Right">
+                                <TextBlock Text="{Binding TotalPhotos}"
+                                           Foreground="White"
+                                           FontFamily="Century Gothic"
+                                           Margin="5,0,0,0"
+                                           FontWeight="Bold" />
+                                <TextBlock Text="total"
+                                           FontFamily="Century Gothic"
+                                           Foreground="White"
+                                           Margin="5,0,0,0" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <data:RadDataBoundListBox x:Name="ResultsList"
+                                                  ItemTemplate="{StaticResource AdaptiveTemplate}"
+                                                  ItemTap="ResultsList_OnItemTap"
+                                                  FontFamily="Century Gothic"
+                                                  EmptyContent="no results..."
+                                                  ItemsSource="{Binding PhotoList}"
+                                                  EmptyContentDisplayMode="DataSourceEmpty">
+                        </data:RadDataBoundListBox>
+
+                        <Grid VerticalAlignment="Top" Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"
+                              Background="#4C000000">
+                            <primitives:RadBusyIndicator IsActive="{Binding IsBusy}"
+                                                         Content="{Binding IsBusyMessage}"
+                                                         IsHitTestVisible="False"
+                                                         FontFamily="Century Gothic"
+                                                         FontSize="12"
+                                                         Background="Transparent"
+                                                         Foreground="White"
+                                                         AnimationStyle="AnimationStyle7"
+                                                         ContentPosition="Right"
+                                                         HorizontalAlignment="Left"
+                                                         Margin="0,5" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+            </primitives:RadSideDrawer.MainContent>
+            <primitives:RadSideDrawer.DrawerContent>
+                <Grid x:Name="DrawerGrid"
+                      Background="#E5FFFFFF">
+                    <ScrollViewer>
+                        <StackPanel Margin="0,10">
+                            <input:RadNumericBox FontFamily="Century Gothic"
+                                                 FontSize="20"
+                                                 Header="Number of photos to return each call"
+                                                 Value="{Binding ItemsPerPage, Mode=TwoWay}"
+                                                 Minimum="10"
+                                                 Maximum="500"
+                                                 SmallChange="10"
+                                                 LargeChange="25"
+                                                 Margin="10,0,10,0"
+                                                 ValueFormat="{}{0:N0}" />
+
+                            <ComboBox x:Name="SafeSearchComboBox"
+                                      FontFamily="Century Gothic"
+                                      Header="Safe Search Level"
+                                      ItemsSource="{Binding SafeSearchLevels}"
+                                      SelectedItem="{Binding SelectedSafeSearchLevel}"
+                                      Margin="10,10,10,0"
+                                      BorderBrush="#45000000"
+                                      ItemTemplate="{StaticResource ComboItemTemplate}" />
+                            <ComboBox x:Name="SearchSortComboBox"
+                                      FontFamily="Century Gothic"
+                                      Header="Sort"
+                                      ItemsSource="{Binding SearchSortOrders}"
+                                      SelectedItem="{Binding SelectedSearchSortOrder}"
+                                      Margin="10,10,10,0"
+                                      BorderBrush="#45000000"
+                                      ItemTemplate="{StaticResource ComboItemTemplate}" />
+                            <input:RadAutoCompleteBox x:Name="TagAutoCompleteBox"
+                                                      FontFamily="Century Gothic"
+                                                      Header="Search Terms (comma separated)"
+                                                      Text="{Binding SearchTerm, Mode=TwoWay}"
+                                                      Margin="10,0" />
+                            <Button x:Name="SearchButton"
+                                    FontFamily="Century Gothic"
+                                    Content="reset search"
+                                    Click="SearchButton_OnClick"
+                                    HorizontalAlignment="Stretch"
+                                    BorderBrush="{StaticResource SlateGrayBrush}"
+                                    Foreground="{StaticResource SlateGrayBrush}"
+                                    Margin="10,10,10,10" />
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </primitives:RadSideDrawer.DrawerContent>
+        </primitives:RadSideDrawer>
+
+    </Grid>
+</Page>

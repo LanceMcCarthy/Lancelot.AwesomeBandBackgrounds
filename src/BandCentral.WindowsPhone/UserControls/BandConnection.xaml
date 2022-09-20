@@ -1,0 +1,98 @@
+﻿<UserControl x:Name="ThisControl"
+             x:Class="BandCentral.UserControls.BandConnection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+             d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}"
+             mc:Ignorable="d"
+             d:DesignHeight="800"
+             d:DesignWidth="400">
+
+    <Grid x:Name="ConnectGrid"
+          Background="{StaticResource HalfTransparentDarkBrush}">
+        <Grid Background="{StaticResource LightBrush}"
+              Width="340"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition  Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Connect To Your Microsoft Band"
+                       FontFamily="Century Gothic"
+                       HorizontalAlignment="Center"
+                       FontSize="20"
+                       Margin="0,6,0,0"
+                       Foreground="{StaticResource BlueAgainBlueBrush}" />
+            <Image Source="ms-appx:///Images/BothBands.png"
+                   Grid.Row="1" />
+
+            <Grid Grid.Row="2"
+                  Margin="10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ComboBox x:Name="BandsComboBox"
+                          Header="Paired Bands"
+                          ItemsSource="{Binding Bands}"
+                          SelectedItem="{Binding CurrentBand, Mode=TwoWay}"
+                          DisplayMemberPath="Name"
+                          SelectionChanged="BandsComboBox_OnSelectionChanged"
+                          PlaceholderText="choose a paired Band"
+                          Margin="0,0,0,0">
+                </ComboBox>
+                <Button x:Name="RefreshPairedBandButton"
+                        Visibility="Collapsed"
+                        FontFamily="Century Gothic"
+                        BorderBrush="{StaticResource BlueAgainBlueBrush}"
+                        Background="{StaticResource BlueAgainBlueBrush}"
+                        Foreground="{StaticResource DreamsLightCreamBrush}"
+                        Click="RefreshPairedBandButton_OnClick"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Grid.Column="1"
+                        MinWidth="50"
+                        MinHeight="50"
+                        Padding="0"
+                        Margin="10,0,0,0">
+                    <SymbolIcon Symbol="sync" />
+                </Button>
+                <StackPanel Grid.ColumnSpan="2"
+                            Grid.Column="0"
+                            Grid.Row="1">
+
+                    <CheckBox Content="automatically connect on launch"
+                              IsChecked="{Binding ConnectOnLaunch, Mode=TwoWay}"
+                              HorizontalAlignment="Stretch"
+                              BorderBrush="{StaticResource BlueAgainBlueBrush}"
+                              Foreground="{StaticResource BlueAgainBlueBrush}" />
+                    <Button x:Name="ConnectToBandButton"
+                            IsEnabled="False"
+                            FontFamily="Century Gothic"
+                            Content="Connect to selected Band"
+                            HorizontalAlignment="Stretch"
+                            BorderBrush="{StaticResource BlueAgainBlueBrush}"
+                            Background="{StaticResource BlueAgainBlueBrush}"
+                            Foreground="{StaticResource LightBrush}"
+                            Click="ConnectToBandButton_OnClick"
+                            Margin="0,0,0,10" />
+
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <primitives:RadBusyIndicator x:Name="DialogBusyIndicator"
+                                     Content="{Binding IsBusyMessage}"
+                                     Background="#BF000000"
+                                     AnimationStyle="AnimationStyle7"
+                                     Foreground="White" />
+    </Grid>
+</UserControl>

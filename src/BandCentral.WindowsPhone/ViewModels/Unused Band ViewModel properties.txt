@@ -1,0 +1,110 @@
+﻿        public async Task LoadBandTilesAsync()
+        {
+            if(DesignMode.DesignModeEnabled) return;
+            if(CurrentBandTiles == null) CurrentBandTiles = new ObservableCollection<BandTile>();
+            if(CurrentBandTiles.Count > 0) CurrentBandTiles.Clear();
+
+            foreach(var bandTile in await SelectedBand.TileManager.GetTilesAsync())
+            {
+                CurrentBandTiles.Add(bandTile);
+            }
+
+            VideoDiaryTileExistsOnBand = await CheckIfVideoDiaryTileExists();
+
+            await GetRemainingTileCapacity();
+        }
+
+        private async Task<bool> CheckIfVideoDiaryTileExists()
+        {
+            foreach(var tile in CurrentBandTiles)
+            {
+                if(tile.Name == "VideoDiary") return true;
+            }
+
+            return false;
+        }
+
+        private async Task GetRemainingTileCapacity()
+        {
+            try
+            {
+                // determine the number of available tile slots on the device 
+                RemainingTileCapacity = await SelectedBand.TileManager.GetRemainingTileCapacityAsync();
+            }
+            catch(BandException ex)
+            {
+                Debug.WriteLine("Get Tiles Capacity Exception: {0}", ex.Message);
+            }
+        }
+
+        public async Task AddVideoDiaryTileToBandAsync()
+        {
+            if(VideoDiaryTileExistsOnBand)
+            {
+                new MessageDialog("The Video Diary tile is already on your Microsoft Band", "Exists!").ShowAsync();
+                return;
+            }
+
+            if(RemainingTileCapacity < 1)
+            {
+                new MessageDialog("Sorry, there is not enough room to add Video Diary to your band. Remove one and try again.", "Not enough space").ShowAsync();
+                return;
+            }
+
+            //moved fileopening logic to help method (returns WriteableBitmap)
+            var si = await GetImageAsIcon("images/BandIcon_24.png", 24, 24);
+            var ti = await GetImageAsIcon("images/BandIcon_46.png", 46, 46);
+
+            BandTile tile = new BandTile(TileGuid)
+            {
+                IsBadgingEnabled = true,
+                Name = "Video Diary",
+                SmallIcon = si.ToBandIcon(),
+                TileIcon = ti.ToBandIcon()
+            };
+
+            try
+            {
+                if(await SelectedBand.TileManager.AddTileAsync(tile))
+                {
+                    //success
+                }
+            }
+            catch(BandException ex)
+            {
+                Debug.WriteLine("Add Tile Exception: {0}", ex.Message);
+            }
+        }
+
+        public async Task RemoveVideoDiaryTilesFromBandAsync()
+        {
+            try
+            {
+                foreach(var t in await SelectedBand.TileManager.GetTilesAsync())
+                {
+                    if(await SelectedBand.TileManager.RemoveTileAsync(t))
+                    {
+                        // do work if the tile was successfully removed 
+                    }
+                }
+            }
+            catch(BandException ex)
+            {
+                Debug.WriteLine("Remove Tiles Exception: {0}", ex.Message);
+            }
+        }
+
+		public async Task SendBandNotificationAsync(string message, string title)
+        {
+            if(DesignMode.DesignModeEnabled) return;
+
+            try
+            {
+                // send a message to the device for one of our tiles, and show it as a dialog as well 
+                await SelectedBand.NotificationManager.SendMessageAsync(this.TileGuid, title, message, DateTimeOffset.Now, MessageFlags.ShowDialog);
+            }
+            catch(BandException ex)
+            {
+                Debug.WriteLine("Send Notification Exception: {0}", ex.Message);
+            }
+        }

@@ -1,0 +1,1070 @@
+﻿<viewModels:FlickrViewModel xmlns:viewModels="using:BandCentral.Uwp.ViewModels"
+                            xmlns:flickrNet="using:FlickrNet"
+                            xmlns:system="using:System"
+                            xmlns:foundation="using:Windows.Foundation"
+                            CurrentPage="1"
+                            IsBusyMessage="Vestibulum pharetra duis"
+                            IsBusy="False"
+                            PhotosReceived="50"
+                            SearchTerm="Wallpaper"
+                            SelectedPhotoSearchSortOrder="DatePostedDescending"
+                            SelectedSafetyLevel="None"
+                            Status="active"
+                            SelectedPhotoSearchPopularitySortOrder="Favorites"
+                            TotalPhotos="1000"
+                            TotalPages="20">
+    <viewModels:FlickrViewModel.BandPhotoSize>
+        <flickrNet:Size Height="80"
+                        Label="Faucibus hendrerit urna lectus cras"
+                        MediaType="All"
+                        Source="Himenaeos libero duis curae"
+                        Url="Nunc sit"
+                        Width="43" />
+    </viewModels:FlickrViewModel.BandPhotoSize>
+    <viewModels:FlickrViewModel.ItemsPerPage>
+        <system:UInt32>50</system:UInt32>
+    </viewModels:FlickrViewModel.ItemsPerPage>
+    <viewModels:FlickrViewModel.PhotoPopularitySortOrdersList>
+        <flickrNet:PopularitySort>None</flickrNet:PopularitySort>
+        <flickrNet:PopularitySort>Comments</flickrNet:PopularitySort>
+        <flickrNet:PopularitySort>Views</flickrNet:PopularitySort>
+        <flickrNet:PopularitySort>Favorites</flickrNet:PopularitySort>
+        <flickrNet:PopularitySort>Views</flickrNet:PopularitySort>
+        <flickrNet:PopularitySort>None</flickrNet:PopularitySort>
+        <flickrNet:PopularitySort>Favorites</flickrNet:PopularitySort>
+        <flickrNet:PopularitySort>None</flickrNet:PopularitySort>
+        <flickrNet:PopularitySort>Favorites</flickrNet:PopularitySort>
+        <flickrNet:PopularitySort>Views</flickrNet:PopularitySort>
+    </viewModels:FlickrViewModel.PhotoPopularitySortOrdersList>
+    <viewModels:FlickrViewModel.PhotoSearchSortOrdersList>
+        <flickrNet:PhotoSearchSortOrder>DateTakenAscending</flickrNet:PhotoSearchSortOrder>
+        <flickrNet:PhotoSearchSortOrder>InterestingnessDescending</flickrNet:PhotoSearchSortOrder>
+        <flickrNet:PhotoSearchSortOrder>InterestingnessAscending</flickrNet:PhotoSearchSortOrder>
+        <flickrNet:PhotoSearchSortOrder>DatePostedAscending</flickrNet:PhotoSearchSortOrder>
+        <flickrNet:PhotoSearchSortOrder>DatePostedAscending</flickrNet:PhotoSearchSortOrder>
+        <flickrNet:PhotoSearchSortOrder>DateTakenAscending</flickrNet:PhotoSearchSortOrder>
+        <flickrNet:PhotoSearchSortOrder>InterestingnessDescending</flickrNet:PhotoSearchSortOrder>
+        <flickrNet:PhotoSearchSortOrder>InterestingnessDescending</flickrNet:PhotoSearchSortOrder>
+        <flickrNet:PhotoSearchSortOrder>Relevance</flickrNet:PhotoSearchSortOrder>
+        <flickrNet:PhotoSearchSortOrder>InterestingnessDescending</flickrNet:PhotoSearchSortOrder>
+    </viewModels:FlickrViewModel.PhotoSearchSortOrdersList>
+    <viewModels:FlickrViewModel.PhotoSearchSafetyLevelsList>
+        <flickrNet:SafetyLevel>None</flickrNet:SafetyLevel>
+        <flickrNet:SafetyLevel>Moderate</flickrNet:SafetyLevel>
+        <flickrNet:SafetyLevel>Restricted</flickrNet:SafetyLevel>
+        <flickrNet:SafetyLevel>Moderate</flickrNet:SafetyLevel>
+        <flickrNet:SafetyLevel>Restricted</flickrNet:SafetyLevel>
+        <flickrNet:SafetyLevel>Safe</flickrNet:SafetyLevel>
+        <flickrNet:SafetyLevel>Restricted</flickrNet:SafetyLevel>
+        <flickrNet:SafetyLevel>None</flickrNet:SafetyLevel>
+        <flickrNet:SafetyLevel>Safe</flickrNet:SafetyLevel>
+        <flickrNet:SafetyLevel>Restricted</flickrNet:SafetyLevel>
+    </viewModels:FlickrViewModel.PhotoSearchSafetyLevelsList>
+    <!--<viewModels:FlickrViewModel.PhotoSearchExtrasList>
+        <flickrNet:PhotoSearchExtras>PathAlias</flickrNet:PhotoSearchExtras>
+        <flickrNet:PhotoSearchExtras>All</flickrNet:PhotoSearchExtras>
+        <flickrNet:PhotoSearchExtras>SmallUrl</flickrNet:PhotoSearchExtras>
+        <flickrNet:PhotoSearchExtras>MediumUrl</flickrNet:PhotoSearchExtras>
+        <flickrNet:PhotoSearchExtras>OriginalDimensions</flickrNet:PhotoSearchExtras>
+        <flickrNet:PhotoSearchExtras>Medium640Url</flickrNet:PhotoSearchExtras>
+        <flickrNet:PhotoSearchExtras>LargeUrl</flickrNet:PhotoSearchExtras>
+        <flickrNet:PhotoSearchExtras>IconServer</flickrNet:PhotoSearchExtras>
+        <flickrNet:PhotoSearchExtras>SmallUrl</flickrNet:PhotoSearchExtras>
+        <flickrNet:PhotoSearchExtras>Views</flickrNet:PhotoSearchExtras>
+    </viewModels:FlickrViewModel.PhotoSearchExtrasList>-->
+    <viewModels:FlickrViewModel.SelectedPhoto>
+        <flickrNet:Photo Accuracy="Level10"
+                         DateTaken="03/29/2015 17:55:49"
+                         Description="Nec risus velit cursus"
+                         DateUploaded="03/29/2015 17:55:49"
+                         DoesMediumExist="True"
+                         DoesLargeExist="False"
+                         Farm="9"
+                         IsPublic="True"
+                         IsFamily="False"
+                         IconFarm="Vehicula erat sem sit"
+                         IsFriend="False"
+                         IconServer="7654"
+                         LargeSquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_q.jpg"
+                         Longitude="697.92"
+                         LastUpdated="03/29/2015 17:55:49"
+                         Large2048Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         LargeUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         Large1600Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         License="AttributionCC"
+                         Latitude="256.48"
+                         Media="camera"
+                         Medium800Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Medium640Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         MachineTags="Venenatis adipiscing nam lorem"
+                         MediaStatus="active"
+                         MediumUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_c.jpg"
+                         OriginalWidth="3872"
+                         OriginalUrl="https://farm8.staticflickr.com/7624/16343521114_62430aee15_o.jpg"
+                         OriginalHeight="2592"
+                         OriginalSecret="fgd45fd5f3g"
+                         OriginalFormat="jpg"
+                         OwnerName="cdao11"
+                         PhotoId="16343521114"
+                         PathAlias="Aliquam parturient pede"
+                         PlaceId="34546543"
+                         SmallUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_m.jpg"
+                         Server="Suscipit mus nec non torquent"
+                         Secret="73uejh64s"
+                         Small320Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_n.jpg"
+                         SquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_s.jpg"
+                         ThumbnailUrl="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Title="PicOne.jpg"
+                         UserId="69859194@N06"
+                         WoeId="Odio orci congue dignissim sodales"
+                         WebUrl="Lacinia tortor laoreet turpis natoque">
+            <flickrNet:Photo.GeoPermissions>
+                <flickrNet:GeoPermissions IsPublic="False"
+                                          IsFamily="True"
+                                          IsContact="True"
+                                          IsFriend="False"
+                                          PhotoId="Vestibulum non vestibulum fringilla vitae" />
+            </flickrNet:Photo.GeoPermissions>
+            <flickrNet:Photo.Tags>
+                <system:String>Nunc class sed commodo</system:String>
+                <system:String>Amet vestibulum placerat</system:String>
+                <system:String>Fringilla semper conubia</system:String>
+                <system:String>Habitasse curae sociis taciti</system:String>
+                <system:String>Dis cubilia donec</system:String>
+                <system:String>Tellus pulvinar</system:String>
+                <system:String>Est etiam hendrerit ante himenaeos</system:String>
+                <system:String>Arcu imperdiet sagittis fusce dapibus</system:String>
+                <system:String>Egestas lorem euismod diam senectus</system:String>
+                <system:String>Morbi hac feugiat</system:String>
+            </flickrNet:Photo.Tags>
+        </flickrNet:Photo>
+    </viewModels:FlickrViewModel.SelectedPhoto>
+    <viewModels:FlickrViewModel.Source>
+        <flickrNet:Photo Accuracy="Level10"
+                         DateTaken="03/29/2015 17:55:49"
+                         Description="Nec risus velit cursus"
+                         DateUploaded="03/29/2015 17:55:49"
+                         DoesMediumExist="True"
+                         DoesLargeExist="False"
+                         Farm="9"
+                         IsPublic="True"
+                         IsFamily="False"
+                         IconFarm="Vehicula erat sem sit"
+                         IsFriend="False"
+                         IconServer="7654"
+                         LargeSquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_q.jpg"
+                         Longitude="697.92"
+                         LastUpdated="03/29/2015 17:55:49"
+                         Large2048Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         LargeUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         Large1600Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         License="AttributionCC"
+                         Latitude="256.48"
+                         Media="camera"
+                         Medium800Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Medium640Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         MachineTags="Venenatis adipiscing nam lorem"
+                         MediaStatus="active"
+                         MediumUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_c.jpg"
+                         OriginalWidth="3872"
+                         OriginalUrl="https://farm8.staticflickr.com/7624/16343521114_62430aee15_o.jpg"
+                         OriginalHeight="2592"
+                         OriginalSecret="fgd45fd5f3g"
+                         OriginalFormat="jpg"
+                         OwnerName="cdao11"
+                         PhotoId="16343521114"
+                         PathAlias="Aliquam parturient pede"
+                         PlaceId="34546543"
+                         SmallUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_m.jpg"
+                         Server="Suscipit mus nec non torquent"
+                         Secret="73uejh64s"
+                         Small320Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_n.jpg"
+                         SquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_s.jpg"
+                         ThumbnailUrl="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Title="PicOne.jpg"
+                         UserId="69859194@N06"
+                         WoeId="Odio orci congue dignissim sodales"
+                         WebUrl="Lacinia tortor laoreet turpis natoque">
+            <flickrNet:Photo.GeoPermissions>
+                <flickrNet:GeoPermissions IsPublic="False"
+                                          IsFamily="True"
+                                          IsContact="True"
+                                          IsFriend="False"
+                                          PhotoId="Vestibulum non vestibulum fringilla vitae" />
+            </flickrNet:Photo.GeoPermissions>
+            <flickrNet:Photo.Tags>
+                <system:String>Nunc class sed commodo</system:String>
+                <system:String>Amet vestibulum placerat</system:String>
+                <system:String>Fringilla semper conubia</system:String>
+                <system:String>Habitasse curae sociis taciti</system:String>
+                <system:String>Dis cubilia donec</system:String>
+                <system:String>Tellus pulvinar</system:String>
+                <system:String>Est etiam hendrerit ante himenaeos</system:String>
+                <system:String>Arcu imperdiet sagittis fusce dapibus</system:String>
+                <system:String>Egestas lorem euismod diam senectus</system:String>
+                <system:String>Morbi hac feugiat</system:String>
+            </flickrNet:Photo.Tags>
+        </flickrNet:Photo>
+        <flickrNet:Photo Accuracy="Level10"
+                         DateTaken="03/29/2015 17:55:49"
+                         Description="Nec risus velit cursus"
+                         DateUploaded="03/29/2015 17:55:49"
+                         DoesMediumExist="True"
+                         DoesLargeExist="False"
+                         Farm="9"
+                         IsPublic="True"
+                         IsFamily="False"
+                         IconFarm="Vehicula erat sem sit"
+                         IsFriend="False"
+                         IconServer="7654"
+                         LargeSquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_q.jpg"
+                         Longitude="697.92"
+                         LastUpdated="03/29/2015 17:55:49"
+                         Large2048Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         LargeUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         Large1600Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         License="AttributionCC"
+                         Latitude="256.48"
+                         Media="camera"
+                         Medium800Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Medium640Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         MachineTags="Venenatis adipiscing nam lorem"
+                         MediaStatus="active"
+                         MediumUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_c.jpg"
+                         OriginalWidth="3872"
+                         OriginalUrl="https://farm8.staticflickr.com/7624/16343521114_62430aee15_o.jpg"
+                         OriginalHeight="2592"
+                         OriginalSecret="fgd45fd5f3g"
+                         OriginalFormat="jpg"
+                         OwnerName="cdao11"
+                         PhotoId="16343521114"
+                         PathAlias="Aliquam parturient pede"
+                         PlaceId="34546543"
+                         SmallUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_m.jpg"
+                         Server="Suscipit mus nec non torquent"
+                         Secret="73uejh64s"
+                         Small320Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_n.jpg"
+                         SquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_s.jpg"
+                         ThumbnailUrl="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Title="PicOne.jpg"
+                         UserId="69859194@N06"
+                         WoeId="Odio orci congue dignissim sodales"
+                         WebUrl="Lacinia tortor laoreet turpis natoque">
+            <flickrNet:Photo.GeoPermissions>
+                <flickrNet:GeoPermissions IsPublic="False"
+                                          IsFamily="True"
+                                          IsContact="True"
+                                          IsFriend="False"
+                                          PhotoId="Vestibulum non vestibulum fringilla vitae" />
+            </flickrNet:Photo.GeoPermissions>
+            <flickrNet:Photo.Tags>
+                <system:String>Nunc class sed commodo</system:String>
+                <system:String>Amet vestibulum placerat</system:String>
+                <system:String>Fringilla semper conubia</system:String>
+                <system:String>Habitasse curae sociis taciti</system:String>
+                <system:String>Dis cubilia donec</system:String>
+                <system:String>Tellus pulvinar</system:String>
+                <system:String>Est etiam hendrerit ante himenaeos</system:String>
+                <system:String>Arcu imperdiet sagittis fusce dapibus</system:String>
+                <system:String>Egestas lorem euismod diam senectus</system:String>
+                <system:String>Morbi hac feugiat</system:String>
+            </flickrNet:Photo.Tags>
+        </flickrNet:Photo>
+        <flickrNet:Photo Accuracy="Level10"
+                         DateTaken="03/29/2015 17:55:49"
+                         Description="Nec risus velit cursus"
+                         DateUploaded="03/29/2015 17:55:49"
+                         DoesMediumExist="True"
+                         DoesLargeExist="False"
+                         Farm="9"
+                         IsPublic="True"
+                         IsFamily="False"
+                         IconFarm="Vehicula erat sem sit"
+                         IsFriend="False"
+                         IconServer="7654"
+                         LargeSquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_q.jpg"
+                         Longitude="697.92"
+                         LastUpdated="03/29/2015 17:55:49"
+                         Large2048Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         LargeUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         Large1600Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         License="AttributionCC"
+                         Latitude="256.48"
+                         Media="camera"
+                         Medium800Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Medium640Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         MachineTags="Venenatis adipiscing nam lorem"
+                         MediaStatus="active"
+                         MediumUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_c.jpg"
+                         OriginalWidth="3872"
+                         OriginalUrl="https://farm8.staticflickr.com/7624/16343521114_62430aee15_o.jpg"
+                         OriginalHeight="2592"
+                         OriginalSecret="fgd45fd5f3g"
+                         OriginalFormat="jpg"
+                         OwnerName="cdao11"
+                         PhotoId="16343521114"
+                         PathAlias="Aliquam parturient pede"
+                         PlaceId="34546543"
+                         SmallUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_m.jpg"
+                         Server="Suscipit mus nec non torquent"
+                         Secret="73uejh64s"
+                         Small320Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_n.jpg"
+                         SquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_s.jpg"
+                         ThumbnailUrl="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Title="PicOne.jpg"
+                         UserId="69859194@N06"
+                         WoeId="Odio orci congue dignissim sodales"
+                         WebUrl="Lacinia tortor laoreet turpis natoque">
+            <flickrNet:Photo.GeoPermissions>
+                <flickrNet:GeoPermissions IsPublic="False"
+                                          IsFamily="True"
+                                          IsContact="True"
+                                          IsFriend="False"
+                                          PhotoId="Vestibulum non vestibulum fringilla vitae" />
+            </flickrNet:Photo.GeoPermissions>
+            <flickrNet:Photo.Tags>
+                <system:String>Nunc class sed commodo</system:String>
+                <system:String>Amet vestibulum placerat</system:String>
+                <system:String>Fringilla semper conubia</system:String>
+                <system:String>Habitasse curae sociis taciti</system:String>
+                <system:String>Dis cubilia donec</system:String>
+                <system:String>Tellus pulvinar</system:String>
+                <system:String>Est etiam hendrerit ante himenaeos</system:String>
+                <system:String>Arcu imperdiet sagittis fusce dapibus</system:String>
+                <system:String>Egestas lorem euismod diam senectus</system:String>
+                <system:String>Morbi hac feugiat</system:String>
+            </flickrNet:Photo.Tags>
+        </flickrNet:Photo>
+        <flickrNet:Photo Accuracy="Level10"
+                         DateTaken="03/29/2015 17:55:49"
+                         Description="Nec risus velit cursus"
+                         DateUploaded="03/29/2015 17:55:49"
+                         DoesMediumExist="True"
+                         DoesLargeExist="False"
+                         Farm="9"
+                         IsPublic="True"
+                         IsFamily="False"
+                         IconFarm="Vehicula erat sem sit"
+                         IsFriend="False"
+                         IconServer="7654"
+                         LargeSquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_q.jpg"
+                         Longitude="697.92"
+                         LastUpdated="03/29/2015 17:55:49"
+                         Large2048Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         LargeUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         Large1600Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         License="AttributionCC"
+                         Latitude="256.48"
+                         Media="camera"
+                         Medium800Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Medium640Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         MachineTags="Venenatis adipiscing nam lorem"
+                         MediaStatus="active"
+                         MediumUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_c.jpg"
+                         OriginalWidth="3872"
+                         OriginalUrl="https://farm8.staticflickr.com/7624/16343521114_62430aee15_o.jpg"
+                         OriginalHeight="2592"
+                         OriginalSecret="fgd45fd5f3g"
+                         OriginalFormat="jpg"
+                         OwnerName="cdao11"
+                         PhotoId="16343521114"
+                         PathAlias="Aliquam parturient pede"
+                         PlaceId="34546543"
+                         SmallUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_m.jpg"
+                         Server="Suscipit mus nec non torquent"
+                         Secret="73uejh64s"
+                         Small320Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_n.jpg"
+                         SquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_s.jpg"
+                         ThumbnailUrl="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Title="PicOne.jpg"
+                         UserId="69859194@N06"
+                         WoeId="Odio orci congue dignissim sodales"
+                         WebUrl="Lacinia tortor laoreet turpis natoque">
+            <flickrNet:Photo.GeoPermissions>
+                <flickrNet:GeoPermissions IsPublic="False"
+                                          IsFamily="True"
+                                          IsContact="True"
+                                          IsFriend="False"
+                                          PhotoId="Vestibulum non vestibulum fringilla vitae" />
+            </flickrNet:Photo.GeoPermissions>
+            <flickrNet:Photo.Tags>
+                <system:String>Nunc class sed commodo</system:String>
+                <system:String>Amet vestibulum placerat</system:String>
+                <system:String>Fringilla semper conubia</system:String>
+                <system:String>Habitasse curae sociis taciti</system:String>
+                <system:String>Dis cubilia donec</system:String>
+                <system:String>Tellus pulvinar</system:String>
+                <system:String>Est etiam hendrerit ante himenaeos</system:String>
+                <system:String>Arcu imperdiet sagittis fusce dapibus</system:String>
+                <system:String>Egestas lorem euismod diam senectus</system:String>
+                <system:String>Morbi hac feugiat</system:String>
+            </flickrNet:Photo.Tags>
+        </flickrNet:Photo>
+        <flickrNet:Photo Accuracy="Level10"
+                         DateTaken="03/29/2015 17:55:49"
+                         Description="Nec risus velit cursus"
+                         DateUploaded="03/29/2015 17:55:49"
+                         DoesMediumExist="True"
+                         DoesLargeExist="False"
+                         Farm="9"
+                         IsPublic="True"
+                         IsFamily="False"
+                         IconFarm="Vehicula erat sem sit"
+                         IsFriend="False"
+                         IconServer="7654"
+                         LargeSquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_q.jpg"
+                         Longitude="697.92"
+                         LastUpdated="03/29/2015 17:55:49"
+                         Large2048Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         LargeUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         Large1600Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         License="AttributionCC"
+                         Latitude="256.48"
+                         Media="camera"
+                         Medium800Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Medium640Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         MachineTags="Venenatis adipiscing nam lorem"
+                         MediaStatus="active"
+                         MediumUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_c.jpg"
+                         OriginalWidth="3872"
+                         OriginalUrl="https://farm8.staticflickr.com/7624/16343521114_62430aee15_o.jpg"
+                         OriginalHeight="2592"
+                         OriginalSecret="fgd45fd5f3g"
+                         OriginalFormat="jpg"
+                         OwnerName="cdao11"
+                         PhotoId="16343521114"
+                         PathAlias="Aliquam parturient pede"
+                         PlaceId="34546543"
+                         SmallUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_m.jpg"
+                         Server="Suscipit mus nec non torquent"
+                         Secret="73uejh64s"
+                         Small320Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_n.jpg"
+                         SquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_s.jpg"
+                         ThumbnailUrl="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Title="PicOne.jpg"
+                         UserId="69859194@N06"
+                         WoeId="Odio orci congue dignissim sodales"
+                         WebUrl="Lacinia tortor laoreet turpis natoque">
+            <flickrNet:Photo.GeoPermissions>
+                <flickrNet:GeoPermissions IsPublic="False"
+                                          IsFamily="True"
+                                          IsContact="True"
+                                          IsFriend="False"
+                                          PhotoId="Vestibulum non vestibulum fringilla vitae" />
+            </flickrNet:Photo.GeoPermissions>
+            <flickrNet:Photo.Tags>
+                <system:String>Nunc class sed commodo</system:String>
+                <system:String>Amet vestibulum placerat</system:String>
+                <system:String>Fringilla semper conubia</system:String>
+                <system:String>Habitasse curae sociis taciti</system:String>
+                <system:String>Dis cubilia donec</system:String>
+                <system:String>Tellus pulvinar</system:String>
+                <system:String>Est etiam hendrerit ante himenaeos</system:String>
+                <system:String>Arcu imperdiet sagittis fusce dapibus</system:String>
+                <system:String>Egestas lorem euismod diam senectus</system:String>
+                <system:String>Morbi hac feugiat</system:String>
+            </flickrNet:Photo.Tags>
+        </flickrNet:Photo>
+        <flickrNet:Photo Accuracy="Level10"
+                         DateTaken="03/29/2015 17:55:49"
+                         Description="Nec risus velit cursus"
+                         DateUploaded="03/29/2015 17:55:49"
+                         DoesMediumExist="True"
+                         DoesLargeExist="False"
+                         Farm="9"
+                         IsPublic="True"
+                         IsFamily="False"
+                         IconFarm="Vehicula erat sem sit"
+                         IsFriend="False"
+                         IconServer="7654"
+                         LargeSquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_q.jpg"
+                         Longitude="697.92"
+                         LastUpdated="03/29/2015 17:55:49"
+                         Large2048Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         LargeUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         Large1600Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         License="AttributionCC"
+                         Latitude="256.48"
+                         Media="camera"
+                         Medium800Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Medium640Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         MachineTags="Venenatis adipiscing nam lorem"
+                         MediaStatus="active"
+                         MediumUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_c.jpg"
+                         OriginalWidth="3872"
+                         OriginalUrl="https://farm8.staticflickr.com/7624/16343521114_62430aee15_o.jpg"
+                         OriginalHeight="2592"
+                         OriginalSecret="fgd45fd5f3g"
+                         OriginalFormat="jpg"
+                         OwnerName="cdao11"
+                         PhotoId="16343521114"
+                         PathAlias="Aliquam parturient pede"
+                         PlaceId="34546543"
+                         SmallUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_m.jpg"
+                         Server="Suscipit mus nec non torquent"
+                         Secret="73uejh64s"
+                         Small320Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_n.jpg"
+                         SquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_s.jpg"
+                         ThumbnailUrl="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Title="PicOne.jpg"
+                         UserId="69859194@N06"
+                         WoeId="Odio orci congue dignissim sodales"
+                         WebUrl="Lacinia tortor laoreet turpis natoque">
+            <flickrNet:Photo.GeoPermissions>
+                <flickrNet:GeoPermissions IsPublic="False"
+                                          IsFamily="True"
+                                          IsContact="True"
+                                          IsFriend="False"
+                                          PhotoId="Vestibulum non vestibulum fringilla vitae" />
+            </flickrNet:Photo.GeoPermissions>
+            <flickrNet:Photo.Tags>
+                <system:String>Nunc class sed commodo</system:String>
+                <system:String>Amet vestibulum placerat</system:String>
+                <system:String>Fringilla semper conubia</system:String>
+                <system:String>Habitasse curae sociis taciti</system:String>
+                <system:String>Dis cubilia donec</system:String>
+                <system:String>Tellus pulvinar</system:String>
+                <system:String>Est etiam hendrerit ante himenaeos</system:String>
+                <system:String>Arcu imperdiet sagittis fusce dapibus</system:String>
+                <system:String>Egestas lorem euismod diam senectus</system:String>
+                <system:String>Morbi hac feugiat</system:String>
+            </flickrNet:Photo.Tags>
+        </flickrNet:Photo>
+        <flickrNet:Photo Accuracy="Level10"
+                         DateTaken="03/29/2015 17:55:49"
+                         Description="Nec risus velit cursus"
+                         DateUploaded="03/29/2015 17:55:49"
+                         DoesMediumExist="True"
+                         DoesLargeExist="False"
+                         Farm="9"
+                         IsPublic="True"
+                         IsFamily="False"
+                         IconFarm="Vehicula erat sem sit"
+                         IsFriend="False"
+                         IconServer="7654"
+                         LargeSquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_q.jpg"
+                         Longitude="697.92"
+                         LastUpdated="03/29/2015 17:55:49"
+                         Large2048Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         LargeUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         Large1600Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         License="AttributionCC"
+                         Latitude="256.48"
+                         Media="camera"
+                         Medium800Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Medium640Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         MachineTags="Venenatis adipiscing nam lorem"
+                         MediaStatus="active"
+                         MediumUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_c.jpg"
+                         OriginalWidth="3872"
+                         OriginalUrl="https://farm8.staticflickr.com/7624/16343521114_62430aee15_o.jpg"
+                         OriginalHeight="2592"
+                         OriginalSecret="fgd45fd5f3g"
+                         OriginalFormat="jpg"
+                         OwnerName="cdao11"
+                         PhotoId="16343521114"
+                         PathAlias="Aliquam parturient pede"
+                         PlaceId="34546543"
+                         SmallUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_m.jpg"
+                         Server="Suscipit mus nec non torquent"
+                         Secret="73uejh64s"
+                         Small320Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_n.jpg"
+                         SquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_s.jpg"
+                         ThumbnailUrl="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Title="PicOne.jpg"
+                         UserId="69859194@N06"
+                         WoeId="Odio orci congue dignissim sodales"
+                         WebUrl="Lacinia tortor laoreet turpis natoque">
+            <flickrNet:Photo.GeoPermissions>
+                <flickrNet:GeoPermissions IsPublic="False"
+                                          IsFamily="True"
+                                          IsContact="True"
+                                          IsFriend="False"
+                                          PhotoId="Vestibulum non vestibulum fringilla vitae" />
+            </flickrNet:Photo.GeoPermissions>
+            <flickrNet:Photo.Tags>
+                <system:String>Nunc class sed commodo</system:String>
+                <system:String>Amet vestibulum placerat</system:String>
+                <system:String>Fringilla semper conubia</system:String>
+                <system:String>Habitasse curae sociis taciti</system:String>
+                <system:String>Dis cubilia donec</system:String>
+                <system:String>Tellus pulvinar</system:String>
+                <system:String>Est etiam hendrerit ante himenaeos</system:String>
+                <system:String>Arcu imperdiet sagittis fusce dapibus</system:String>
+                <system:String>Egestas lorem euismod diam senectus</system:String>
+                <system:String>Morbi hac feugiat</system:String>
+            </flickrNet:Photo.Tags>
+        </flickrNet:Photo>
+        <flickrNet:Photo Accuracy="Level10"
+                         DateTaken="03/29/2015 17:55:49"
+                         Description="Nec risus velit cursus"
+                         DateUploaded="03/29/2015 17:55:49"
+                         DoesMediumExist="True"
+                         DoesLargeExist="False"
+                         Farm="9"
+                         IsPublic="True"
+                         IsFamily="False"
+                         IconFarm="Vehicula erat sem sit"
+                         IsFriend="False"
+                         IconServer="7654"
+                         LargeSquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_q.jpg"
+                         Longitude="697.92"
+                         LastUpdated="03/29/2015 17:55:49"
+                         Large2048Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         LargeUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         Large1600Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         License="AttributionCC"
+                         Latitude="256.48"
+                         Media="camera"
+                         Medium800Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Medium640Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         MachineTags="Venenatis adipiscing nam lorem"
+                         MediaStatus="active"
+                         MediumUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_c.jpg"
+                         OriginalWidth="3872"
+                         OriginalUrl="https://farm8.staticflickr.com/7624/16343521114_62430aee15_o.jpg"
+                         OriginalHeight="2592"
+                         OriginalSecret="fgd45fd5f3g"
+                         OriginalFormat="jpg"
+                         OwnerName="cdao11"
+                         PhotoId="16343521114"
+                         PathAlias="Aliquam parturient pede"
+                         PlaceId="34546543"
+                         SmallUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_m.jpg"
+                         Server="Suscipit mus nec non torquent"
+                         Secret="73uejh64s"
+                         Small320Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_n.jpg"
+                         SquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_s.jpg"
+                         ThumbnailUrl="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Title="PicOne.jpg"
+                         UserId="69859194@N06"
+                         WoeId="Odio orci congue dignissim sodales"
+                         WebUrl="Lacinia tortor laoreet turpis natoque">
+            <flickrNet:Photo.GeoPermissions>
+                <flickrNet:GeoPermissions IsPublic="False"
+                                          IsFamily="True"
+                                          IsContact="True"
+                                          IsFriend="False"
+                                          PhotoId="Vestibulum non vestibulum fringilla vitae" />
+            </flickrNet:Photo.GeoPermissions>
+            <flickrNet:Photo.Tags>
+                <system:String>Nunc class sed commodo</system:String>
+                <system:String>Amet vestibulum placerat</system:String>
+                <system:String>Fringilla semper conubia</system:String>
+                <system:String>Habitasse curae sociis taciti</system:String>
+                <system:String>Dis cubilia donec</system:String>
+                <system:String>Tellus pulvinar</system:String>
+                <system:String>Est etiam hendrerit ante himenaeos</system:String>
+                <system:String>Arcu imperdiet sagittis fusce dapibus</system:String>
+                <system:String>Egestas lorem euismod diam senectus</system:String>
+                <system:String>Morbi hac feugiat</system:String>
+            </flickrNet:Photo.Tags>
+        </flickrNet:Photo>
+        <flickrNet:Photo Accuracy="Level10"
+                         DateTaken="03/29/2015 17:55:49"
+                         Description="Nec risus velit cursus"
+                         DateUploaded="03/29/2015 17:55:49"
+                         DoesMediumExist="True"
+                         DoesLargeExist="False"
+                         Farm="9"
+                         IsPublic="True"
+                         IsFamily="False"
+                         IconFarm="Vehicula erat sem sit"
+                         IsFriend="False"
+                         IconServer="7654"
+                         LargeSquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_q.jpg"
+                         Longitude="697.92"
+                         LastUpdated="03/29/2015 17:55:49"
+                         Large2048Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         LargeUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         Large1600Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         License="AttributionCC"
+                         Latitude="256.48"
+                         Media="camera"
+                         Medium800Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Medium640Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         MachineTags="Venenatis adipiscing nam lorem"
+                         MediaStatus="active"
+                         MediumUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_c.jpg"
+                         OriginalWidth="3872"
+                         OriginalUrl="https://farm8.staticflickr.com/7624/16343521114_62430aee15_o.jpg"
+                         OriginalHeight="2592"
+                         OriginalSecret="fgd45fd5f3g"
+                         OriginalFormat="jpg"
+                         OwnerName="cdao11"
+                         PhotoId="16343521114"
+                         PathAlias="Aliquam parturient pede"
+                         PlaceId="34546543"
+                         SmallUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_m.jpg"
+                         Server="Suscipit mus nec non torquent"
+                         Secret="73uejh64s"
+                         Small320Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_n.jpg"
+                         SquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_s.jpg"
+                         ThumbnailUrl="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Title="PicOne.jpg"
+                         UserId="69859194@N06"
+                         WoeId="Odio orci congue dignissim sodales"
+                         WebUrl="Lacinia tortor laoreet turpis natoque">
+            <flickrNet:Photo.GeoPermissions>
+                <flickrNet:GeoPermissions IsPublic="False"
+                                          IsFamily="True"
+                                          IsContact="True"
+                                          IsFriend="False"
+                                          PhotoId="Vestibulum non vestibulum fringilla vitae" />
+            </flickrNet:Photo.GeoPermissions>
+            <flickrNet:Photo.Tags>
+                <system:String>Nunc class sed commodo</system:String>
+                <system:String>Amet vestibulum placerat</system:String>
+                <system:String>Fringilla semper conubia</system:String>
+                <system:String>Habitasse curae sociis taciti</system:String>
+                <system:String>Dis cubilia donec</system:String>
+                <system:String>Tellus pulvinar</system:String>
+                <system:String>Est etiam hendrerit ante himenaeos</system:String>
+                <system:String>Arcu imperdiet sagittis fusce dapibus</system:String>
+                <system:String>Egestas lorem euismod diam senectus</system:String>
+                <system:String>Morbi hac feugiat</system:String>
+            </flickrNet:Photo.Tags>
+        </flickrNet:Photo>
+        <flickrNet:Photo Accuracy="Level10"
+                         DateTaken="03/29/2015 17:55:49"
+                         Description="Nec risus velit cursus"
+                         DateUploaded="03/29/2015 17:55:49"
+                         DoesMediumExist="True"
+                         DoesLargeExist="False"
+                         Farm="9"
+                         IsPublic="True"
+                         IsFamily="False"
+                         IconFarm="Vehicula erat sem sit"
+                         IsFriend="False"
+                         IconServer="7654"
+                         LargeSquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_q.jpg"
+                         Longitude="697.92"
+                         LastUpdated="03/29/2015 17:55:49"
+                         Large2048Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         LargeUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         Large1600Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         License="AttributionCC"
+                         Latitude="256.48"
+                         Media="camera"
+                         Medium800Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Medium640Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         MachineTags="Venenatis adipiscing nam lorem"
+                         MediaStatus="active"
+                         MediumUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_c.jpg"
+                         OriginalWidth="3872"
+                         OriginalUrl="https://farm8.staticflickr.com/7624/16343521114_62430aee15_o.jpg"
+                         OriginalHeight="2592"
+                         OriginalSecret="fgd45fd5f3g"
+                         OriginalFormat="jpg"
+                         OwnerName="cdao11"
+                         PhotoId="16343521114"
+                         PathAlias="Aliquam parturient pede"
+                         PlaceId="34546543"
+                         SmallUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_m.jpg"
+                         Server="Suscipit mus nec non torquent"
+                         Secret="73uejh64s"
+                         Small320Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_n.jpg"
+                         SquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_s.jpg"
+                         ThumbnailUrl="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Title="PicOne.jpg"
+                         UserId="69859194@N06"
+                         WoeId="Odio orci congue dignissim sodales"
+                         WebUrl="Lacinia tortor laoreet turpis natoque">
+            <flickrNet:Photo.GeoPermissions>
+                <flickrNet:GeoPermissions IsPublic="False"
+                                          IsFamily="True"
+                                          IsContact="True"
+                                          IsFriend="False"
+                                          PhotoId="Vestibulum non vestibulum fringilla vitae" />
+            </flickrNet:Photo.GeoPermissions>
+            <flickrNet:Photo.Tags>
+                <system:String>Nunc class sed commodo</system:String>
+                <system:String>Amet vestibulum placerat</system:String>
+                <system:String>Fringilla semper conubia</system:String>
+                <system:String>Habitasse curae sociis taciti</system:String>
+                <system:String>Dis cubilia donec</system:String>
+                <system:String>Tellus pulvinar</system:String>
+                <system:String>Est etiam hendrerit ante himenaeos</system:String>
+                <system:String>Arcu imperdiet sagittis fusce dapibus</system:String>
+                <system:String>Egestas lorem euismod diam senectus</system:String>
+                <system:String>Morbi hac feugiat</system:String>
+            </flickrNet:Photo.Tags>
+        </flickrNet:Photo>
+        <flickrNet:Photo Accuracy="Level10"
+                         DateTaken="03/29/2015 17:55:49"
+                         Description="Nec risus velit cursus"
+                         DateUploaded="03/29/2015 17:55:49"
+                         DoesMediumExist="True"
+                         DoesLargeExist="False"
+                         Farm="9"
+                         IsPublic="True"
+                         IsFamily="False"
+                         IconFarm="Vehicula erat sem sit"
+                         IsFriend="False"
+                         IconServer="7654"
+                         LargeSquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_q.jpg"
+                         Longitude="697.92"
+                         LastUpdated="03/29/2015 17:55:49"
+                         Large2048Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         LargeUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         Large1600Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         License="AttributionCC"
+                         Latitude="256.48"
+                         Media="camera"
+                         Medium800Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Medium640Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         MachineTags="Venenatis adipiscing nam lorem"
+                         MediaStatus="active"
+                         MediumUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_c.jpg"
+                         OriginalWidth="3872"
+                         OriginalUrl="https://farm8.staticflickr.com/7624/16343521114_62430aee15_o.jpg"
+                         OriginalHeight="2592"
+                         OriginalSecret="fgd45fd5f3g"
+                         OriginalFormat="jpg"
+                         OwnerName="cdao11"
+                         PhotoId="16343521114"
+                         PathAlias="Aliquam parturient pede"
+                         PlaceId="34546543"
+                         SmallUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_m.jpg"
+                         Server="Suscipit mus nec non torquent"
+                         Secret="73uejh64s"
+                         Small320Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_n.jpg"
+                         SquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_s.jpg"
+                         ThumbnailUrl="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Title="PicOne.jpg"
+                         UserId="69859194@N06"
+                         WoeId="Odio orci congue dignissim sodales"
+                         WebUrl="Lacinia tortor laoreet turpis natoque">
+            <flickrNet:Photo.GeoPermissions>
+                <flickrNet:GeoPermissions IsPublic="False"
+                                          IsFamily="True"
+                                          IsContact="True"
+                                          IsFriend="False"
+                                          PhotoId="Vestibulum non vestibulum fringilla vitae" />
+            </flickrNet:Photo.GeoPermissions>
+            <flickrNet:Photo.Tags>
+                <system:String>Nunc class sed commodo</system:String>
+                <system:String>Amet vestibulum placerat</system:String>
+                <system:String>Fringilla semper conubia</system:String>
+                <system:String>Habitasse curae sociis taciti</system:String>
+                <system:String>Dis cubilia donec</system:String>
+                <system:String>Tellus pulvinar</system:String>
+                <system:String>Est etiam hendrerit ante himenaeos</system:String>
+                <system:String>Arcu imperdiet sagittis fusce dapibus</system:String>
+                <system:String>Egestas lorem euismod diam senectus</system:String>
+                <system:String>Morbi hac feugiat</system:String>
+            </flickrNet:Photo.Tags>
+        </flickrNet:Photo>
+        <flickrNet:Photo Accuracy="Level10"
+                         DateTaken="03/29/2015 17:55:49"
+                         Description="Nec risus velit cursus"
+                         DateUploaded="03/29/2015 17:55:49"
+                         DoesMediumExist="True"
+                         DoesLargeExist="False"
+                         Farm="9"
+                         IsPublic="True"
+                         IsFamily="False"
+                         IconFarm="Vehicula erat sem sit"
+                         IsFriend="False"
+                         IconServer="7654"
+                         LargeSquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_q.jpg"
+                         Longitude="697.92"
+                         LastUpdated="03/29/2015 17:55:49"
+                         Large2048Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         LargeUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         Large1600Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         License="AttributionCC"
+                         Latitude="256.48"
+                         Media="camera"
+                         Medium800Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Medium640Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         MachineTags="Venenatis adipiscing nam lorem"
+                         MediaStatus="active"
+                         MediumUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_c.jpg"
+                         OriginalWidth="3872"
+                         OriginalUrl="https://farm8.staticflickr.com/7624/16343521114_62430aee15_o.jpg"
+                         OriginalHeight="2592"
+                         OriginalSecret="fgd45fd5f3g"
+                         OriginalFormat="jpg"
+                         OwnerName="cdao11"
+                         PhotoId="16343521114"
+                         PathAlias="Aliquam parturient pede"
+                         PlaceId="34546543"
+                         SmallUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_m.jpg"
+                         Server="Suscipit mus nec non torquent"
+                         Secret="73uejh64s"
+                         Small320Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_n.jpg"
+                         SquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_s.jpg"
+                         ThumbnailUrl="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Title="PicOne.jpg"
+                         UserId="69859194@N06"
+                         WoeId="Odio orci congue dignissim sodales"
+                         WebUrl="Lacinia tortor laoreet turpis natoque">
+            <flickrNet:Photo.GeoPermissions>
+                <flickrNet:GeoPermissions IsPublic="False"
+                                          IsFamily="True"
+                                          IsContact="True"
+                                          IsFriend="False"
+                                          PhotoId="Vestibulum non vestibulum fringilla vitae" />
+            </flickrNet:Photo.GeoPermissions>
+            <flickrNet:Photo.Tags>
+                <system:String>Nunc class sed commodo</system:String>
+                <system:String>Amet vestibulum placerat</system:String>
+                <system:String>Fringilla semper conubia</system:String>
+                <system:String>Habitasse curae sociis taciti</system:String>
+                <system:String>Dis cubilia donec</system:String>
+                <system:String>Tellus pulvinar</system:String>
+                <system:String>Est etiam hendrerit ante himenaeos</system:String>
+                <system:String>Arcu imperdiet sagittis fusce dapibus</system:String>
+                <system:String>Egestas lorem euismod diam senectus</system:String>
+                <system:String>Morbi hac feugiat</system:String>
+            </flickrNet:Photo.Tags>
+        </flickrNet:Photo>
+        <flickrNet:Photo Accuracy="Level10"
+                         DateTaken="03/29/2015 17:55:49"
+                         Description="Nec risus velit cursus"
+                         DateUploaded="03/29/2015 17:55:49"
+                         DoesMediumExist="True"
+                         DoesLargeExist="False"
+                         Farm="9"
+                         IsPublic="True"
+                         IsFamily="False"
+                         IconFarm="Vehicula erat sem sit"
+                         IsFriend="False"
+                         IconServer="7654"
+                         LargeSquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_q.jpg"
+                         Longitude="697.92"
+                         LastUpdated="03/29/2015 17:55:49"
+                         Large2048Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         LargeUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         Large1600Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         License="AttributionCC"
+                         Latitude="256.48"
+                         Media="camera"
+                         Medium800Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Medium640Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         MachineTags="Venenatis adipiscing nam lorem"
+                         MediaStatus="active"
+                         MediumUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_c.jpg"
+                         OriginalWidth="3872"
+                         OriginalUrl="https://farm8.staticflickr.com/7624/16343521114_62430aee15_o.jpg"
+                         OriginalHeight="2592"
+                         OriginalSecret="fgd45fd5f3g"
+                         OriginalFormat="jpg"
+                         OwnerName="cdao11"
+                         PhotoId="16343521114"
+                         PathAlias="Aliquam parturient pede"
+                         PlaceId="34546543"
+                         SmallUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_m.jpg"
+                         Server="Suscipit mus nec non torquent"
+                         Secret="73uejh64s"
+                         Small320Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_n.jpg"
+                         SquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_s.jpg"
+                         ThumbnailUrl="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Title="PicOne.jpg"
+                         UserId="69859194@N06"
+                         WoeId="Odio orci congue dignissim sodales"
+                         WebUrl="Lacinia tortor laoreet turpis natoque">
+            <flickrNet:Photo.GeoPermissions>
+                <flickrNet:GeoPermissions IsPublic="False"
+                                          IsFamily="True"
+                                          IsContact="True"
+                                          IsFriend="False"
+                                          PhotoId="Vestibulum non vestibulum fringilla vitae" />
+            </flickrNet:Photo.GeoPermissions>
+            <flickrNet:Photo.Tags>
+                <system:String>Nunc class sed commodo</system:String>
+                <system:String>Amet vestibulum placerat</system:String>
+                <system:String>Fringilla semper conubia</system:String>
+                <system:String>Habitasse curae sociis taciti</system:String>
+                <system:String>Dis cubilia donec</system:String>
+                <system:String>Tellus pulvinar</system:String>
+                <system:String>Est etiam hendrerit ante himenaeos</system:String>
+                <system:String>Arcu imperdiet sagittis fusce dapibus</system:String>
+                <system:String>Egestas lorem euismod diam senectus</system:String>
+                <system:String>Morbi hac feugiat</system:String>
+            </flickrNet:Photo.Tags>
+        </flickrNet:Photo>
+        <flickrNet:Photo Accuracy="Level10"
+                         DateTaken="03/29/2015 17:55:49"
+                         Description="Nec risus velit cursus"
+                         DateUploaded="03/29/2015 17:55:49"
+                         DoesMediumExist="True"
+                         DoesLargeExist="False"
+                         Farm="9"
+                         IsPublic="True"
+                         IsFamily="False"
+                         IconFarm="Vehicula erat sem sit"
+                         IsFriend="False"
+                         IconServer="7654"
+                         LargeSquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_q.jpg"
+                         Longitude="697.92"
+                         LastUpdated="03/29/2015 17:55:49"
+                         Large2048Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         LargeUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         Large1600Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_b.jpg"
+                         License="AttributionCC"
+                         Latitude="256.48"
+                         Media="camera"
+                         Medium800Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Medium640Url="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         MachineTags="Venenatis adipiscing nam lorem"
+                         MediaStatus="active"
+                         MediumUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_c.jpg"
+                         OriginalWidth="3872"
+                         OriginalUrl="https://farm8.staticflickr.com/7624/16343521114_62430aee15_o.jpg"
+                         OriginalHeight="2592"
+                         OriginalSecret="fgd45fd5f3g"
+                         OriginalFormat="jpg"
+                         OwnerName="cdao11"
+                         PhotoId="16343521114"
+                         PathAlias="Aliquam parturient pede"
+                         PlaceId="34546543"
+                         SmallUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_m.jpg"
+                         Server="Suscipit mus nec non torquent"
+                         Secret="73uejh64s"
+                         Small320Url="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_n.jpg"
+                         SquareThumbnailUrl="https://farm8.staticflickr.com/7624/16343521114_2837ebaa63_s.jpg"
+                         ThumbnailUrl="https://farm8.staticflickr.com/7624\/16343521114_2837ebaa63_t.jpg"
+                         Title="PicOne.jpg"
+                         UserId="69859194@N06"
+                         WoeId="Odio orci congue dignissim sodales"
+                         WebUrl="Lacinia tortor laoreet turpis natoque">
+            <flickrNet:Photo.GeoPermissions>
+                <flickrNet:GeoPermissions IsPublic="False"
+                                          IsFamily="True"
+                                          IsContact="True"
+                                          IsFriend="False"
+                                          PhotoId="Vestibulum non vestibulum fringilla vitae" />
+            </flickrNet:Photo.GeoPermissions>
+            <flickrNet:Photo.Tags>
+                <system:String>Nunc class sed commodo</system:String>
+                <system:String>Amet vestibulum placerat</system:String>
+                <system:String>Fringilla semper conubia</system:String>
+                <system:String>Habitasse curae sociis taciti</system:String>
+                <system:String>Dis cubilia donec</system:String>
+                <system:String>Tellus pulvinar</system:String>
+                <system:String>Est etiam hendrerit ante himenaeos</system:String>
+                <system:String>Arcu imperdiet sagittis fusce dapibus</system:String>
+                <system:String>Egestas lorem euismod diam senectus</system:String>
+                <system:String>Morbi hac feugiat</system:String>
+            </flickrNet:Photo.Tags>
+        </flickrNet:Photo>
+    </viewModels:FlickrViewModel.Source>
+    <viewModels:FlickrViewModel.ScaledSize>
+        <flickrNet:Size Height="71"
+                        Label="Quam adipiscing per dictum eleifend"
+                        MediaType="Videos"
+                        Source="Sed integer class facilisi habitasse"
+                        Url="Quis sem quisque"
+                        Width="16" />
+    </viewModels:FlickrViewModel.ScaledSize>
+    <viewModels:FlickrViewModel.ListItemSize>
+        <foundation:Size Height="131"
+                         Width="400" />
+    </viewModels:FlickrViewModel.ListItemSize>
+    <viewModels:FlickrViewModel.MeTileSize>
+        <foundation:Size Height="128"
+                         Width="310" />
+    </viewModels:FlickrViewModel.MeTileSize>
+</viewModels:FlickrViewModel>

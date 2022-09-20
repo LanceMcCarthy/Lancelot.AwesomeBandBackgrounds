@@ -1,0 +1,281 @@
+﻿<Page x:Name="Page"
+      x:Class="BandCentral.Uwp.Views.CropImageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:BandCentral.Uwp.Views"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:imageCropper="using:BandCentral.Uwp.Controls.ImageCropper"
+      d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}"
+      mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="HeaderGrid"
+              Height="48"
+              Background="{StaticResource BlueAgainBlueBrush}">
+            <TextBlock Text="Themes"
+                       FontFamily="Century Gothic"
+                       HorizontalAlignment="Center"
+                       FontSize="24"
+                       VerticalAlignment="Center"
+                       Foreground="{StaticResource LightBrush}" />
+            <Button Visibility="{Binding DisconnectedMode, Converter={StaticResource BoolToVisibilityConverter}}"
+                    Background="Red"
+                    Margin="10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center">
+                <Button.Content>
+                    <SymbolIcon Symbol="Important"
+                                Foreground="White" />
+                </Button.Content>
+                <Button.Flyout>
+                    <Flyout>
+                        <Grid>
+                            <TextBlock Text="You are in Disconnected Mode" />
+                        </Grid>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+        </Grid>
+
+        <Grid x:Name="ContentRoot"
+              Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="LeftColumnDefinition" Width="*" />
+                <ColumnDefinition x:Name="RightColumnDefinition" Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="TopRowDefinition" />
+                <RowDefinition x:Name="BottomRowDefinition" />
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="CroppingGrid"
+                  Grid.RowSpan="2">
+                <imageCropper:ImageCropper x:Name="ImageCropper"
+                                           AspectRatio="{Binding DataContext.TileAspectRatio, ElementName=Page}"
+                                           Grid.Row="0"
+                                           VerticalAlignment="Stretch"
+                                           HorizontalAlignment="Stretch" />
+                <Button Content="open image file"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Click="OpenButton_Click"  />
+            </Grid>
+
+            <Grid x:Name="ResultsGrid"
+                  Grid.Column="1"
+                  Grid.Row="0"
+                  Grid.RowSpan="2"
+                  Background="{StaticResource BlueAgainGrayBrush}">
+                
+                <Grid x:Name="BandPreviewGrid"
+                      Visibility="Visible"
+                      Margin="20">
+                    <Grid VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        
+                        <Grid x:Name="BandContainerGrid"
+                              Height="{Binding ElementName=Page, Path=DataContext.MeTileSize.Height}"
+                              Width="{Binding ElementName=Page, Path=DataContext.MeTileSize.Width}"
+                              Grid.Row="0"
+                              Background="{StaticResource HalfTransparentDarkBrush}">
+                            <Grid x:Name="PhotoGrid"
+                                  Margin="0">
+                                <Border x:Name="PhotoBorder"
+                                        BorderThickness="0,0,0,0"
+                                        BorderBrush="#E5FFFFFF">
+                                    <Image x:Name="PreviewImage"
+                                           Source="{Binding CroppedImage, ElementName=ImageCropper}" />
+                                </Border>
+
+                                <Grid x:Name="TimeGrid"
+                                      VerticalAlignment="Bottom"
+                                      HorizontalAlignment="Left">
+                                    <StackPanel Orientation="Horizontal"
+                                                d:LayoutOverrides="Height">
+                                        <TextBlock x:Name="TimeTextBlock"
+                                                   Text="12:41"
+                                                   VerticalAlignment="Bottom"
+                                                   HorizontalAlignment="Left"
+                                                   FontFamily="Segoe WP SemiLight"
+                                                   FontSize="82"
+                                                   Margin="10,0,0,-5"
+                                                   Foreground="{StaticResource LightBrush}" />
+                                        <StackPanel VerticalAlignment="Bottom"
+                                                    Margin="0,0,0,15">
+                                            <TextBlock Text="Thu"
+                                                       FontFamily="Segoe UI Light"
+                                                       Foreground="{StaticResource LightBrush}"
+                                                       FontSize="20" />
+                                            <TextBlock Text="02"
+                                                       FontFamily="Segoe UI Light"
+                                                       Foreground="{StaticResource LightBrush}"
+                                                       FontSize="20" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+
+                        <Grid x:Name="ButtonsGrid" Visibility="Collapsed"
+                              Width="{Binding ElementName=Page, Path=DataContext.MeTileSize.Width}"
+                              Grid.Row="1"
+                              Background="{StaticResource LightBrush}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <AppBarButton x:Name="UndoButton"
+                                          Style="{StaticResource DarkAppbarButtonStyle}"
+                                          Grid.Column="0"
+                                          Label="undo"
+                                          Icon="Undo"
+                                          HorizontalAlignment="Stretch"
+                                          Click="UndoButton_OnClick">
+                            </AppBarButton>
+
+                            <AppBarButton x:Name="AddEffectsButton"
+                                          IsEnabled="False"
+                                          Style="{StaticResource DarkAppbarButtonStyle}"
+                                          Grid.Column="1"
+                                          Label="Add an Effect"
+                                          HorizontalAlignment="Stretch">
+                                <AppBarButton.Icon>
+                                    <PathIcon HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Data="M2.37030625343323,10.0537490844727L3.53369903564453,10.5349521636963 4.015625,11.6976251602173 3.53369903564453,12.8611097335815 2.37030625343323,13.3431253433228 1.2069137096405,12.8611097335815 0.724999904632568,11.6976251602173 1.2069137096405,10.5349521636963 2.37030625343323,10.0537490844727z M7.0225625038147,5.27312517166138L8.18661594390869,5.75374174118042 8.66906261444092,6.91579723358154 8.18661594390869,8.07987976074219 7.0225625038147,8.5625 5.86048555374146,8.07987976074219 5.37874984741211,6.91579723358154 5.86048555374146,5.75374174118042 7.0225625038147,5.27312517166138z M2.37030625343323,5.27312517166138L3.53369903564453,5.75374174118042 4.015625,6.91579723358154 3.53369903564453,8.07987976074219 2.37030625343323,8.5625 1.2069137096405,8.07987976074219 0.724999904632568,6.91579723358154 1.2069137096405,5.75374174118042 2.37030625343323,5.27312517166138z M11.6504373550415,0.491562485694885L12.8139095306396,0.972774624824524 13.2959365844727,2.13546562194824 12.8139095306396,3.29877424240112 11.6504373550415,3.7806248664856 10.4877653121948,3.29877424240112 10.0065622329712,2.13546562194824 10.4877653121948,0.972774624824524 11.6504373550415,0.491562485694885z M7.0225625038147,0.491562485694885L8.18661594390869,0.972774624824524 8.66906261444092,2.13546562194824 8.18661594390869,3.29877424240112 7.0225625038147,3.7806248664856 5.86048555374146,3.29877424240112 5.37874984741211,2.13546562194824 5.86048555374146,0.972774624824524 7.0225625038147,0.491562485694885z M2.37030625343323,0.491562485694885L3.53369903564453,0.972774624824524 4.015625,2.13546562194824 3.53369903564453,3.29877424240112 2.37030625343323,3.7806248664856 1.2069137096405,3.29877424240112 0.724999904632568,2.13546562194824 1.2069137096405,0.972774624824524 2.37030625343323,0.491562485694885z M20,0L20,18.9728126525879 0,18.9728126525879 1.30672693252563,17.7331981658936 1.20691359043121,17.6423683166504 0.724999904632568,16.4782962799072 1.2069137096405,15.3162412643433 2.37030625343323,14.8356246948242 3.63989448547363,15.4328393936157 3.67911720275879,15.4826536178589 6.17992639541626,13.1102838516235 6.17051076889038,13.1048631668091 5.59669494628906,12.5166130065918 5.37874984741211,11.6976251602173 5.86048555374146,10.5349521636963 7.0225625038147,10.0537490844727 7.8760986328125,10.2915668487549 8.4702320098877,10.9137296676636 8.47847366333008,10.9297885894775 11.0809936523438,8.46093273162842 11.0102558135986,8.43297672271729 10.2871160507202,7.83611869812012 10.0065622329712,6.91579723358154 10.4877653121948,5.75374174118042 11.6504373550415,5.27312517166138 12.6348838806152,5.59906530380249 13.221941947937,6.42681074142456 13.2226428985596,6.42927598953247 16.136058807373,3.66549038887024 16.1001987457275,3.65134215354919 15.3770990371704,3.05529594421387 15.0965614318848,2.13546562194824 15.5777378082275,0.972774624824524 16.7403430938721,0.491562485694885 17.6920871734619,0.794648706912994 18.2853660583496,1.56994199752808 18.2998886108398,1.61279535293579 20,0z" />
+                                </AppBarButton.Icon>
+                                <AppBarButton.Flyout>
+                                    <Flyout Placement="Full">
+                                        <Grid MaxWidth="500">
+                                            <GridView x:Name="EffectsListView"
+                                                      ItemsSource="{Binding FilterEffects}"
+                                                      IsItemClickEnabled="True"
+                                                      ItemClick="EffectsListView_OnItemClick"
+                                                      HorizontalAlignment="Center">
+                                                <GridView.ItemContainerTransitions>
+                                                    <TransitionCollection>
+                                                        <EntranceThemeTransition />
+                                                    </TransitionCollection>
+                                                </GridView.ItemContainerTransitions>
+                                                <GridView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid Margin="5"
+                                                              Width="175"
+                                                              Height="140">
+                                                            <Grid.RowDefinitions>
+                                                                <RowDefinition />
+                                                                <RowDefinition Height="Auto" />
+                                                            </Grid.RowDefinitions>
+                                                            <Border Grid.Column="0">
+                                                                <Image Source="{Binding ThumbnailPath}"
+                                                                       Stretch="UniformToFill" />
+                                                            </Border>
+                                                            <StackPanel VerticalAlignment="Bottom"
+                                                                        Grid.Row="1"
+                                                                        Background="{StaticResource BlueAgainBlueBrush}">
+                                                                <TextBlock Text="{Binding Title}"
+                                                                           TextWrapping="Wrap"
+                                                                           FontFamily="Century Gothic"
+                                                                           HorizontalAlignment="Center"
+                                                                           FontSize="14"
+                                                                           Foreground="{StaticResource LightBrush}" />
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </GridView.ItemTemplate>
+                                            </GridView>
+                                        </Grid>
+                                    </Flyout>
+                                </AppBarButton.Flyout>
+                            </AppBarButton>
+
+                            <AppBarButton x:Name="SendToBandButton"
+                                          IsEnabled="False"
+                                          Style="{StaticResource DarkAppbarButtonStyle}"
+                                          Grid.Column="2"
+                                          Icon="SetLockScreen"
+                                          Label="Send to Band"
+                                          HorizontalAlignment="Stretch"
+                                          Click="SendToBandButton_OnClick">
+                            </AppBarButton>
+
+                        </Grid>
+                    </Grid>
+                </Grid>
+
+            </Grid>
+        </Grid>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowStates">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1024" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="MediumState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HeaderGrid.Visibility"
+                                Value="Visible" />
+                        <Setter Target="CroppingGrid.(Grid.RowSpan)"
+                                Value="2" />
+                        <Setter Target="ResultsGrid.(Grid.Column)"
+                                Value="1" />
+                        <Setter Target="ResultsGrid.(Grid.Row)"
+                                Value="0" />
+                        <Setter Target="ResultsGrid.(Grid.RowSpan)"
+                                Value="2" />
+                        <Setter Target="RightColumnDefinition.Width"
+                                Value="*" />
+                        <Setter Target="BottomRowDefinition.Height"
+                                Value="Auto" />
+                        <Setter Target="TopRowDefinition.Height"
+                                Value="*" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HeaderGrid.Visibility"
+                                Value="Collapsed" />
+                        <Setter Target="CroppingGrid.(Grid.Row)"
+                                Value="1" />
+                        <Setter Target="CroppingGrid.(Grid.RowSpan)"
+                                Value="1" />
+                        <Setter Target="ResultsGrid.(Grid.Column)"
+                                Value="0" />
+                        <Setter Target="ResultsGrid.(Grid.Row)"
+                                Value="0" />
+                        <Setter Target="ResultsGrid.(Grid.RowSpan)"
+                                Value="1" />
+                        <Setter Target="RightColumnDefinition.Width"
+                                Value="Auto" />
+                        <Setter Target="BottomRowDefinition.Height"
+                                Value="*" />
+                        <Setter Target="TopRowDefinition.Height"
+                                Value="Auto" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</Page>

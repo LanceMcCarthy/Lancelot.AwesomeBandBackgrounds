@@ -1,0 +1,788 @@
+﻿<Page x:Name="Page"
+      x:Class="BandCentral.Uwp.Views.ThemesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:BandCentral.Uwp.Views"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:data="using:Telerik.UI.Xaml.Controls.Data"
+      xmlns:userControls="using:BandCentral.Uwp.UserControls"
+      xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+      xmlns:triggers="using:BandCentral.Uwp.Triggers"
+      d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="ThemeHistoryItemTemplate">
+            <Grid Margin="-5,0,-5,0"
+                  Height="{Binding ElementName=Page, Path=DataContext.ListItemSize.Height}">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Grid Background="{Binding BaseBrush}"
+                      Margin="5,0,5,5" />
+                <Grid Background="{Binding HighlightBrush}"
+                      Margin="5,0,5,5"
+                      Grid.Column="1" />
+                <Grid Background="{Binding SecondaryBrush}"
+                      Margin="5,0,5,5"
+                      Grid.Column="2" />
+
+                <Grid Background="{Binding LowLightBrush}"
+                      Margin="5"
+                      Grid.Row="1" />
+                <Grid Background="{Binding HighContrastBrush}"
+                      Margin="5"
+                      Grid.Row="1"
+                      Grid.Column="1" />
+                <Grid Background="{Binding MutedBrush}"
+                      Margin="5"
+                      Grid.Row="1"
+                      Grid.Column="2" />
+
+                <Rectangle Height="3"
+                           Fill="SlateGray"
+                           Grid.ColumnSpan="3"
+                           Grid.Column="0"
+                           Grid.Row="2"
+                           Margin="0,5,0,10"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Bottom" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="HeaderGrid"
+              Height="48"
+              Background="{StaticResource BlueAgainBlueBrush}">
+            <TextBlock Text="Themes"
+                       FontFamily="Century Gothic"
+                       HorizontalAlignment="Center"
+                       FontSize="24"
+                       VerticalAlignment="Center"
+                       Foreground="{StaticResource LightBrush}" />
+            <Button Visibility="{Binding DisconnectedMode, Converter={StaticResource BoolToVisibilityConverter}}"
+                    Background="Red"
+                    Margin="10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center">
+                <Button.Content>
+                    <SymbolIcon Symbol="Important"
+                                Foreground="White" />
+                </Button.Content>
+                <Button.Flyout>
+                    <Flyout>
+                        <Grid>
+                            <TextBlock Text="You are in Disconnected Mode" />
+                        </Grid>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+        </Grid>
+
+        <Grid x:Name="ThemeGrid"
+              Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="ThemeContainer">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                
+                <ScrollViewer HorizontalScrollMode="Enabled"
+                              HorizontalScrollBarVisibility="Visible">
+                    <Grid x:Name="PreviewGrid"
+                          Grid.Row="0"
+                          Padding="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid x:Name="HighlightLowLightGrid"
+                              Grid.Row="0"
+                              Width="{Binding ElementName=Page, Path=DataContext.MeTileSize.Width}"
+                              Height="{Binding ElementName=Page, Path=DataContext.MeTileSize.Height}"
+                              HorizontalAlignment="Center"
+                              Margin="20,20,20,0"
+                              Grid.ColumnSpan="3"
+                              Padding="0">
+
+                            <Grid Background="{Binding CurrentBandTheme.BaseBrush, FallbackValue=DarkGray}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0"
+                                      Background="{Binding CurrentBandTheme.HighContrastBrush, FallbackValue=DarkGray}">
+                                    <TextBlock Text="High Contrast"
+                                               FontFamily="Century Gothic"
+                                               FontSize="12"
+                                               Foreground="{StaticResource LightBrush}"
+                                               HorizontalAlignment="Center"
+                                               Margin="0,5,0,0"
+                                               VerticalAlignment="Top" />
+                                    <TextBlock Text="1"
+                                               Foreground="{StaticResource LightBrush}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               TextWrapping="Wrap"
+                                               TextAlignment="Center"
+                                               FontSize="48"
+                                               FontWeight="Light"
+                                               Margin="0,36,0,0" />
+                                    <Path Data="M6.9478922,7.0470004L9.6886292,9.2383013 12.428207,7.0470004 19.375999,11.251 0,11.251z M19.585001,1.0830001L19.585001,10.221 13.061,6.2626729z M0,1.0830001L6.5219998,6.2626729 0,10.221z M0,0L19.376001,0 9.6886301,7.7509999z"
+                                          Stretch="Uniform"
+                                          Fill="#FFFFFFFF"
+                                          Width="30"
+                                          Height="30"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Margin="0,0,0,41" />
+                                </Grid>
+
+                                <Grid Grid.Column="1"
+                                      Background="{Binding CurrentBandTheme.LowLightBrush, FallbackValue=DarkGray}">
+                                    <TextBlock Text="Lowlight"
+                                               FontFamily="Century Gothic"
+                                               FontSize="12"
+                                               Foreground="{StaticResource LightBrush}"
+                                               HorizontalAlignment="Center"
+                                               Margin="0,5,0,0"
+                                               VerticalAlignment="Top" />
+                                    <Path Data="M6.9478922,7.0470004L9.6886292,9.2383013 12.428207,7.0470004 19.375999,11.251 0,11.251z M19.585001,1.0830001L19.585001,10.221 13.061,6.2626729z M0,1.0830001L6.5219998,6.2626729 0,10.221z M0,0L19.376001,0 9.6886301,7.7509999z"
+                                          Stretch="Uniform"
+                                          Fill="#FFFFFFFF"
+                                          Width="40"
+                                          Height="40"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                                </Grid>
+
+                                <Grid Grid.Column="2">
+                                    <TextBlock Text="Base"
+                                               FontFamily="Century Gothic"
+                                               FontSize="12"
+                                               Foreground="{StaticResource LightBrush}"
+                                               HorizontalAlignment="Center"
+                                               Margin="0,5,0,0"
+                                               VerticalAlignment="Top" />
+                                    <Path Data="M6.9478922,7.0470004L9.6886292,9.2383013 12.428207,7.0470004 19.375999,11.251 0,11.251z M19.585001,1.0830001L19.585001,10.221 13.061,6.2626729z M0,1.0830001L6.5219998,6.2626729 0,10.221z M0,0L19.376001,0 9.6886301,7.7509999z"
+                                          Stretch="Uniform"
+                                          Fill="#FFFFFFFF"
+                                          Width="40"
+                                          Height="40"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center" />
+                                </Grid>
+
+                                <Rectangle Fill="Black"
+                                           HorizontalAlignment="Right"
+                                           StrokeThickness="0"
+                                           Width="2"
+                                           Margin="0,0,-1,0" />
+
+                                <Rectangle Fill="Black"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           StrokeThickness="0"
+                                           Width="2"
+                                           Margin="0,0,-1,0" />
+                            </Grid>
+
+                        </Grid>
+
+                        <Grid x:Name="WeatherPreviewGrid"
+                              Grid.Row="1"
+                              Width="{Binding ElementName=Page, Path=DataContext.MeTileSize.Width}"
+                              Height="{Binding ElementName=Page, Path=DataContext.MeTileSize.Height}"
+                              Margin="20,20,20,0"
+                              HorizontalAlignment="Center"
+                              Grid.ColumnSpan="3">
+
+                            <Grid Background="Black"
+                                  BorderBrush="{ThemeResource SystemControlHighlightAltBaseHighBrush}"
+                                  BorderThickness="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="10,5,0,0"
+                                            VerticalAlignment="Top">
+                                    <TextBlock Text="Highlight"
+                                               Foreground="{Binding CurrentBandTheme.HighlightBrush, FallbackValue=DarkGray}"
+                                               FontFamily="Segoe UI"
+                                               FontSize="16" />
+                                    <TextBlock Text=" | Secondary"
+                                               Foreground="{Binding CurrentBandTheme.SecondaryBrush, FallbackValue=DarkGray}"
+                                               FontFamily="Segoe UI"
+                                               FontSize="16" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                            Grid.Row="1"
+                                            Margin="10,0,0,0"
+                                            VerticalAlignment="Bottom">
+                                    <FontIcon FontFamily="Segoe UI Symbol"
+                                              Glyph="&#xE286;"
+                                              Foreground="{Binding CurrentBandTheme.SecondaryBrush, FallbackValue=DarkGray}"
+                                              FontSize="64" />
+                                    <TextBlock Text="45°"
+                                               FontSize="64"
+                                               Foreground="White"
+                                               FontWeight="Light"
+                                               VerticalAlignment="Bottom"
+                                               Margin="0" />
+                                </StackPanel>
+                            </Grid>
+
+                        </Grid>
+
+                        <Grid x:Name="FitnessGrid"
+                              Grid.Row="2"
+                              Width="{Binding ElementName=Page, Path=DataContext.MeTileSize.Width}"
+                              Height="{Binding ElementName=Page, Path=DataContext.MeTileSize.Height}"
+                              Margin="20,20,20,0"
+                              HorizontalAlignment="Center"
+                              Grid.ColumnSpan="3">
+
+                            <Grid Background="{Binding CurrentBandTheme.BaseBrush, FallbackValue=DarkGray}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Muted"
+                                           FontFamily="Century Gothic"
+                                           FontSize="12"
+                                           Foreground="{StaticResource LightBrush}"
+                                           HorizontalAlignment="Center"
+                                           Margin="0,5,0,0"
+                                           VerticalAlignment="Top" />
+                                <Ellipse Fill="{Binding CurrentBandTheme.MutedBrush, FallbackValue=DarkGray}"
+                                         Width="70"
+                                         Height="70"
+                                         Margin="20,0" />
+
+                                <StackPanel HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Margin="0">
+                                    <TextBlock Text="1"
+                                               Foreground="White"
+                                               FontFamily="Segoe UI"
+                                               FontSize="24"
+                                               Margin="0,-10"
+                                               FontWeight="Bold" />
+                                    <TextBlock Text="mi"
+                                               Foreground="White"
+                                               FontFamily="Segoe UI"
+                                               FontSize="14" />
+                                </StackPanel>
+                                <Grid Grid.Column="1">
+                                    <TextBlock Text="Base"
+                                               FontFamily="Century Gothic"
+                                               FontSize="12"
+                                               Foreground="{StaticResource LightBrush}"
+                                               HorizontalAlignment="Center"
+                                               Margin="0,5,0,0"
+                                               VerticalAlignment="Top" />
+                                    <TextBlock Foreground="White"
+                                               Text="9:10"
+                                               FontFamily="Segoe UI"
+                                               FontSize="64"
+                                               FontWeight="Bold"
+                                               VerticalAlignment="Center"
+                                               Margin="0,0,0,5" />
+                                </Grid>
+                            </Grid>
+
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+
+                <Grid x:Name="PastThemesGrid"
+                      MaxWidth="500"
+                      Margin="10,0"
+                      Grid.Row="1">
+                    <data:RadDataBoundListBox x:Name="ThemeHxListBox"
+                                              ItemsSource="{Binding ThemeHistory}"
+                                              ItemTemplate="{StaticResource ThemeHistoryItemTemplate}"
+                                              FontFamily="Century Gothic"
+                                              ItemTap="ThemeHxListBox_OnItemTap"
+                                              EmptyContent="no previous themes"
+                                              EmptyContentDisplayMode="DataSourceEmpty"
+                                              Margin="0" >
+                        <data:RadDataBoundListBox.ListHeaderTemplate>
+                            <DataTemplate>
+                                <Grid x:Name="ColorSelectionGrid"
+                                      DataContext="{Binding DataContext, ElementName=ThemeHxListBox}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <!--<TextBlock Text="Theme Color Picker"
+                                               Grid.Row="0"
+                                               Grid.ColumnSpan="3"
+                                               HorizontalAlignment="Center"
+                                               FontSize="16"
+                                               FontFamily="Century Gothic"
+                                               Margin="0,10,0,3"/>-->
+
+                                    <StackPanel Grid.Row="0"
+                                                Grid.ColumnSpan="3"
+                                                Margin="0,5,0,10">
+                                        <TextBlock Text="Theme Color Picker"
+                                                   FontFamily="Century Gothic"
+                                                   FontSize="18" />
+                                        <Rectangle Height="2"
+                                                   Fill="{ThemeResource SystemControlBackgroundAccentBrush}" />
+                                    </StackPanel>
+
+                                    <Grid x:Name="BaseColorGrid"
+                                          Tapped="ThemeColorGrid_Tapped"
+                                          Tag="Base"
+                                          Background="{Binding CurrentBandTheme.BaseBrush, FallbackValue=DarkGray}"
+                                          Height="70"
+                                          Margin="0,0,5,5"
+                                          Grid.Row="1">
+                                        <TextBlock Text="Base Color"
+                                                   Foreground="{StaticResource LightBrush}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Bottom"
+                                                   FontFamily="Century Gothic"
+                                                   FontSize="11"
+                                                   Margin="0,0,0,5"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center" />
+                                        <Path Data="M6.9478922,7.0470004L9.6886292,9.2383013 12.428207,7.0470004 19.375999,11.251 0,11.251z M19.585001,1.0830001L19.585001,10.221 13.061,6.2626729z M0,1.0830001L6.5219998,6.2626729 0,10.221z M0,0L19.376001,0 9.6886301,7.7509999z"
+                                              Stretch="Uniform"
+                                              Fill="#FFFFFFFF"
+                                              Width="39"
+                                              Height="39"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="0,0,0,20" />
+                                    </Grid>
+                                    <Grid x:Name="HighlightColorGrid"
+                                          Tapped="ThemeColorGrid_Tapped"
+                                          Tag="Highlight"
+                                          Background="{Binding CurrentBandTheme.HighlightBrush, FallbackValue=DarkGray}"
+                                          Height="70"
+                                          Grid.Column="1"
+                                          Grid.Row="1"
+                                          Margin="0,0,0,5">
+                                        <TextBlock Text="Highlight Color"
+                                                   Foreground="{StaticResource LightBrush}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Bottom"
+                                                   FontFamily="Century Gothic"
+                                                   FontSize="11"
+                                                   Margin="0,0,0,5"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center" />
+                                        <Path Data="M6.9478922,7.0470004L9.6886292,9.2383013 12.428207,7.0470004 19.375999,11.251 0,11.251z M19.585001,1.0830001L19.585001,10.221 13.061,6.2626729z M0,1.0830001L6.5219998,6.2626729 0,10.221z M0,0L19.376001,0 9.6886301,7.7509999z"
+                                              Stretch="Uniform"
+                                              Fill="#FFFFFFFF"
+                                              Width="39"
+                                              Height="39"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="0,0,0,20" />
+                                    </Grid>
+                                    <Grid x:Name="SecondaryColorGrid"
+                                          Tapped="ThemeColorGrid_Tapped"
+                                          Tag="Secondary"
+                                          Background="{Binding CurrentBandTheme.SecondaryBrush, FallbackValue=DarkGray}"
+                                          Height="70"
+                                          Grid.Column="2"
+                                          Grid.Row="1"
+                                          Margin="5,0,0,5">
+                                        <TextBlock Text="Secondary Color"
+                                                   Foreground="{StaticResource LightBrush}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Bottom"
+                                                   FontFamily="Century Gothic"
+                                                   FontSize="11"
+                                                   Margin="0,0,0,5"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center" />
+                                        <Path Data="M6.9478922,7.0470004L9.6886292,9.2383013 12.428207,7.0470004 19.375999,11.251 0,11.251z M19.585001,1.0830001L19.585001,10.221 13.061,6.2626729z M0,1.0830001L6.5219998,6.2626729 0,10.221z M0,0L19.376001,0 9.6886301,7.7509999z"
+                                              Stretch="Uniform"
+                                              Fill="#FFFFFFFF"
+                                              Width="39"
+                                              Height="39"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="0,0,0,20" />
+                                    </Grid>
+
+                                    <Grid x:Name="LowlightGrid"
+                                          Tapped="ThemeColorGrid_Tapped"
+                                          Tag="LowLight"
+                                          Background="{Binding CurrentBandTheme.LowLightBrush, FallbackValue=DarkGray}"
+                                          Height="70"
+                                          Margin="0,0,5,0"
+                                          Grid.Row="2">
+                                        <TextBlock Text="Lowlight Color"
+                                                   Foreground="{StaticResource LightBrush}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Bottom"
+                                                   FontFamily="Century Gothic"
+                                                   FontSize="11"
+                                                   Margin="0,0,0,5"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center" />
+                                        <Path Data="M6.9478922,7.0470004L9.6886292,9.2383013 12.428207,7.0470004 19.375999,11.251 0,11.251z M19.585001,1.0830001L19.585001,10.221 13.061,6.2626729z M0,1.0830001L6.5219998,6.2626729 0,10.221z M0,0L19.376001,0 9.6886301,7.7509999z"
+                                              Stretch="Uniform"
+                                              Fill="#FFFFFFFF"
+                                              Width="39"
+                                              Height="39"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="0,0,0,20" />
+                                    </Grid>
+                                    <Grid x:Name="HighContrastGrid"
+                                          Tapped="ThemeColorGrid_Tapped"
+                                          Tag="HighContrast"
+                                          Background="{Binding CurrentBandTheme.HighContrastBrush, FallbackValue=DarkGray}"
+                                          Height="70"
+                                          Grid.Row="2"
+                                          Grid.Column="1"
+                                          Margin="0">
+                                        <TextBlock Text="High Contrast Color"
+                                                   FontFamily="Century Gothic"
+                                                   FontSize="11"
+                                                   Margin="0,0,0,5"
+                                                   Foreground="{StaticResource LightBrush}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Bottom"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center" />
+                                        <Path Data="M6.9478922,7.0470004L9.6886292,9.2383013 12.428207,7.0470004 19.375999,11.251 0,11.251z M19.585001,1.0830001L19.585001,10.221 13.061,6.2626729z M0,1.0830001L6.5219998,6.2626729 0,10.221z M0,0L19.376001,0 9.6886301,7.7509999z"
+                                              Stretch="Uniform"
+                                              Fill="#FFFFFFFF"
+                                              Width="39"
+                                              Height="39"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="0,0,0,20" />
+                                    </Grid>
+                                    <Grid x:Name="MutedColorGrid"
+                                          Tapped="ThemeColorGrid_Tapped"
+                                          Tag="Muted"
+                                          Background="{Binding CurrentBandTheme.MutedBrush, FallbackValue=DarkGray}"
+                                          Height="70"
+                                          Margin="5,0,0,0"
+                                          Grid.Row="2"
+                                          Grid.Column="2">
+                                        <TextBlock Text="Muted Color"
+                                                   Foreground="{StaticResource LightBrush}"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Bottom"
+                                                   FontFamily="Century Gothic"
+                                                   FontSize="11"
+                                                   Margin="0,0,0,5"
+                                                   TextWrapping="Wrap"
+                                                   TextAlignment="Center" />
+                                        <Path Data="M6.9478922,7.0470004L9.6886292,9.2383013 12.428207,7.0470004 19.375999,11.251 0,11.251z M19.585001,1.0830001L19.585001,10.221 13.061,6.2626729z M0,1.0830001L6.5219998,6.2626729 0,10.221z M0,0L19.376001,0 9.6886301,7.7509999z"
+                                              Stretch="Uniform"
+                                              Fill="#FFFFFFFF"
+                                              Width="39"
+                                              Height="39"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="0,0,0,20" />
+                                    </Grid>
+
+                                    <Path x:Name="ColorLinkIcon1"
+                                          Data="M7.7709281,11.040411C8.3477862,11.04786,8.923774,11.156583,9.4698895,11.366144L8.0361993,12.799638C7.1253419,12.707338,6.1818323,12.995037,5.4852486,13.691533L2.6576099,16.51852C1.4276628,17.748915 1.4269924,19.751505 2.6576099,20.981899 3.8880777,22.212494 5.8908739,22.212494 7.1213515,20.981899L9.9489598,18.155113C10.645704,17.458416,10.933422,16.514521,10.841016,15.603024L12.274706,14.169432C12.945349,15.916823,12.583926,17.970215,11.174437,19.380308L8.3467691,22.207294C6.4370384,24.117386 3.3412533,24.117386 1.4321928,22.208395 -0.47739792,20.298304 -0.47739792,17.203318 1.4321928,15.293126L4.259841,12.466339C5.2285414,11.497793,6.5018411,11.024022,7.7709281,11.040411z M14.645898,7.6959996L15.942,8.9930334 8.9308417,16.004999 7.6339998,14.709355z M18.751149,0C20.002433,0 21.253716,0.47753191 22.208506,1.4325956 24.117282,3.3413134 24.117282,6.4363513 22.207806,8.3465986L19.380441,11.173371C17.970859,12.583447,15.917485,12.94414,14.170206,12.273652L15.603688,10.840076C16.515077,10.932475,17.458565,10.64468,18.155056,9.9480915L20.982521,7.1212792C22.212406,5.8909502 22.213005,3.8883042 20.982521,2.6579149 19.752136,1.4274058 17.749461,1.4274058 16.519076,2.6579149L13.691713,5.4847069C12.995721,6.1812258,12.707325,7.1239595,12.799723,8.0354433L11.366141,9.4688301C10.69555,7.721549,11.057546,5.668304,12.466328,4.259388L15.293792,1.4325956C16.24858,0.47753191,17.499865,0,18.751149,0z"
+                                          Stretch="Uniform"
+                                          Fill="White"
+                                          Stroke="Black"
+                                          StrokeThickness="0.5"
+                                          Width="40"
+                                          Height="40"
+                                          IsHitTestVisible="False"
+                                          RenderTransformOrigin="0.5,0.5"
+                                          Grid.Row="1"
+                                          Grid.RowSpan="2"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Center"
+                                          Visibility="{Binding ElementName=Page, Path=AreColorsLinked, Converter={StaticResource BoolToVisibilityConverter}}"
+                                          Margin="-8,0,0,0">
+                                        <Path.RenderTransform>
+                                            <TransformGroup>
+                                                <RotateTransform Angle="315" />
+                                                <ScaleTransform ScaleX="1"
+                                                                ScaleY="1" />
+                                            </TransformGroup>
+                                        </Path.RenderTransform>
+                                    </Path>
+
+                                    <Path x:Name="ColorLinkIcon2"
+                                          Data="M7.7709281,11.040411C8.3477862,11.04786,8.923774,11.156583,9.4698895,11.366144L8.0361993,12.799638C7.1253419,12.707338,6.1818323,12.995037,5.4852486,13.691533L2.6576099,16.51852C1.4276628,17.748915 1.4269924,19.751505 2.6576099,20.981899 3.8880777,22.212494 5.8908739,22.212494 7.1213515,20.981899L9.9489598,18.155113C10.645704,17.458416,10.933422,16.514521,10.841016,15.603024L12.274706,14.169432C12.945349,15.916823,12.583926,17.970215,11.174437,19.380308L8.3467691,22.207294C6.4370384,24.117386 3.3412533,24.117386 1.4321928,22.208395 -0.47739792,20.298304 -0.47739792,17.203318 1.4321928,15.293126L4.259841,12.466339C5.2285414,11.497793,6.5018411,11.024022,7.7709281,11.040411z M14.645898,7.6959996L15.942,8.9930334 8.9308417,16.004999 7.6339998,14.709355z M18.751149,0C20.002433,0 21.253716,0.47753191 22.208506,1.4325956 24.117282,3.3413134 24.117282,6.4363513 22.207806,8.3465986L19.380441,11.173371C17.970859,12.583447,15.917485,12.94414,14.170206,12.273652L15.603688,10.840076C16.515077,10.932475,17.458565,10.64468,18.155056,9.9480915L20.982521,7.1212792C22.212406,5.8909502 22.213005,3.8883042 20.982521,2.6579149 19.752136,1.4274058 17.749461,1.4274058 16.519076,2.6579149L13.691713,5.4847069C12.995721,6.1812258,12.707325,7.1239595,12.799723,8.0354433L11.366141,9.4688301C10.69555,7.721549,11.057546,5.668304,12.466328,4.259388L15.293792,1.4325956C16.24858,0.47753191,17.499865,0,18.751149,0z"
+                                          Stretch="Uniform"
+                                          IsHitTestVisible="False"
+                                          Fill="White"
+                                          Stroke="Black"
+                                          StrokeThickness="0.5"
+                                          Width="40"
+                                          Height="40"
+                                          RenderTransformOrigin="0.5,0.5"
+                                          Grid.Row="1"
+                                          Grid.RowSpan="2"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Center"
+                                          Grid.Column="1"
+                                          Visibility="{Binding ElementName=Page, Path=AreColorsLinked, Converter={StaticResource BoolToVisibilityConverter}}"
+                                          Margin="-8,0,0,0">
+                                        <Path.RenderTransform>
+                                            <TransformGroup>
+                                                <RotateTransform Angle="315" />
+                                                <ScaleTransform ScaleX="1"
+                                                                ScaleY="1" />
+                                            </TransformGroup>
+                                        </Path.RenderTransform>
+                                    </Path>
+
+                                    <!--<TextBlock Text="Recently Used Themes"
+                                               Grid.Row="3"
+                                               Grid.ColumnSpan="3"
+                                               HorizontalAlignment="Center"
+                                               FontSize="16"
+                                               FontFamily="Century Gothic"
+                                               Margin="0,10,0,5" />-->
+
+                                    <StackPanel Grid.Row="3"
+                                                Grid.ColumnSpan="3"
+                                                Margin="0,5,0,10">
+                                        <TextBlock Text="Recently Used Themes"
+                                                   FontFamily="Century Gothic"
+                                                   FontSize="18" />
+                                        <Rectangle Height="2"
+                                                   Fill="{ThemeResource SystemControlBackgroundAccentBrush}" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </data:RadDataBoundListBox.ListHeaderTemplate>
+                        <!--<data:RadDataBoundListBox.EmptyContentTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <StackPanel HorizontalAlignment="Center"
+                                                VerticalAlignment="Bottom"
+                                                Margin="0,0,0,0">
+                                        <TextBlock Text="no custom themes"
+                                                   FontSize="16"
+                                                   FontFamily="Century Gothic"
+                                                   HorizontalAlignment="Center" />
+                                        <TextBlock Text="this list will show the last 8 themes you've set"
+                                                   FontSize="12"
+                                                   FontFamily="Century Gothic"
+                                                   HorizontalAlignment="Center" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </data:RadDataBoundListBox.EmptyContentTemplate>-->
+                    </data:RadDataBoundListBox>
+                </Grid>
+            </Grid>
+
+            <CommandBar x:Name="ThemeCommandBar"
+                        Grid.Row="1"
+                        VerticalAlignment="Bottom" >
+                <AppBarButton x:Name="LinkUnlinkAppBarButton"
+                              Label="link similar"
+                              Icon="Link"
+                              Click="LinkUnlinkAppBarButton_OnClick"
+                              Visibility="Visible">
+                </AppBarButton>
+                <AppBarButton x:Name="ResetThemeAppBarButton"
+                              IsEnabled="False"
+                              Icon="ClearSelection"
+                              Label="revert"
+                              Click="ResetThemeAppBarButton_OnClick"
+                              Visibility="Visible" />
+                <AppBarButton x:Name="SetBandThemeAppBarButton"
+                              Icon="SetLockscreen"
+                              Label="set theme"
+                              Click="SetBandThemeAppBarButton_OnClick"
+                              Visibility="Visible" />
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton x:Name="ClearThemeHistoryButton"
+                                  Label="clear theme history"
+                                  Click="ClearThemeHistoryButton_OnClick" />
+                </CommandBar.SecondaryCommands>
+            </CommandBar>
+
+            <userControls:ColorPicker x:Name="Picker"
+                                      ColorSelectionChanged="ColorPicker_OnColorSelectionChanged"
+                                      Visibility="Collapsed"
+                                      Grid.Row="0"
+                                      Grid.RowSpan="2" />
+        </Grid>
+
+        <primitives:RadBusyIndicator IsActive="{Binding IsBusy}"
+                                     Content="{Binding IsBusyMessage}"
+                                     Background="#7F000000"
+                                     AnimationStyle="AnimationStyle7"
+                                     Grid.Row="0"
+                                     Grid.RowSpan="2"
+                                     Foreground="White"
+                                     d:IsHidden="True">
+        </primitives:RadBusyIndicator>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="ContinuumExecutionStates">
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <triggers:ContinuumModeTrigger Target="{x:Bind}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="LayoutRoot.Background"
+                                Value="Red" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="WindowStates">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1024" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HighlightLowLightGrid.(Grid.Row)"
+                                Value="0" />
+                        <Setter Target="HighlightLowLightGrid.(Grid.Column)"
+                                Value="0" />
+                        <Setter Target="HighlightLowLightGrid.(Grid.ColumnSpan)"
+                                Value="1" />
+                        <Setter Target="WeatherPreviewGrid.(Grid.Row)"
+                                Value="0" />
+                        <Setter Target="WeatherPreviewGrid.(Grid.Column)"
+                                Value="1" />
+                        <Setter Target="WeatherPreviewGrid.(Grid.ColumnSpan)"
+                                Value="1" />
+                        <Setter Target="FitnessGrid.(Grid.Row)"
+                                Value="0" />
+                        <Setter Target="FitnessGrid.(Grid.Column)"
+                                Value="2" />
+                        <Setter Target="FitnessGrid.(Grid.ColumnSpan)"
+                                Value="1" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="MediumState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HeaderGrid.Visibility"
+                                Value="Visible" />
+                        <Setter Target="HighlightLowLightGrid.(Grid.Row)"
+                                Value="0" />
+                        <Setter Target="HighlightLowLightGrid.(Grid.Column)"
+                                Value="0" />
+                        <Setter Target="HighlightLowLightGrid.(Grid.ColumnSpan)"
+                                Value="1" />
+                        <Setter Target="WeatherPreviewGrid.(Grid.Row)"
+                                Value="0" />
+                        <Setter Target="WeatherPreviewGrid.(Grid.Column)"
+                                Value="1" />
+                        <Setter Target="WeatherPreviewGrid.(Grid.ColumnSpan)"
+                                Value="1" />
+                        <Setter Target="FitnessGrid.(Grid.Row)"
+                                Value="0" />
+                        <Setter Target="FitnessGrid.(Grid.Column)"
+                                Value="2" />
+                        <Setter Target="FitnessGrid.(Grid.ColumnSpan)"
+                                Value="1" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HeaderGrid.Visibility"
+                                Value="Visible" />
+                        <Setter Target="HighlightLowLightGrid.(Grid.Row)"
+                                Value="0" />
+                        <Setter Target="HighlightLowLightGrid.(Grid.Column)"
+                                Value="0" />
+                        <Setter Target="HighlightLowLightGrid.(Grid.ColumnSpan)"
+                                Value="1" />
+                        <Setter Target="WeatherPreviewGrid.(Grid.Row)"
+                                Value="0" />
+                        <Setter Target="WeatherPreviewGrid.(Grid.Column)"
+                                Value="1" />
+                        <Setter Target="WeatherPreviewGrid.(Grid.ColumnSpan)"
+                                Value="1" />
+                        <Setter Target="FitnessGrid.(Grid.Row)"
+                                Value="0" />
+                        <Setter Target="FitnessGrid.(Grid.Column)"
+                                Value="2" />
+                        <Setter Target="FitnessGrid.(Grid.ColumnSpan)"
+                                Value="1" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
+        <!-- old mobile view
+        <VisualState.Setters>
+                        <Setter Target="HeaderGrid.Visibility"
+                                Value="Collapsed" />
+                        <Setter Target="HighlightLowLightGrid.(Grid.Row)"
+                                Value="0" />
+                        <Setter Target="HighlightLowLightGrid.(Grid.Column)"
+                                Value="0" />
+                        <Setter Target="HighlightLowLightGrid.(Grid.ColumnSpan)"
+                                Value="3" />
+                        <Setter Target="WeatherPreviewGrid.(Grid.Row)"
+                                Value="1" />
+                        <Setter Target="WeatherPreviewGrid.(Grid.Column)"
+                                Value="0" />
+                        <Setter Target="WeatherPreviewGrid.(Grid.ColumnSpan)"
+                                Value="3" />
+                        <Setter Target="FitnessGrid.(Grid.Row)"
+                                Value="2" />
+                        <Setter Target="FitnessGrid.(Grid.Column)"
+                                Value="0" />
+                        <Setter Target="FitnessGrid.(Grid.ColumnSpan)"
+                                Value="3" />
+                    </VisualState.Setters>
+        
+        
+        -->
+    </Grid>
+</Page>

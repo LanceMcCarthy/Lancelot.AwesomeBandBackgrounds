@@ -1,0 +1,260 @@
+﻿<Page x:Class="BandCentral.Uwp.Views.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:BandCentral.Uwp.Views"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:presentation="using:Intense.Presentation"
+      mc:Ignorable="d"
+      d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}">
+
+    <Page.Resources>
+        <presentation:ThemeCommands x:Key="ThemeCommands" />
+    </Page.Resources>
+
+    <Grid x:Name="RootGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="HeaderGrid"
+              Height="48"
+              Background="{StaticResource BlueAgainBlueBrush}">
+            <TextBlock Text="Settings"
+                       FontFamily="Century Gothic"
+                       HorizontalAlignment="Center"
+                       FontSize="24"
+                       VerticalAlignment="Center"
+                       Foreground="{StaticResource LightBrush}" />
+            <Button Visibility="{Binding DisconnectedMode, Converter={StaticResource BoolToVisibilityConverter}}"
+                    Background="Red"
+                    Margin="10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center">
+                <Button.Content>
+                    <SymbolIcon Symbol="Important"
+                                Foreground="White" />
+                </Button.Content>
+                <Button.Flyout>
+                    <Flyout>
+                        <Grid>
+                            <TextBlock Text="You are in Disconnected Mode" />
+                        </Grid>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+        </Grid>
+
+        <Grid x:Name="ContentGrid"
+              Grid.Row="1">
+            <StackPanel>
+                <StackPanel x:Name="InfoPanel"
+                            Margin="15,0">
+                    <TextBlock Text="Current Band Information"
+                               FontFamily="Century Gothic"
+                               FontSize="21.333"
+                               Margin="0,10,0,0" />
+                    <Rectangle Fill="{ThemeResource SystemControlHighlightAltAccentBrush}"
+                               Height="1"
+                               Margin="0,0,0,10" />
+                    <StackPanel x:Name="BandNamePanel"
+                                Orientation="Horizontal">
+                        <TextBlock Text="Default Band Name:"
+                                   FontFamily="Century Gothic"
+                                   FontSize="14.667"
+                                   Margin="0,0,0,0" />
+                        <TextBlock Text="{Binding PreferredBandName}"
+                                   Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}"
+                                   FontFamily="Century Gothic"
+                                   FontSize="14.667"
+                                   Margin="5,0,0,0" />
+                    </StackPanel>
+                    <StackPanel x:Name="BandModelPanel"
+                                Orientation="Horizontal">
+                        <TextBlock Text="Band Model (detected):"
+                                   FontFamily="Century Gothic"
+                                   FontSize="14.667"
+                                   Margin="0,0,0,0" />
+                        <TextBlock Text="{Binding BandModel}"
+                                   Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"
+                                   FontFamily="Century Gothic"
+                                   FontSize="14.667"
+                                   Margin="5,0,0,0" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Hardware Version:"
+                                   FontFamily="Century Gothic"
+                                   FontSize="14.667"
+                                   Margin="0,0,0,0" />
+                        <TextBlock Text="{Binding HardwareVersion}"
+                                   FontSize="14.667"
+                                   Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"
+                                   FontFamily="Century Gothic"
+                                   Margin="5,0,0,0" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,0,0,10">
+                        <TextBlock Text="Firmware Version:"
+                                   FontFamily="Century Gothic"
+                                   FontSize="14.667"
+                                   Margin="0,0,0,0" />
+                        <TextBlock Text="{Binding FirmwareVersion}"
+                                   FontSize="14.667"
+                                   Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"
+                                   FontFamily="Century Gothic"
+                                   Margin="5,0,0,0" />
+                    </StackPanel>
+
+                    <Button x:Name="OpenBandSettingsButton"
+                            Content="manage band connection"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Margin="0"
+                            Click="OpenBandSettingsButton_OnClick"
+                            Background="{StaticResource BlueAgainBlueBrush}"
+                            Foreground="{StaticResource LightBrush}"
+                            BorderBrush="{StaticResource BlueAgainBlueBrush}" />
+                </StackPanel>
+
+                <StackPanel x:Name="PreferencesPanel"
+                            Margin="15,0">
+                    <TextBlock Text="Preferences"
+                               FontFamily="Century Gothic"
+                               FontSize="21.333"
+                               Margin="0,20,0,0" />
+                    <Rectangle Fill="{ThemeResource SystemControlHighlightAltAccentBrush}"
+                               Height="1"
+                               Margin="0,0,0,10" />
+                    <ToggleSwitch x:Name="AutoConnectToggle"
+                                  FontFamily="Century Gothic"
+                                  Header="Auto-connect to Band on launch"
+                                  IsOn="{Binding ConnectOnLaunch, Mode=TwoWay}"
+                                  Margin="0,0,0,0" />
+                    <ToggleSwitch x:Name="ShowCurrentBandImageToggle"
+                                  FontFamily="Century Gothic"
+                                  Header="Show Current Band Image"
+                                  IsOn="{Binding LoadCurrentBandImage, Mode=TwoWay}"
+                                  Margin="0,0,0,0" />
+                    <ToggleSwitch x:Name="ShowTimeOverlaysToggle"
+                                  FontFamily="Century Gothic"
+                                  Header="Show Time Overlay on Favorites"
+                                  IsOn="{Binding ShowTimeOverlay, Mode=TwoWay}"
+                                  Margin="0,0,0,10" />
+
+                    <!--<Button x:Name="ThemeChangeButton"
+                            Content="toggle app theme"
+                            Command="{Binding ToggleThemeCommand, Source={StaticResource ThemeCommands}}"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Bottom"
+                            Background="{StaticResource BlueAgainBlueBrush}"
+                            Foreground="{StaticResource LightBrush}"
+                            BorderBrush="{StaticResource BlueAgainBlueBrush}" 
+                            Click="ThemeChangeButton_OnClick"/>-->
+                </StackPanel>
+
+                <StackPanel x:Name="BackupPanel"
+                            Margin="15,0">
+                    <TextBlock Text="Backup &amp; Restore"
+                               FontFamily="Century Gothic"
+                               FontSize="21.333"
+                               Margin="0,10,0,0" />
+                    <Rectangle Fill="{ThemeResource SystemControlHighlightAltAccentBrush}"
+                               Height="1"
+                               Margin="0,0,0,10" />
+
+                    <Grid x:Name="BackupOptionsRelativePanel"
+                          VerticalAlignment="Bottom">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="BackupFavoritesButton"
+                                Content="BACKUP favorites to synced storage"
+                                Margin="0,15"
+                                HorizontalAlignment="Stretch"
+                                Background="{StaticResource BlueAgainBlueBrush}"
+                                Foreground="{StaticResource LightBrush}"
+                                BorderBrush="{StaticResource BlueAgainBlueBrush}"
+                                Click="BackupFavoritesButton_OnClick" />
+                        <Button x:Name="LoadFavortiesButton"
+                                Content="RESTORE favorites from synced storage"
+                                Margin="0,15"
+                                HorizontalAlignment="Stretch"
+                                Background="{StaticResource BlueAgainBlueBrush}"
+                                Foreground="{StaticResource LightBrush}"
+                                BorderBrush="{StaticResource BlueAgainBlueBrush}"
+                                Click="LoadFavortiesButton_OnClick" />
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowStates">
+                <!--<VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1024" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+
+                    </VisualState.Setters>
+                </VisualState>-->
+                <VisualState x:Name="MediumState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HeaderGrid.Visibility"
+                                Value="Visible" />
+                        <!--<Setter Target="ThemeChangeButton.HorizontalAlignment"
+                                Value="Left" />-->
+                        <Setter Target="OpenBandSettingsButton.HorizontalAlignment"
+                                Value="Left" />
+                        <Setter Target="BackupFavoritesButton.(Grid.Row)"
+                                Value="0" />
+                        <Setter Target="BackupFavoritesButton.(Grid.Column)"
+                                Value="0" />
+                        <Setter Target="BackupFavoritesButton.(Grid.ColumnSpan)"
+                                Value="1" />
+                        <Setter Target="LoadFavortiesButton.(Grid.Row)"
+                                Value="0" />
+                        <Setter Target="LoadFavortiesButton.(Grid.Column)"
+                                Value="1" />
+                        <Setter Target="LoadFavortiesButton.(Grid.ColumnSpan)"
+                                Value="1" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HeaderGrid.Visibility"
+                                Value="Collapsed" />
+                        <!--<Setter Target="ThemeChangeButton.HorizontalAlignment"
+                                Value="Stretch"/>-->
+                        <Setter Target="OpenBandSettingsButton.HorizontalAlignment"
+                                Value="Stretch" />
+                        <Setter Target="BackupFavoritesButton.(Grid.Row)"
+                                Value="0" />
+                        <Setter Target="BackupFavoritesButton.(Grid.Column)"
+                                Value="0" />
+                        <Setter Target="BackupFavoritesButton.(Grid.ColumnSpan)"
+                                Value="2" />
+                        <Setter Target="LoadFavortiesButton.(Grid.Row)"
+                                Value="1" />
+                        <Setter Target="LoadFavortiesButton.(Grid.Column)"
+                                Value="0" />
+                        <Setter Target="LoadFavortiesButton.(Grid.ColumnSpan)"
+                                Value="2" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</Page>

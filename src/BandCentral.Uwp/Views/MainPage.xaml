@@ -1,0 +1,438 @@
+﻿<Page x:Name="Page"
+      x:Class="BandCentral.Uwp.Views.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+      xmlns:xaml="using:BandCentral.Uwp.Extensions.XAML"
+      xmlns:userControls="using:BandCentral.Uwp.UserControls"
+      xmlns:common="using:BandCentral.Uwp.Common"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:behaviors="using:BandCentral.Uwp.Behaviors"
+      xmlns:controls="using:BandCentral.Uwp.Controls"
+      xmlns:controls1="using:BandCentral.WindowsBase.Controls"
+      xmlns:converters="using:BandCentral.WindowsBase.Converters"
+      d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:EmptyCountToVisibilityConverter x:Key="EmptyCountToVisibilityConverter" />
+    </Page.Resources>
+
+    <Grid x:Name="LayoutRoot"
+          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="HeaderGrid"
+              Height="48"
+              Background="{StaticResource BlueAgainBlueBrush}">
+            <TextBlock Text="Home"
+                       FontFamily="Century Gothic"
+                       HorizontalAlignment="Center"
+                       FontSize="24"
+                       VerticalAlignment="Center"
+                       Foreground="{StaticResource LightBrush}" />
+            <Button Visibility="{Binding DisconnectedMode, Converter={StaticResource BoolToVisibilityConverter}}"
+                    Background="Red"
+                    Margin="10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center">
+                <Button.Content>
+                    <SymbolIcon Symbol="Important"
+                                Foreground="White" />
+                </Button.Content>
+                <Button.Flyout>
+                    <Flyout>
+                        <Grid>
+                            <TextBlock Text="You are in Disconnected Mode" />
+                        </Grid>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+        </Grid>
+
+        <Grid x:Name="ContentGrid"
+              Grid.Row="1">
+
+            <!--  IsItemClickEnabled="True"
+                                        ItemClick="FavoritesList_OnItemClick"  -->
+
+            <controls1:AdaptiveGridView x:Name="FavoritesList"
+                                        SelectionMode="None"
+                                        ItemsSource="{Binding FlickrFavs}"
+                                        HorizontalAlignment="Center"
+                                        MinItemWidth="{Binding MeTileSize.Width}"
+                                        MinItemHeight="{Binding MeTileSize.Height}">
+                <controls1:AdaptiveGridView.Header>
+                    <StackPanel x:Name="HeaderPanel"
+                                VerticalAlignment="Top">
+                        <StackPanel x:Name="CurrentBackgroundPanel"
+                                    Margin="0,5,0,0"
+                                    xaml:Extension.IsVisible="{Binding IsBandConnected}">
+                            <StackPanel Margin="5,0,5,10">
+                                <TextBlock Text="Current Background"
+                                           FontFamily="Century Gothic"
+                                           FontWeight="Light"
+                                           FontSize="18" />
+                                <Rectangle Height="2"
+                                           Fill="{ThemeResource SystemControlBackgroundAccentBrush}" />
+                            </StackPanel>
+                            <Grid VerticalAlignment="Center"
+                                  Margin="5,0">
+                                <Rectangle Fill="{ThemeResource SystemControlForegroundListLowBrush}" />
+                                <Button Command="{Binding ElementName=Page, Path=DataContext.GetCurrentMeTileCommand}"
+                                        Visibility="{Binding IsBandConnected, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+                                    <Button.Content>
+                                        <StackPanel>
+                                            <SymbolIcon Symbol="Refresh" />
+                                            <TextBlock Text="Reload Your Current Band Image" />
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                                <!-- -->
+                                <Image x:Name="CurrentMeImage"
+                                       MaxWidth="450"
+                                       Source="{Binding ElementName=Page, Path=DataContext.CurrentBandImage}"
+                                       Width="{Binding ElementName=Page, Path=DataContext.MeTileSize.Width}"
+                                       Height="{Binding ElementName=Page, Path=DataContext.MeTileSize.Height}" />
+
+                            </Grid>
+                        </StackPanel>
+
+                        <Grid Margin="0,0,0,5">
+                            <StackPanel Margin="5,0">
+                                <TextBlock Text="Favorites"
+                                           FontFamily="Century Gothic"
+                                           FontWeight="Light"
+                                           FontSize="18"
+                                           Margin="0,5,0,0" />
+                                <Rectangle Height="2"
+                                           Fill="{ThemeResource SystemControlBackgroundAccentBrush}" />
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid x:Name="NoFavsGrid"
+                              VerticalAlignment="Top"
+                              HorizontalAlignment="Center"
+                              MinHeight="100"
+                              Background="{ThemeResource SystemControlForegroundListLowBrush}"
+                              Visibility="{Binding ElementName=FavoritesList, Path=HasItems, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
+                              BorderThickness="2"
+                              Margin="0,10,0,0">
+                            <StackPanel Margin="5">
+                                <TextBlock Text="You have no favorites..."
+                                           FontWeight="Bold"
+                                           FontSize="20"
+                                           HorizontalAlignment="Center" />
+
+                                <Button x:Name="GoToBrowseButton"
+                                        Content="click here to browse millions of photos now"
+                                        HorizontalAlignment="Center"
+                                        Margin="10,10,10,10"
+                                        Click="GoToBrowseButton_OnClick" />
+
+                                <HyperlinkButton Click="SettingsHyperLinkClick"
+                                                 FontSize="12"
+                                                 HorizontalAlignment="Center"
+                                                 Content="You can also restore backed-up favs from the Settings page" />
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </controls1:AdaptiveGridView.Header>
+                <controls1:AdaptiveGridView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid x:Name="BaseGrid"
+                              Background="{StaticResource LightGrayBrush}"
+                              VerticalAlignment="Top"
+                              Margin="0">
+                            <Button DataContext="{Binding}"
+                                    HorizontalContentAlignment="Stretch"
+                                    VerticalContentAlignment="Stretch"
+                                    Padding="0"
+                                    VerticalAlignment="Stretch"
+                                    HorizontalAlignment="Stretch">
+                                <Button.Content>
+                                    <Grid>
+                                        <Grid x:Name="PhotoGrid"
+                                              Background="{StaticResource BlueAgainBlueBrush}">
+
+                                            <Image Stretch="UniformToFill"
+                                                   MinHeight="{Binding ElementName=Page, Path=DataContext.MeTileSize.Height}"
+                                                   MinWidth="{Binding ElementName=Page, Path=DataContext.MeTileSize.Width}"
+                                                   Source="{Binding Converter={StaticResource FavImageSourceConverter}}" />
+
+                                            <!--<controls:CompositionImage Stretch="UniformToFill"
+                                                                       MinHeight="{Binding ElementName=Page, Path=DataContext.MeTileSize.Height}"
+                                                                       MinWidth="{Binding ElementName=Page, Path=DataContext.MeTileSize.Width}"
+                                                                       Source="{Binding Converter={StaticResource FavImageSourceConverter}}" />-->
+
+                                            <Grid x:Name="TimeGrid"
+                                                  xaml:Extension.IsVisible="{Binding ElementName=Page, Path=DataContext.ShowTimeOverlay}"
+                                                  VerticalAlignment="Bottom"
+                                                  HorizontalAlignment="Left">
+                                                <StackPanel Orientation="Horizontal"
+                                                            d:LayoutOverrides="Height">
+                                                    <TextBlock x:Name="TimeTextBlock"
+                                                               Text="12:41"
+                                                               VerticalAlignment="Bottom"
+                                                               HorizontalAlignment="Left"
+                                                               FontFamily="Segoe WP SemiLight"
+                                                               FontSize="82"
+                                                               Margin="10,0,0,-5"
+                                                               Foreground="{StaticResource LightBrush}" />
+                                                    <StackPanel VerticalAlignment="Bottom"
+                                                                Margin="0,0,0,15">
+                                                        <TextBlock Text="Thu"
+                                                                   FontFamily="Segoe UI Light"
+                                                                   Foreground="{StaticResource LightBrush}"
+                                                                   FontSize="20" />
+                                                        <TextBlock Text="02"
+                                                                   FontFamily="Segoe UI Light"
+                                                                   Foreground="{StaticResource LightBrush}"
+                                                                   FontSize="20" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Grid>
+
+                                        <Grid x:Name="TopGrid"
+                                              xaml:Extension.IsVisible="{Binding ElementName=Page, Path=DataContext.ShowTimeOverlay}"
+                                              HorizontalAlignment="Stretch"
+                                              Background="{ThemeResource SystemControlBackgroundBaseMediumHighBrush}"
+                                              VerticalAlignment="Top">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Margin="10,0,0,0">
+                                                <Path Data="M227.021411376515,3.11325970428836E-13C292.695346313039,-4.3625252046181E-06 349.218234496632,45.8481483459476 349.218234496632,133.302810668946 349.218234496632,190.189529418946 323.333255248585,247.996154785157 289.467563109914,283.886108398438L289.652011352101,283.886108398438C276.65625329546,324.550872802735 297.448031859914,334.195098876953 300.739657836476,335.297546386719 372.904391723195,359.878662109375 454.00000329546,406.17953491211 454.00000329546,453.633880615235 454.00000329546,456.130737304688 454.00000329546,457.795288085938 454.00000329546,458.999969482422L0,458.999969482422C3.29546037391992E-06,457.795288085938 3.29546037391992E-06,456.130737304688 0,453.633880615235 3.29546037391992E-06,407.566680908203 80.7056917720229,360.900848388672 149.47250695757,335.297546386719 154.445147948781,333.421112060547 178.202105956593,320.112030029297 164.915606933156,284.25863647461 130.85141320757,248.441528320313 105.108210998097,190.408523559571 105.108210998097,133.302810668946 105.108210998097,45.8481483459476 161.304889159718,-4.3625252046181E-06 227.021411376515,3.11325970428836E-13z"
+                                                      Stretch="Uniform"
+                                                      Fill="{ThemeResource SystemControlBackgroundAltHighBrush}"
+                                                      Width="15"
+                                                      Height="15"
+                                                      Margin="5" />
+                                                <TextBlock Text="{Binding Photo.OwnerName}"
+                                                           FontFamily="Century Gothic"
+                                                           FontSize="12"
+                                                           TextTrimming="CharacterEllipsis"
+                                                           Foreground="{ThemeResource SystemControlBackgroundAltHighBrush}"
+                                                           VerticalAlignment="Center"
+                                                           Margin="5" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Grid.Column="1"
+                                                        Margin="0,0,5,0">
+                                                <Path Data="M33.597977,10.759002C37.946865,10.759002 41.485962,14.285001 41.485962,18.649 41.485962,23 37.946865,26.535 33.597977,26.535 29.23909,26.535 25.709992,23 25.709992,18.649 25.709992,17.784 25.849955,16.953001 26.109888,16.174002 26.779719,16.881001 27.70948,17.327002 28.759213,17.327002 30.778696,17.327002 32.418278,15.691001 32.418278,13.668001 32.418278,12.663001 32.008381,11.748001 31.348551,11.087002 32.058369,10.876001 32.818176,10.759002 33.597977,10.759002z M33.606682,4.3679962C25.92741,4.3679957 19.698065,10.594956 19.698065,18.27293 19.698065,25.953894 25.92741,32.177862 33.606682,32.177862 41.295838,32.177862 47.515175,25.953894 47.515175,18.27293 47.515175,10.594956 41.295838,4.3679957 33.606682,4.3679962z M34.867642,1.546141E-09C36.890393,2.6508449E-05 58.705193,0.41938579 68.893006,18.299923 68.893006,18.299923 57.1442,36.139837 34.44656,34.768854 34.44656,34.768854 14.428583,36.59984 0,18.299923 0,18.299923 9.0791523,0.4590019 34.716553,0.0010111886 34.716553,0.0010114873 34.768162,-1.4442128E-06 34.867642,1.546141E-09z"
+                                                      Stretch="Uniform"
+                                                      Width="10"
+                                                      Height="10"
+                                                      Margin="5"
+                                                      Fill="{ThemeResource SystemControlBackgroundAltHighBrush}" />
+                                                <TextBlock Text="{Binding Photo.Views}"
+                                                           FontFamily="Century Gothic"
+                                                           FontSize="12"
+                                                           Margin="5"
+                                                           VerticalAlignment="Center"
+                                                           Foreground="{ThemeResource SystemControlBackgroundAltHighBrush}" />
+                                                <Path Data="M98.3943,0C139.588,3E-06 159.372,18.688 182,46.9911 204.628,18.688 224.372,3E-06 265.586,0 270.745,3E-06 276.209,0.287865 282.08,0.895517 317.728,4.53071 358.983,38.8146 364,104.504L364,126.347C359.348,189.201 314.113,266.729 182,364 49.867,266.729 4.6722,189.201 0,126.347L0,104.504C5.01682,38.8146 46.2514,4.53071 81.92,0.895517 87.7698,0.287865 93.2542,3E-06 98.3943,0z"
+                                                      Stretch="Uniform"
+                                                      Width="10"
+                                                      Height="10"
+                                                      Margin="5"
+                                                      Fill="{StaticResource LightBrush}" />
+                                                <TextBlock Text="{Binding Photo.CountFaves}"
+                                                           FontFamily="Century Gothic"
+                                                           FontSize="12"
+                                                           VerticalAlignment="Center"
+                                                           Margin="5"
+                                                           Foreground="{StaticResource LightBrush}" />
+                                            </StackPanel>
+                                        </Grid>
+                                    </Grid>
+                                </Button.Content>
+                                <Button.Flyout>
+                                    <Flyout Placement="Top">
+                                        <Grid x:Name="ButtonsGrid"
+                                              VerticalAlignment="Bottom">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+
+                                            <Button x:Name="SendToBandButton"
+                                                    Command="{Binding ElementName=Page, Path=DataContext.SendToBandCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Grid.Row="0"
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Stretch"
+                                                    Margin="5"
+                                                    Background="{ThemeResource SystemControlBackgroundAltMediumHighBrush}">
+                                                <Button.Content>
+                                                    <StackPanel>
+                                                        <FontIcon Glyph="" />
+                                                        <TextBlock Text="Send to Band"
+                                                                   FontFamily="Century Gothic"
+                                                                   TextWrapping="Wrap"
+                                                                   TextAlignment="Center"
+                                                                   FontSize="12" />
+                                                    </StackPanel>
+                                                </Button.Content>
+                                            </Button>
+
+                                            <Button x:Name="PaletteButton"
+                                                    Command="{Binding ElementName=Page, Path=DataContext.EditPaletteCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Grid.Row="1"
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Stretch"
+                                                    Margin="5"
+                                                    Background="{ThemeResource SystemControlBackgroundAltMediumHighBrush}">
+                                                <Button.Content>
+                                                    <StackPanel>
+                                                        <FontIcon Glyph="" />
+                                                        <TextBlock Text="Edit Paired Theme"
+                                                                   FontFamily="Century Gothic"
+                                                                   TextWrapping="Wrap"
+                                                                   TextAlignment="Center"
+                                                                   FontSize="12" />
+                                                    </StackPanel>
+                                                </Button.Content>
+                                            </Button>
+
+                                            <Button x:Name="EditButton"
+                                                    Command="{Binding ElementName=Page, Path=DataContext.EditImageCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Grid.Row="2"
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Stretch"
+                                                    Margin="5"
+                                                    Background="{ThemeResource SystemControlBackgroundAltMediumHighBrush}">
+                                                <Button.Content>
+                                                    <StackPanel>
+                                                        <FontIcon Glyph="" />
+                                                        <TextBlock Text="Custom Crop &amp; Effects"
+                                                                   FontFamily="Century Gothic"
+                                                                   TextWrapping="Wrap"
+                                                                   TextAlignment="Center"
+                                                                   FontSize="12" />
+                                                    </StackPanel>
+                                                </Button.Content>
+                                            </Button>
+
+                                            <Button x:Name="FavsButton"
+                                                    Command="{Binding ElementName=Page, Path=DataContext.RemoveFromFavoritesCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Grid.Row="3"
+                                                    HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Stretch"
+                                                    Margin="5"
+                                                    Background="{ThemeResource SystemControlBackgroundAltMediumHighBrush}">
+                                                <Button.Content>
+                                                    <StackPanel>
+                                                        <FontIcon Glyph="" />
+                                                        <TextBlock Text="Remove Favorite"
+                                                                   FontFamily="Century Gothic"
+                                                                   TextWrapping="Wrap"
+                                                                   TextAlignment="Center"
+                                                                   FontSize="12" />
+                                                    </StackPanel>
+                                                </Button.Content>
+                                            </Button>
+
+                                            <Grid Grid.Row="0"
+                                                  Grid.RowSpan="4"
+                                                  HorizontalAlignment="Stretch"
+                                                  VerticalAlignment="Stretch"
+                                                  xaml:Extension.IsVisible="{Binding ElementName=Page, Path=DataContext.IsBusy}"
+                                                  Background="{ThemeResource SystemControlBackgroundAltMediumHighBrush}">
+                                                <ProgressRing IsActive="{Binding ElementName=Page, Path=DataContext.IsBusy}" />
+                                            </Grid>
+                                        </Grid>
+                                    </Flyout>
+                                </Button.Flyout>
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </controls1:AdaptiveGridView.ItemTemplate>
+                <controls1:AdaptiveGridView.ItemContainerStyle>
+                    <Style TargetType="GridViewItem">
+                        <Setter Property="HorizontalContentAlignment"
+                                Value="Stretch" />
+                        <Setter Property="HorizontalAlignment"
+                                Value="Stretch" />
+                        <Setter Property="VerticalContentAlignment"
+                                Value="Stretch" />
+                        <Setter Property="VerticalAlignment"
+                                Value="Stretch" />
+                        <Setter Property="Margin"
+                                Value="5" />
+                    </Style>
+                </controls1:AdaptiveGridView.ItemContainerStyle>
+                <controls1:AdaptiveGridView.ItemContainerTransitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition />
+                    </TransitionCollection>
+                </controls1:AdaptiveGridView.ItemContainerTransitions>
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:FadeHeaderBehavior />
+                </interactivity:Interaction.Behaviors>
+            </controls1:AdaptiveGridView>
+        </Grid>
+
+        <primitives:RadBusyIndicator IsActive="{Binding IsBusy}"
+                                     Content="{Binding IsBusyMessage}"
+                                     Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"
+                                     Background="#7F000000"
+                                     AnimationStyle="AnimationStyle7"
+                                     Grid.Row="0"
+                                     Grid.RowSpan="2"
+                                     Foreground="White"
+                                     d:IsHidden="True" />
+
+        <userControls:ReviewReminder x:Name="Reminder"
+                                     Grid.Row="0"
+                                     Grid.RowSpan="2"
+                                     Visibility="Collapsed" />
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowStates">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1024" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HeaderGrid.Visibility"
+                                Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="MediumState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HeaderGrid.Visibility"
+                                Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HeaderGrid.Visibility"
+                                Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</Page>
