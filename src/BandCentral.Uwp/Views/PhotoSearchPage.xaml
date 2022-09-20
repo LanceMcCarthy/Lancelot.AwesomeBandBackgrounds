@@ -9,15 +9,14 @@
       xmlns:data="using:Telerik.UI.Xaml.Controls.Data"
       xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
       xmlns:input="using:Telerik.UI.Xaml.Controls.Input"
-      xmlns:baseConverters="using:BandCentral.WindowsBase.Converters"
-      xmlns:baseControls="using:BandCentral.WindowsBase.Controls"
       xmlns:userControls="using:BandCentral.Uwp.UserControls"
       xmlns:behaviors="using:BandCentral.Uwp.Behaviors"
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:controls="using:BandCentral.Uwp.Controls"
       d:DataContext="{d:DesignData /SampleData/FlickrViewModelSampleData.xaml}">
 
     <Page.Resources>
-        <baseConverters:EnumToDisplayConverter x:Key="EnumToDisplayConverter" />
+        <converters:EnumToDisplayConverter x:Key="EnumToDisplayConverter" />
         <converters:PhotoSizeConverter x:Key="PhotoHeightConverter"
                                        WidthOrHeight="Height" />
         <DataTemplate x:Key="WrapModeItemTemplate">
@@ -27,7 +26,7 @@
                   Background="{StaticResource HalfTransparentDarkBrush}">
                 <!--<Image Source="{Binding Small320Url}"
                        Stretch="UniformToFill" />-->
-                <baseControls:NetworkImage ImageUrl="{Binding Small320Url}"
+                <controls:NetworkImage ImageUrl="{Binding Small320Url}"
                                            ImageStretch="UniformToFill" />
             </Grid>
         </DataTemplate>

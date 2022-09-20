@@ -1,11 +1,12 @@
 ﻿//Credit https://github.com/mikegoatly/GroupedObservableCollection
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 
-namespace BandCentral.WindowsBase.Common
+namespace BandCentral.Uwp.Common
 {
     public class GroupedObservableCollection<TKey, TElement> : ObservableCollection<Grouping<TKey, TElement>>
         where TKey : IComparable<TKey>

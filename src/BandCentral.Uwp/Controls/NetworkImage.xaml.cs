@@ -1,9 +1,8 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 
-namespace BandCentral.WindowsBase.Controls
+namespace BandCentral.Uwp.Controls
 {
     public sealed partial class NetworkImage : UserControl
     {

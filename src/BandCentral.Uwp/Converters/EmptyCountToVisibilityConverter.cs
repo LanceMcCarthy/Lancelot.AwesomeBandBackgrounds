@@ -2,7 +2,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace BandCentral.WindowsBase.Converters
+namespace BandCentral.Uwp.Converters
 {
     public class EmptyCountToVisibilityConverter : IValueConverter
     {

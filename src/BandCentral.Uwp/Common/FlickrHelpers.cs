@@ -1,8 +1,6 @@
-﻿
-using BandCentralBase.Common;
-using FlickrNet.Drawing;
+﻿using FlickrNet.Drawing;
 
-namespace BandCentral.WindowsBase.Common
+namespace BandCentral.Uwp.Common
 {
     public static class FlickrHelpers
     {

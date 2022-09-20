@@ -1,36 +1,34 @@
 ﻿using System;
-using System.Diagnostics;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using BandCentralBase.Common;
 
 namespace BandCentral.Uwp.Common
 {
     public class AutoWidthItemsPanel : StackPanel
     {
         public static readonly DependencyProperty MinItemWidthProperty = DependencyProperty.Register(
-            "MinItemWidth",
+            nameof(MinItemWidth),
             typeof(double),
             typeof(AutoWidthItemsPanel),
             new PropertyMetadata(0));
 
         public static readonly DependencyProperty MinItemHeightProperty = DependencyProperty.Register(
-            "MinItemHeight",
+            nameof(MinItemHeight),
             typeof(double),
             typeof(AutoWidthItemsPanel),
             new PropertyMetadata(0));
 
         public double MinItemWidth
         {
-            get { return (double)this.GetValue(MinItemWidthProperty); }
-            set { this.SetValue(MinItemWidthProperty, value); }
+            get => (double)this.GetValue(MinItemWidthProperty);
+            set => this.SetValue(MinItemWidthProperty, value);
         }
 
         public double MinItemHeight
         {
-            get { return (double)this.GetValue(MinItemHeightProperty); }
-            set { this.SetValue(MinItemHeightProperty, value); }
+            get => (double)this.GetValue(MinItemHeightProperty);
+            set => this.SetValue(MinItemHeightProperty, value);
         }
 
         protected override Size MeasureOverride(Size availableSize)

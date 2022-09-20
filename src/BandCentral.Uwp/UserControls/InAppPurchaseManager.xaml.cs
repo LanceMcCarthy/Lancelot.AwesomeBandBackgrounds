@@ -1,8 +1,8 @@
-﻿using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+﻿using BandCentral.Models.Secrets;
+using BandCentral.Uwp.Common;
 using BandCentral.Uwp.ViewModels;
-using BandCentral.WindowsBase.Common;
-using BandCentralBase.Common;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace BandCentral.Uwp.UserControls
 {
@@ -16,7 +16,7 @@ namespace BandCentral.Uwp.UserControls
 
         private async void UnlockTasksButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (await Constants.BackgroundTasksIapKey.PurchaseProductAsync())
+            if (await GeneralConstants.BackgroundTasksIapKey.PurchaseProductAsync())
             {
                 ((MainViewModel) DataContext).IapBackgroundTasks = true;
                 ShowThanks("background task unlock");
@@ -25,19 +25,19 @@ namespace BandCentral.Uwp.UserControls
 
         private async void DonateSmallButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (await Constants.SmallDonationIapKey.PurchaseProductAsync())
+            if (await GeneralConstants.SmallDonationIapKey.PurchaseProductAsync())
                 ShowThanks("small donation");
         }
 
         private async void DonateMediumButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (await Constants.MediumDonationIapKey.PurchaseProductAsync())
+            if (await GeneralConstants.MediumDonationIapKey.PurchaseProductAsync())
                 ShowThanks("medium donation");
         }
 
         private async void DonateLargeButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (await Constants.LargeDonationIapKey.PurchaseProductAsync())
+            if (await GeneralConstants.LargeDonationIapKey.PurchaseProductAsync())
                 ShowThanks("large donation");
         }
 

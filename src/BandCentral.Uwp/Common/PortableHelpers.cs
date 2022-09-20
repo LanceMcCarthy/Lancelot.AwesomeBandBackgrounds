@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using BandCentral.Models.Secrets;
 using FlickrNet;
 
-namespace BandCentralBase.Common
+namespace BandCentral.Uwp.Common
 {
     public static class PortableHelpers
     {
@@ -20,7 +18,7 @@ namespace BandCentralBase.Common
         /// <returns></returns>
         public static async Task<PhotoCollection> GetPhotosAsync(int pageToGet, int photosPerPage, SafetyLevel safetyLevel, string searchTerm, PhotoSearchSortOrder sortOrder = PhotoSearchSortOrder.Relevance)
         {
-            Flickr flickr = new Flickr(Constants.WindowsDevFlickrApiKey, Constants.WindowsDevFlickrSharedSecret);
+            Flickr flickr = new Flickr(FlickrConstants.WindowsDevFlickrApiKey, FlickrConstants.WindowsDevFlickrSharedSecret);
             Exception exception = null;
             PhotoCollection photos = null;
 

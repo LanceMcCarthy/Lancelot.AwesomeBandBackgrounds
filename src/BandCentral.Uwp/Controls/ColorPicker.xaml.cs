@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
+using BandCentral.Uwp.Common;
 using BandCentralBase.ViewModels;
-using BandCentral.WindowsBase.Common;
 
-namespace BandCentral.WindowsBase.Controls
+namespace BandCentral.Uwp.Controls
 {
     public sealed partial class ColorPicker : UserControl
     {

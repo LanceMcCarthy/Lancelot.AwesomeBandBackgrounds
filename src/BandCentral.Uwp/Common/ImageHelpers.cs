@@ -8,7 +8,7 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace BandCentral.WindowsBase.Common
+namespace BandCentral.Uwp.Common
 {
     public static class ImageHelpers
     {

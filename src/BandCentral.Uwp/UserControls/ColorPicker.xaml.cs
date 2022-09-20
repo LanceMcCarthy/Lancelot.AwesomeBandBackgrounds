@@ -10,7 +10,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Shapes;
 using BandCentral.Uwp.Common;
-using BandCentral.WindowsBase.Common;
 using BandCentralBase.ViewModels;
 
 namespace BandCentral.Uwp.UserControls

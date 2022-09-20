@@ -1,19 +1,17 @@
 ﻿using System;
 using Windows.UI.Xaml.Data;
-using BandCentralBase.Common;
+using BandCentral.Models.Bing;
 
-namespace BandCentral.WindowsBase.Converters
+namespace BandCentral.Uwp.Converters
 {
     public class BingImagePathConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var image = value as BingImage;
+            if (value is BingImage image)
+                return $"http://www.bing.com{image.url}";
 
-            if (image == null)
-                return "";
-
-            return $"http://www.bing.com{image.url}";
+            return "";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

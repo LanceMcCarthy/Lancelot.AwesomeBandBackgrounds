@@ -6,14 +6,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
-      xmlns:converters1="using:BandCentral.WindowsBase.Converters"
       xmlns:xaml="using:BandCentral.Uwp.Extensions.XAML"
-      xmlns:controls1="using:BandCentral.WindowsBase.Controls"
+      xmlns:converters="using:BandCentral.Uwp.Converters"
+      xmlns:controls="using:BandCentral.Uwp.Controls"
       d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}"
       mc:Ignorable="d">
 
     <Page.Resources>
-        <converters1:HexToBrushConverter x:Key="HexToBrushConverter" />
+        <converters:HexToBrushConverter x:Key="HexToBrushConverter" />
         <Storyboard x:Name="StepTwoStoryboard"
                     AutoReverse="True">
             <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
@@ -289,12 +289,12 @@
                   Background="{ThemeResource SystemControlBackgroundAltMediumLowBrush}"
                   Grid.Row="1" />
 
-            <controls1:AdaptiveGridView x:Name="ThemesListView"
+            <controls:AdaptiveGridView x:Name="ThemesListView"
                                         Grid.Row="1"
                                         Margin="10,0"
                                         MinItemWidth="{Binding MeTileSize.Width}"
                                         MinItemHeight="{Binding MeTileSize.Height}">
-                <controls1:AdaptiveGridView.Header>
+                <controls:AdaptiveGridView.Header>
                     <Grid>
                         <Border x:Name="StepTwoBorder"
                                 BorderThickness="0,2,0,0"
@@ -309,8 +309,8 @@
                                        Margin="5,5,0,5" />
                         </Border>
                     </Grid>
-                </controls1:AdaptiveGridView.Header>
-                <controls1:AdaptiveGridView.ItemTemplate>
+                </controls:AdaptiveGridView.Header>
+                <controls:AdaptiveGridView.ItemTemplate>
                     <DataTemplate>
                         <Grid Background="{ThemeResource SystemControlBackgroundAltMediumLowBrush}">
                             <Grid.RowDefinitions>
@@ -362,8 +362,8 @@
                             </Grid>
                         </Grid>
                     </DataTemplate>
-                </controls1:AdaptiveGridView.ItemTemplate>
-            </controls1:AdaptiveGridView>
+                </controls:AdaptiveGridView.ItemTemplate>
+            </controls:AdaptiveGridView>
 
             <Grid x:Name="StepOneGrid"
                   Visibility="Collapsed"

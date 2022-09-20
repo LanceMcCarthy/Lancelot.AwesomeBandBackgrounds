@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Store;
 
-namespace BandCentral.WindowsBase.Common
+namespace BandCentral.Uwp.Common
 {
     public static class IapHelper
     {

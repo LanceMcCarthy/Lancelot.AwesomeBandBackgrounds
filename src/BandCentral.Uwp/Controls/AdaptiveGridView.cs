@@ -3,7 +3,7 @@ using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace BandCentral.WindowsBase.Controls
+namespace BandCentral.Uwp.Controls
 {
     //ORINGINAL ONE
     public class AdaptiveGridView : GridView

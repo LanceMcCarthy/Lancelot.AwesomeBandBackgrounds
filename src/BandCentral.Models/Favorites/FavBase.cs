@@ -1,11 +1,10 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using CommonHelpers.Common;
 using System.Runtime.Serialization;
 
 namespace BandCentral.Models.Favorites
 {
     [DataContract]
-    public class FavBase : INotifyPropertyChanged
+    public class FavBase : BindableBase
     {
         private string localImageFilePath;
         private string localImageFileName;
@@ -16,47 +15,36 @@ namespace BandCentral.Models.Favorites
         [DataMember]
         public string LocalImageFilePath
         {
-            get { return localImageFilePath; }
-            set { localImageFilePath = value; OnPropertyChanged(); }
+            get => localImageFilePath;
+            set => SetProperty(ref localImageFilePath, value);
         }
 
         [DataMember]
         public string LocalImageFileName
         {
-            get { return localImageFileName; }
-            set { localImageFileName = value; OnPropertyChanged(); }
+            get => localImageFileName;
+            set => SetProperty(ref localImageFileName, value);
         }
 
         [DataMember]
         public bool HasCustomTheme
         {
-            get { return hasCustomTheme; }
-            set { hasCustomTheme = value; OnPropertyChanged(); }
+            get => hasCustomTheme;
+            set => SetProperty(ref hasCustomTheme, value);
         }
 
         [DataMember]
         public bool UseCustomTheme
         {
-            get { return useCustomTheme; }
-            set { useCustomTheme = value; OnPropertyChanged(); }
+            get => useCustomTheme;
+            set => SetProperty(ref useCustomTheme, value);
         }
 
         [DataMember]
         public bool IsBackgroundFav
         {
-            get { return isBackgroundFav; }
-            set { isBackgroundFav = value; OnPropertyChanged();}
+            get => isBackgroundFav;
+            set => SetProperty(ref isBackgroundFav, value);
         }
-
-        #region INPC
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
     }
 }

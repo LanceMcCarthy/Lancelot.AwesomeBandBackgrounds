@@ -4,8 +4,6 @@ using System.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using BandCentral.Uwp.Common;
-using BandCentral.WindowsBase.Common;
-using BandCentralBase.Common;
 using FlickrNet;
 using Photo = FlickrNet.Photo;
 

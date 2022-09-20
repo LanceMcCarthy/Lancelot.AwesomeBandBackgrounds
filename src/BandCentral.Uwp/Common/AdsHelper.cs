@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
-using BandCentral.WindowsBase.Annotations;
+using CommonHelpers.Common;
 using Microsoft.Advertising.WinRT.UI;
 
 namespace BandCentral.Uwp.Common
 {
-    public class AdsHelper : INotifyPropertyChanged
+    public class AdsHelper : BindableBase
     {
         private InterstitialAd myVideoAd;
         readonly string myAppId;
@@ -90,18 +91,6 @@ namespace BandCentral.Uwp.Common
         {
             IsLoading = true;
             myVideoAd.RequestAd(AdType.Video, myAppId, myAdUnitId);
-        }
-
-        #endregion
-
-        #region INPC
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

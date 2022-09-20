@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using BandCentral.WindowsBase.Common;
-using BandCentralBase.Common;
+using BandCentral.Uwp.Common;
+using BandCentral.Models.Secrets;
 
-namespace BandCentral.WindowsBase.Controls
+namespace BandCentral.Uwp.Controls
 {
     public sealed partial class FiveHundredPixSearch : UserControl
     {
@@ -124,7 +123,7 @@ namespace BandCentral.WindowsBase.Controls
             {
                 SearchTerm = TermTextBox.Text;
 
-                pixHelper = new FiveHundredPix(Constants.FiveHundredPixConsumerKey, "");
+                pixHelper = new FiveHundredPix(FiveHundredPixConstants.FiveHundredPixConsumerKey, "");
 
                 //ResultRoot = await pixHelper.SearchPhotosAsync(term); //test succeeded, now trying with incremental colleciton
 

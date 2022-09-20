@@ -1,4 +1,4 @@
-﻿using BandCentral.Models.Secrets;
+﻿using BandCentral.UwpBackgroundTasks.Helpers;
 using Microsoft.Band;
 using Newtonsoft.Json;
 using NotificationsExtensions;
@@ -13,6 +13,7 @@ using Windows.ApplicationModel.Background;
 using Windows.Storage;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml.Media.Imaging;
+using BandCentral.UwpBackgroundTasks.Secrets;
 
 namespace BandCentral.UwpBackgroundTasks
 {
@@ -33,8 +34,8 @@ namespace BandCentral.UwpBackgroundTasks
                     return;
                 }
 
-                localSettings.Values[Constants.BackgroundRotatorLastAttemptedKey] = DateTime.Now.ToString("g", CultureInfo.InvariantCulture);
-                localSettings.Values[Constants.BackgroundRotatorStatusKey] = $"Starting...";
+                localSettings.Values[GeneralConstants.BackgroundRotatorLastAttemptedKey] = DateTime.Now.ToString("g", CultureInfo.InvariantCulture);
+                localSettings.Values[GeneralConstants.BackgroundRotatorStatusKey] = $"Starting...";
                 Debug.WriteLine($"{taskInstance.Task.Name} Starting...");
                 Debug.WriteLine($"Background Cost: {BackgroundWorkCost.CurrentBackgroundWorkCost}");
 
@@ -47,7 +48,7 @@ namespace BandCentral.UwpBackgroundTasks
 
                 if (string.IsNullOrEmpty(favorite.LocalImageFileName))
                 {
-                    localSettings.Values[Constants.BackgroundRotatorStatusKey] = $"Cancelled. Image filename was empty...";
+                    localSettings.Values[GeneralConstants.BackgroundRotatorStatusKey] = $"Cancelled. Image filename was empty...";
                     return;
                 }
 
@@ -55,17 +56,17 @@ namespace BandCentral.UwpBackgroundTasks
 
                 string preferredBandName = "";
                 object val;
-                if (localSettings.Values.TryGetValue(Constants.PreferredBandNameKey, out val))
+                if (localSettings.Values.TryGetValue(GeneralConstants.PreferredBandNameKey, out val))
                 {
                     preferredBandName = (string) val;
                     Debug.WriteLine($"{taskInstance.Task.Name}: Found Preferred Band {preferredBandName}...");
-                    localSettings.Values[Constants.BackgroundRotatorStatusKey] = $"{taskInstance.Task.Name}: Found Preferred Band {preferredBandName}...";
+                    localSettings.Values[GeneralConstants.BackgroundRotatorStatusKey] = $"{taskInstance.Task.Name}: Found Preferred Band {preferredBandName}...";
                 }
                 else
                 {
                     //user needs to have a preferred band name stored
                     Debug.WriteLine($"{taskInstance.Task.Name}: ERROR!!! PreferredBandName not found");
-                    localSettings.Values[Constants.BackgroundRotatorStatusKey] = $"PreferredBandName not found";
+                    localSettings.Values[GeneralConstants.BackgroundRotatorStatusKey] = $"PreferredBandName not found";
                     return;
                 }
 
@@ -74,12 +75,12 @@ namespace BandCentral.UwpBackgroundTasks
                 var results = await BandClientManager.Instance.GetBandsAsync();
                 if (results.Length == 0)
                 {
-                    localSettings.Values[Constants.BackgroundRotatorStatusKey] = $"No Paired Bands found";
+                    localSettings.Values[GeneralConstants.BackgroundRotatorStatusKey] = $"No Paired Bands found";
                     return;
                 }
                 else
                 {
-                    localSettings.Values[Constants.BackgroundRotatorStatusKey] = $"{ taskInstance.Task.Name}: { results.Length} paired Bands found...";
+                    localSettings.Values[GeneralConstants.BackgroundRotatorStatusKey] = $"{ taskInstance.Task.Name}: { results.Length} paired Bands found...";
                     Debug.WriteLine($"{taskInstance.Task.Name}: {results.Length} paired Bands found...");
                 }
 
@@ -95,7 +96,7 @@ namespace BandCentral.UwpBackgroundTasks
                     var imageBitmap = await GetFavBitmapAsync(favorite.LocalImageFileName, taskInstance.Task.Name);
 
                     //------------CONVERT TO BANDIMAGE AND SEND TO BAND------------------//
-                    localSettings.Values[Constants.BackgroundRotatorStatusKey] = $"Sending to Band";
+                    localSettings.Values[GeneralConstants.BackgroundRotatorStatusKey] = $"Sending to Band";
                     Debug.WriteLine($"{taskInstance.Task.Name}: SetMeTileImageAsync called...");
 
                     await selectedBandClient.PersonalizationManager.SetMeTileImageAsync(imageBitmap.ToBandImage());
@@ -105,7 +106,7 @@ namespace BandCentral.UwpBackgroundTasks
 
                     if (favorite.UseCustomTheme)
                     {
-                        localSettings.Values[Constants.BackgroundRotatorStatusKey] = $"Updating Band Theme...";
+                        localSettings.Values[GeneralConstants.BackgroundRotatorStatusKey] = $"Updating Band Theme...";
                         Debug.WriteLine($"{taskInstance.Task.Name}: UsePairedTheme is True, SetThemeAsync Called...");
 
                         await selectedBandClient.PersonalizationManager.SetThemeAsync(new BandTheme
@@ -121,8 +122,8 @@ namespace BandCentral.UwpBackgroundTasks
                         themeSuccessfullyUpdated = true;
                     }
                     
-                    localSettings.Values[Constants.BackgroundRotatorLastCompletedKey] = DateTime.Now.ToString("g", CultureInfo.InvariantCulture);
-                    localSettings.Values[Constants.BackgroundRotatorStatusKey] = $"{taskInstance.Task.Name} Completed. Image used {favorite.LocalImageFileName}";
+                    localSettings.Values[GeneralConstants.BackgroundRotatorLastCompletedKey] = DateTime.Now.ToString("g", CultureInfo.InvariantCulture);
+                    localSettings.Values[GeneralConstants.BackgroundRotatorStatusKey] = $"{taskInstance.Task.Name} Completed. Image used {favorite.LocalImageFileName}";
                     Debug.WriteLine($"{taskInstance.Task.Name}: Completed. Image used {favorite.LocalImageFileName}");
 
                     //------------------TOAST NOTIFICATION-------------------//
@@ -134,13 +135,13 @@ namespace BandCentral.UwpBackgroundTasks
             catch (BandException ex)
             {
                 if (localSettings != null)
-                    localSettings.Values[Constants.BackgroundRotatorStatusKey] = $"Band Exception: {ex.Message}";
+                    localSettings.Values[GeneralConstants.BackgroundRotatorStatusKey] = $"Band Exception: {ex.Message}";
                 Debug.WriteLine($"{taskInstance.Task.Name}: BandException: {ex}");
             }
             catch (Exception ex)
             {
                 if (localSettings != null)
-                    localSettings.Values[Constants.BackgroundRotatorStatusKey] = $"General Exception: {ex.Message}";
+                    localSettings.Values[GeneralConstants.BackgroundRotatorStatusKey] = $"General Exception: {ex.Message}";
                 Debug.WriteLine($"{taskInstance.Task.Name}: General Exception: {ex}");
             }
             finally
@@ -154,22 +155,22 @@ namespace BandCentral.UwpBackgroundTasks
             try
             {
                 object quietHoursObj;
-                if (localSettings.Values.TryGetValue(Constants.BackgroundRotatorUpdateQuietHoursEnabledKey, out quietHoursObj))
+                if (localSettings.Values.TryGetValue(GeneralConstants.BackgroundRotatorUpdateQuietHoursEnabledKey, out quietHoursObj))
                 {
                     if ((bool) quietHoursObj)
                     {
                         //--------------quiet hours is enabled-------------//
-                        localSettings.Values[Constants.BackgroundRotatorStatusKey] = $"Checking quiet hours...";
+                        localSettings.Values[GeneralConstants.BackgroundRotatorStatusKey] = $"Checking quiet hours...";
 
                         //--------------get begin and end time---------------//
                         object startTimeObj;
-                        if (localSettings.Values.TryGetValue(Constants.BackgroundRotatorUpdateQuietHoursStartKey,
+                        if (localSettings.Values.TryGetValue(GeneralConstants.BackgroundRotatorUpdateQuietHoursStartKey,
                             out startTimeObj))
                         {
                             var start = TimeSpan.Parse((string) startTimeObj);
 
                             object endTimeObj;
-                            if (localSettings.Values.TryGetValue(Constants.BackgroundRotatorUpdateQuietHoursEndKey,
+                            if (localSettings.Values.TryGetValue(GeneralConstants.BackgroundRotatorUpdateQuietHoursEndKey,
                                 out endTimeObj))
                             {
                                 var end = TimeSpan.Parse((string) endTimeObj);
@@ -178,7 +179,7 @@ namespace BandCentral.UwpBackgroundTasks
 
                                 if (now > start && now < end)
                                 {
-                                    localSettings.Values[Constants.BackgroundRotatorStatusKey] = $"Cancelled Update! Reason: During Quiet Hours";
+                                    localSettings.Values[GeneralConstants.BackgroundRotatorStatusKey] = $"Cancelled Update! Reason: During Quiet Hours";
                                     return true;
                                 }
                             }
@@ -204,7 +205,7 @@ namespace BandCentral.UwpBackgroundTasks
                 //get index of next photo to use
 
                 object lastIndexUsed;
-                if (localSettings.Values.TryGetValue(Constants.BackgroundRotatorFavoriteIndexKey, out lastIndexUsed))
+                if (localSettings.Values.TryGetValue(GeneralConstants.BackgroundRotatorFavoriteIndexKey, out lastIndexUsed))
                 {
                     Debug.WriteLine($"{taskName} - LastIndex: {lastIndexUsed}");
                     favoriteIndex = (int) lastIndexUsed + 1;
@@ -231,7 +232,7 @@ namespace BandCentral.UwpBackgroundTasks
                 }
                 else
                 {
-                    localSettings.Values[Constants.BackgroundRotatorStatusKey] = $"Favorites file not present";
+                    localSettings.Values[GeneralConstants.BackgroundRotatorStatusKey] = $"Favorites file not present";
                     return null;
                 }
             }
@@ -243,7 +244,7 @@ namespace BandCentral.UwpBackgroundTasks
             finally
             {
                 //update setting to use the currentFavIndex value
-                localSettings.Values[Constants.BackgroundRotatorFavoriteIndexKey] = favoriteIndex;
+                localSettings.Values[GeneralConstants.BackgroundRotatorFavoriteIndexKey] = favoriteIndex;
             }
         }
         
@@ -252,7 +253,7 @@ namespace BandCentral.UwpBackgroundTasks
             //figure out image width to use
             int bandTileWidth = 128;
             object bandModel;
-            if (localSettings.Values.TryGetValue(Constants.BandModelKey, out bandModel))
+            if (localSettings.Values.TryGetValue(GeneralConstants.BandModelKey, out bandModel))
             {
                 bandTileWidth = (int) bandModel == 1 ? 102 : 128;
             }
@@ -265,7 +266,7 @@ namespace BandCentral.UwpBackgroundTasks
                 return null;
 
             Debug.WriteLine($"{taskName}: File opened {file.Name}...");
-            localSettings.Values[Constants.BackgroundRotatorStatusKey] = $"File opened {file.Name}...";
+            localSettings.Values[GeneralConstants.BackgroundRotatorStatusKey] = $"File opened {file.Name}...";
 
             //--------------------LOAD WRITEABLEBITMAP---------------//
 
@@ -275,7 +276,7 @@ namespace BandCentral.UwpBackgroundTasks
             using (var stream = await imageFile.OpenAsync(FileAccessMode.Read))
             {
                 Debug.WriteLine($"{taskName} - WriteableBitmap.SetSourceAsync using stream of {stream.Size} bytes...");
-                localSettings.Values[Constants.BackgroundRotatorStatusKey] = $"WriteableBitmap.SetSourceAsync using stream of {stream.Size} bytes";
+                localSettings.Values[GeneralConstants.BackgroundRotatorStatusKey] = $"WriteableBitmap.SetSourceAsync using stream of {stream.Size} bytes";
                 await wb.SetSourceAsync(stream);
                 wb.Invalidate();
 
@@ -363,7 +364,7 @@ namespace BandCentral.UwpBackgroundTasks
 
                 //check to see if toast is muted
                 object notificationMute;
-                if (localSettings.Values.TryGetValue(Constants.BackgroundRotatorNotificationMuteKey, out notificationMute))
+                if (localSettings.Values.TryGetValue(GeneralConstants.BackgroundRotatorNotificationMuteKey, out notificationMute))
                 {
                     if (!(bool) notificationMute)
                     {
@@ -454,7 +455,7 @@ namespace BandCentral.UwpBackgroundTasks
         //        //get index of next photo to use
 
         //        object lastIndexUsed;
-        //        if (localSettings.Values.TryGetValue(Constants.BackgroundRotatorFavoriteIndexKey, out lastIndexUsed))
+        //        if (localSettings.Values.TryGetValue(GeneralConstants.BackgroundRotatorFavoriteIndexKey, out lastIndexUsed))
         //        {
         //            Debug.WriteLine($"{taskName} - LastIndex: {lastIndexUsed}");
         //            favoriteIndex = (int) lastIndexUsed + 1;
@@ -464,7 +465,7 @@ namespace BandCentral.UwpBackgroundTasks
         //            Debug.WriteLine($"{taskName} - LastUsedIndex key not found, using default: 0");
         //        }
 
-        //        var file = await ApplicationData.Current.LocalFolder.TryGetItemAsync(Constants.BackgroundFavoritesFileName);
+        //        var file = await ApplicationData.Current.LocalFolder.TryGetItemAsync(GeneralConstants.BackgroundFavoritesFileName);
         //        if (file != null)
         //        {
         //            var json = await FileIO.ReadTextAsync(file as StorageFile);
@@ -479,7 +480,7 @@ namespace BandCentral.UwpBackgroundTasks
         //        }
         //        else
         //        {
-        //            localSettings.Values[Constants.BackgroundRotatorStatusKey] = $"BackgroundFav file not present";
+        //            localSettings.Values[GeneralConstants.BackgroundRotatorStatusKey] = $"BackgroundFav file not present";
         //            return null;
         //        }
         //    }
@@ -491,7 +492,7 @@ namespace BandCentral.UwpBackgroundTasks
         //    finally
         //    {
         //        //update setting to use the currentFavIndex value
-        //        localSettings.Values[Constants.BackgroundRotatorFavoriteIndexKey] = favoriteIndex;
+        //        localSettings.Values[GeneralConstants.BackgroundRotatorFavoriteIndexKey] = favoriteIndex;
         //    }
         //}
 

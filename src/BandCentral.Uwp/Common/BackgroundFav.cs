@@ -1,10 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
-using BandCentral.WindowsBase.Annotations;
-using BandCentralBase.Common;
-
-namespace BandCentral.WindowsBase.Common
+﻿namespace BandCentral.Uwp.Common
 {
     //[KnownType(typeof(BandColorTheme))]
     //[DataContract]

@@ -3,12 +3,12 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
-using BandCentral.WindowsBase.Annotations;
+using CommonHelpers.Common;
 
-namespace BandCentral.WindowsBase.Common
+namespace BandCentral.Uwp.Common
 {
     [DataContract]
-    public class BandColorTheme :  INotifyPropertyChanged
+    public class BandColorTheme :  BindableBase
     {
         private SolidColorBrush baseBrush;
         private SolidColorBrush highlightBrush;
@@ -46,7 +46,7 @@ namespace BandCentral.WindowsBase.Common
         [DataMember]
         public Color BaseColor
         {
-            get { return baseColor; }
+            get => baseColor;
             set
             {
                 baseColor = value;
@@ -58,7 +58,7 @@ namespace BandCentral.WindowsBase.Common
         [IgnoreDataMember]
         public SolidColorBrush BaseBrush
         {
-            get { return baseBrush; }
+            get => baseBrush;
             set
             {
                 baseBrush = value;
@@ -70,7 +70,7 @@ namespace BandCentral.WindowsBase.Common
         [DataMember]
         public Color HighlightColor
         {
-            get { return highlightColor; }
+            get => highlightColor;
             set
             {
                 highlightColor = value;
@@ -82,7 +82,7 @@ namespace BandCentral.WindowsBase.Common
         [IgnoreDataMember]
         public SolidColorBrush HighlightBrush
         {
-            get { return highlightBrush; }
+            get => highlightBrush;
             set
             {
                 highlightBrush = value;
@@ -94,7 +94,7 @@ namespace BandCentral.WindowsBase.Common
         [DataMember]
         public Color LowLightColor
         {
-            get { return lowLightColor; }
+            get => lowLightColor;
             set
             {
                 lowLightColor = value;
@@ -106,7 +106,7 @@ namespace BandCentral.WindowsBase.Common
         [IgnoreDataMember]
         public SolidColorBrush LowLightBrush
         {
-            get { return lowLightBrush; }
+            get => lowLightBrush;
             set
             {
                 lowLightBrush = value; 
@@ -118,7 +118,7 @@ namespace BandCentral.WindowsBase.Common
         [DataMember]
         public Color SecondaryColor
         {
-            get { return secondaryColor; }
+            get => secondaryColor;
             set
             {
                 secondaryColor = value;
@@ -130,7 +130,7 @@ namespace BandCentral.WindowsBase.Common
         [IgnoreDataMember]
         public SolidColorBrush SecondaryBrush
         {
-            get { return secondaryBrush; }
+            get => secondaryBrush;
             set
             {
                 secondaryBrush = value;
@@ -142,7 +142,7 @@ namespace BandCentral.WindowsBase.Common
         [DataMember]
         public Color HighContrastColor
         {
-            get { return highContrastColor; }
+            get => highContrastColor;
             set
             {
                 highContrastColor = value;
@@ -154,7 +154,7 @@ namespace BandCentral.WindowsBase.Common
         [IgnoreDataMember]
         public SolidColorBrush HighContrastBrush
         {
-            get { return highContrastBrush; }
+            get => highContrastBrush;
             set
             {
                 highContrastBrush = value;
@@ -166,7 +166,7 @@ namespace BandCentral.WindowsBase.Common
         [DataMember]
         public Color MutedColor
         {
-            get { return mutedColor; }
+            get => mutedColor;
             set
             {
                 mutedColor = value;
@@ -178,21 +178,13 @@ namespace BandCentral.WindowsBase.Common
         [IgnoreDataMember]
         public SolidColorBrush MutedBrush
         {
-            get { return mutedBrush; }
+            get => mutedBrush;
             set
             {
                 mutedBrush = value;
                 mutedColor = value.Color;
                 OnPropertyChanged();
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

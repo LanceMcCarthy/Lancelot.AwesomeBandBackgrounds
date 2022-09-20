@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.Networking.Connectivity;
 
-namespace BandCentral.WindowsBase.Common
+namespace BandCentral.Uwp.Common
 {
     public class InternetConnectionChangedEventArgs : EventArgs
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BandCentralBase.Common
+namespace BandCentral.Models.Attributes
 {
     [AttributeUsage(AttributeTargets.All)]
     public class DisplayAttribute : System.Attribute

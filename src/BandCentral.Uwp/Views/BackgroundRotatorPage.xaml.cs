@@ -17,10 +17,8 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using BandCentral.Models.Secrets;
 using BandCentral.Uwp.Common;
-using BandCentral.UwpBackgroundTasks;
-using BandCentral.WindowsBase.Common;
-using BandCentralBase.Common;
 using Lumia.Imaging;
 using Lumia.Imaging.Transforms;
 using Microsoft.HockeyApp;
@@ -55,7 +53,7 @@ namespace BandCentral.Uwp.Views
         private void QuietHourStartPicker_Loaded(object sender, RoutedEventArgs e)
         {
             object startTimeObj;
-            if (localSettings.Values.TryGetValue(Constants.BackgroundRotatorUpdateQuietHoursStartKey, out startTimeObj))
+            if (localSettings.Values.TryGetValue(GeneralConstants.BackgroundRotatorUpdateQuietHoursStartKey, out startTimeObj))
             {
                 QuietHourStartPicker.Time = TimeSpan.Parse((string) startTimeObj);
             }
@@ -64,7 +62,7 @@ namespace BandCentral.Uwp.Views
         private void QuietHourEndPicker_Loaded(object sender, RoutedEventArgs e)
         {
             object endTimeObj;
-            if (localSettings.Values.TryGetValue(Constants.BackgroundRotatorUpdateQuietHoursEndKey, out endTimeObj))
+            if (localSettings.Values.TryGetValue(GeneralConstants.BackgroundRotatorUpdateQuietHoursEndKey, out endTimeObj))
             {
                 QuietHourEndPicker.Time = TimeSpan.Parse((string) endTimeObj);
             }
@@ -73,7 +71,7 @@ namespace BandCentral.Uwp.Views
         private void QuietHoursToggle_Loaded(object sender, RoutedEventArgs e)
         {
             object quietHoursObj;
-            if (localSettings.Values.TryGetValue(Constants.BackgroundRotatorUpdateQuietHoursEnabledKey, out quietHoursObj))
+            if (localSettings.Values.TryGetValue(GeneralConstants.BackgroundRotatorUpdateQuietHoursEnabledKey, out quietHoursObj))
             {
                 QuietHoursToggle.IsOn = (bool) quietHoursObj;
             }
@@ -109,7 +107,7 @@ namespace BandCentral.Uwp.Views
                 updateFrequency = addedItem;
 
                 if (localSettings != null)
-                    localSettings.Values[Constants.BackgroundRotatorUpdateFrequencyKey] = updateFrequency;
+                    localSettings.Values[GeneralConstants.BackgroundRotatorUpdateFrequencyKey] = updateFrequency;
 
                 Debug.WriteLine($"UpdateFrequency updated to: {updateFrequency}");
             }
@@ -122,7 +120,7 @@ namespace BandCentral.Uwp.Views
             if (selectionMute)
                 return;
             if (localSettings != null)
-                localSettings.Values[Constants.BackgroundRotatorUpdateQuietHoursStartKey] = e.NewTime.ToString();
+                localSettings.Values[GeneralConstants.BackgroundRotatorUpdateQuietHoursStartKey] = e.NewTime.ToString();
         }
 
         private void EndTimeChanged(object sender, TimePickerValueChangedEventArgs e)
@@ -130,7 +128,7 @@ namespace BandCentral.Uwp.Views
             if (selectionMute)
                 return;
             if (localSettings != null)
-                localSettings.Values[Constants.BackgroundRotatorUpdateQuietHoursEndKey] = e.NewTime.ToString();
+                localSettings.Values[GeneralConstants.BackgroundRotatorUpdateQuietHoursEndKey] = e.NewTime.ToString();
         }
 
         private void QuietHoursToggled(object sender, RoutedEventArgs e)
@@ -138,7 +136,7 @@ namespace BandCentral.Uwp.Views
             if (selectionMute)
                 return;
             if (localSettings != null)
-                localSettings.Values[Constants.BackgroundRotatorUpdateQuietHoursEnabledKey] = QuietHoursToggle?.IsOn;
+                localSettings.Values[GeneralConstants.BackgroundRotatorUpdateQuietHoursEnabledKey] = QuietHoursToggle?.IsOn;
         }
         
         private void PairedThemeToggleSwitch_OnToggled(object sender, RoutedEventArgs e)
@@ -168,7 +166,8 @@ namespace BandCentral.Uwp.Views
                     case BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity:
                     case BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity:
                     case BackgroundAccessStatus.AllowedSubjectToSystemPolicy:
-                        await BackgroundTaskEngine.RegisterTaskRequiringInternetAsync(Constants.BackgroundRotatorTaskName, typeof(BackgroundRotatorTask).FullName, (uint) updateFrequency);
+                        // TODO re-enable the background task after fixing runtime component classes
+                        //await BackgroundTaskEngine.RegisterTaskRequiringInternetAsync(GeneralConstants.BackgroundRotatorTaskName, typeof(BackgroundRotatorTask).FullName, (uint) updateFrequency);
                         var bgCount = App.ViewModel.FlickrFavs.Count(f => f.IsBackgroundFav);
                         UpdateStatus($"Band updates every {updateFrequency} minutes using {bgCount} favs");
                         //UpdateStatus($"Band updates every {updateFrequency} minutes using {((MainViewModel) DataContext)?.BackgroundFavs?.Count} favs");
@@ -213,7 +212,7 @@ namespace BandCentral.Uwp.Views
                 selectionMute = true;
                 
                 //unregister the task and confirm to user it was successful
-                if (await BackgroundTaskEngine.UnregisterTaskAsync(Constants.BackgroundRotatorTaskName))
+                if (await BackgroundTaskEngine.UnregisterTaskAsync(GeneralConstants.BackgroundRotatorTaskName))
                 {
                     UpdateStatus($"Background Rotator is currently NOT running", false);
 
@@ -225,7 +224,7 @@ namespace BandCentral.Uwp.Views
                     //await SaveBackgroundFavoritesAsync(((MainViewModel) DataContext)?.BackgroundFavs);
 
                     //set lastUsedIndex back to zero
-                    localSettings.Values[Constants.BackgroundRotatorFavoriteIndexKey] = 0;
+                    localSettings.Values[GeneralConstants.BackgroundRotatorFavoriteIndexKey] = 0;
                 }
 
                 selectionMute = false;
@@ -255,17 +254,17 @@ namespace BandCentral.Uwp.Views
             {
                 object settingValue = "---";
 
-                if (localSettings.Values.TryGetValue(Constants.BackgroundRotatorStatusKey, out settingValue))
+                if (localSettings.Values.TryGetValue(GeneralConstants.BackgroundRotatorStatusKey, out settingValue))
                     LastStatusTextBlock.Text = (string) settingValue;
 
                 settingValue = "---";
 
-                if (localSettings.Values.TryGetValue(Constants.BackgroundRotatorLastAttemptedKey, out settingValue))
+                if (localSettings.Values.TryGetValue(GeneralConstants.BackgroundRotatorLastAttemptedKey, out settingValue))
                     LastAttemptTextBlock.Text = (string) settingValue;
 
                 settingValue = "---";
 
-                if (localSettings.Values.TryGetValue(Constants.BackgroundRotatorLastCompletedKey, out settingValue))
+                if (localSettings.Values.TryGetValue(GeneralConstants.BackgroundRotatorLastCompletedKey, out settingValue))
                     LastSuccessTextBlock.Text = (string) settingValue;
             }
         }
@@ -333,7 +332,7 @@ namespace BandCentral.Uwp.Views
 
         private async void UnlockTasksButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (await Constants.BackgroundTasksIapKey.PurchaseProductAsync())
+            if (await GeneralConstants.BackgroundTasksIapKey.PurchaseProductAsync())
             {
                 App.ViewModel.IapBackgroundTasks = true;
             }
@@ -438,7 +437,7 @@ namespace BandCentral.Uwp.Views
 
         //    try
         //    {
-        //        var file = await localFolder.CreateFileAsync(Constants.BackgroundFavoritesFileName, CreationCollisionOption.ReplaceExisting);
+        //        var file = await localFolder.CreateFileAsync(GeneralConstants.BackgroundFavoritesFileName, CreationCollisionOption.ReplaceExisting);
 
         //        if (favs.Count == 0)
         //        {
@@ -475,7 +474,7 @@ namespace BandCentral.Uwp.Views
 
         //    try
         //    {
-        //        var storageItem = await localFolder.TryGetItemAsync(Constants.BackgroundFavoritesFileName);
+        //        var storageItem = await localFolder.TryGetItemAsync(GeneralConstants.BackgroundFavoritesFileName);
         //        if (storageItem == null)
         //        {
         //            Debug.WriteLine("No BackgroundFavorites json file present");
@@ -584,14 +583,14 @@ namespace BandCentral.Uwp.Views
 
             //get the frequency out of settings
             object obj;
-            if (localSettings.Values.TryGetValue(Constants.BackgroundRotatorUpdateFrequencyKey, out obj))
+            if (localSettings.Values.TryGetValue(GeneralConstants.BackgroundRotatorUpdateFrequencyKey, out obj))
             {
                 updateFrequency = (int) obj;
             }
             else
             {
                 //first time loading, need to set this now
-                localSettings.Values[Constants.BackgroundRotatorUpdateFrequencyKey] = updateFrequency;
+                localSettings.Values[GeneralConstants.BackgroundRotatorUpdateFrequencyKey] = updateFrequency;
             }
 
             //setup frequency combobox
@@ -601,7 +600,7 @@ namespace BandCentral.Uwp.Views
             if (App.ViewModel.AutoFavsEnabled == true)
             {
                 //load BG task details
-                if (await BackgroundTaskEngine.CheckBackgroundTasksAsync(Constants.BackgroundRotatorTaskName))
+                if (await BackgroundTaskEngine.CheckBackgroundTasksAsync(GeneralConstants.BackgroundRotatorTaskName))
                 {
                     var bgCount = App.ViewModel.FlickrFavs.Count(f => f.IsBackgroundFav);
                     UpdateStatus($"Updating every {updateFrequency} minutes with {bgCount} photos");

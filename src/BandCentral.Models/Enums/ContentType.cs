@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
+using BandCentral.Models.Attributes;
 
-namespace BandCentralBase.Common.Enums
+namespace BandCentral.Models.Enums
 {
     public enum ContentType
     {

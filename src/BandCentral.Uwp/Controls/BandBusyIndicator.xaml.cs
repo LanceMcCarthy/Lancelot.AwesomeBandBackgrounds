@@ -2,7 +2,7 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 
-namespace BandCentral.WindowsBase.Controls
+namespace BandCentral.Uwp.Controls
 {
     public sealed partial class BandBusyIndicator : UserControl
     {

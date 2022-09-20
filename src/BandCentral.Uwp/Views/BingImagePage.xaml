@@ -4,10 +4,10 @@
       xmlns:local="using:BandCentral.Uwp.Views"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:controls="using:BandCentral.WindowsBase.Controls"
       xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:behaviors="using:BandCentral.Uwp.Behaviors"
+      xmlns:controls="using:BandCentral.Uwp.Controls"
       d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}"
       mc:Ignorable="d">
 

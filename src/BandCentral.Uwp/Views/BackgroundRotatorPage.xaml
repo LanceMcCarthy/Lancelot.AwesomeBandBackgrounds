@@ -10,7 +10,6 @@
       xmlns:userControls="using:BandCentral.Uwp.UserControls"
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:behaviors="using:BandCentral.Uwp.Behaviors"
-      xmlns:controls1="using:BandCentral.WindowsBase.Controls"
       xmlns:xaml="using:BandCentral.Uwp.Extensions.XAML"
       d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}"
       mc:Ignorable="d">
@@ -138,7 +137,7 @@
                             </TextBlock>
                         </Border>
 
-                        <controls1:AdaptiveGridView x:Name="FavoritesGridView"
+                        <controls:AdaptiveGridView x:Name="FavoritesGridView"
                                                     ItemsSource="{Binding Source={StaticResource CollectionViewSource}}"
                                                     IsEnabled="{Binding AutoFavsEnabled}"
                                                     SelectionChanged="FavoritesGridView_OnSelectionChanged"
@@ -149,7 +148,7 @@
                                                     MinItemHeight="{Binding MeTileSize.Height}"
                                                     HorizontalAlignment="Center"
                                                     Margin="5,0,0,0">
-                            <controls1:AdaptiveGridView.GroupStyle>
+                            <controls:AdaptiveGridView.GroupStyle>
                                 <GroupStyle>
                                     <GroupStyle.HeaderTemplate>
                                         <DataTemplate>
@@ -181,8 +180,8 @@
                                         </Style>
                                     </GroupStyle.HeaderContainerStyle>
                                 </GroupStyle>
-                            </controls1:AdaptiveGridView.GroupStyle>
-                            <controls1:AdaptiveGridView.ItemTemplate>
+                            </controls:AdaptiveGridView.GroupStyle>
+                            <controls:AdaptiveGridView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid x:Name="BaseGrid"
                                           Background="{ThemeResource SystemControlPageBackgroundBaseMediumBrush}">
@@ -220,12 +219,12 @@
                                         </Grid>
                                     </Grid>
                                 </DataTemplate>
-                            </controls1:AdaptiveGridView.ItemTemplate>
-                            <controls1:AdaptiveGridView.ItemContainerTransitions>
+                            </controls:AdaptiveGridView.ItemTemplate>
+                            <controls:AdaptiveGridView.ItemContainerTransitions>
                                 <TransitionCollection>
                                     <EntranceThemeTransition />
                                 </TransitionCollection>
-                            </controls1:AdaptiveGridView.ItemContainerTransitions>
+                            </controls:AdaptiveGridView.ItemContainerTransitions>
                             <interactivity:Interaction.Behaviors>
                                 <behaviors:ParallaxBehavior ParallaxContent="{Binding ElementName=StatusGrid}"
                                                             ParallaxMultiplier="-0.2"
@@ -235,7 +234,7 @@
                                                             ParallaxMultiplier="-0.4"
                                                             ClampMax="30" />
                             </interactivity:Interaction.Behaviors>
-                        </controls1:AdaptiveGridView>
+                        </controls:AdaptiveGridView>
                     </Grid>
                 </PivotItem>
 

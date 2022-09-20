@@ -1,9 +1,9 @@
 ﻿using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
-using BandCentralBase.Common.Enums;
+using BandCentral.Models.Enums;
 
-namespace BandCentral.WindowsBase.Converters
+namespace BandCentral.Uwp.Converters
 {
     public class ListLayoutModeConverter : IValueConverter
     {

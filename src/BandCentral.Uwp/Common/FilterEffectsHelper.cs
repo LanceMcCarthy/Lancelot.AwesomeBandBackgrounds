@@ -1,5 +1,4 @@
 ﻿using System;
-using BandCentralBase.Common;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Net;
@@ -8,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Media.Imaging;
+using BandCentral.Models.Common;
 using Lumia.Imaging;
 using Lumia.Imaging.Adjustments;
 using Lumia.Imaging.Artistic;

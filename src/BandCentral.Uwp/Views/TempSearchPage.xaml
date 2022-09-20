@@ -9,13 +9,11 @@
       xmlns:data="using:Telerik.UI.Xaml.Controls.Data"
       xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
       xmlns:input="using:Telerik.UI.Xaml.Controls.Input"
-      xmlns:converters1="using:BandCentral.WindowsBase.Converters"
       xmlns:controls="using:BandCentral.Uwp.Controls"
-      xmlns:controls1="using:BandCentral.WindowsBase.Controls"
       d:DataContext="{d:DesignData /SampleData/FlickrViewModelSampleData.xaml}">
 
     <Page.Resources>
-        <converters1:EnumToDisplayConverter x:Key="EnumToDisplayConverter" />
+        <converters:EnumToDisplayConverter x:Key="EnumToDisplayConverter" />
         <converters:PhotoSizeConverter x:Key="PhotoHeightConverter"
                                        WidthOrHeight="Height" />
 
@@ -259,12 +257,12 @@
                 </data:RadDataBoundListBox.ItemLoadingContent>
             </data:RadDataBoundListBox>-->
 
-            <controls1:AdaptiveGridView x:Name="ResultsGridView"
+            <controls:AdaptiveGridView x:Name="ResultsGridView"
                                        ItemsSource="{Binding Source}"
                                        IncrementalLoadingTrigger="Edge"
                                        MinItemHeight="{Binding ElementName=Page, Path=DataContext.ListItemSize.Height}"
                                        MinItemWidth="{Binding ElementName=Page, Path=DataContext.ListItemSize.Width}">
-                <controls1:AdaptiveGridView.ItemTemplate>
+                <controls:AdaptiveGridView.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="1"
                               Height="{Binding ElementName=Page, Path=DataContext.ListItemSize.Height}"
@@ -274,8 +272,8 @@
                                    Stretch="UniformToFill" />
                         </Grid>
                     </DataTemplate>
-                </controls1:AdaptiveGridView.ItemTemplate>
-            </controls1:AdaptiveGridView>
+                </controls:AdaptiveGridView.ItemTemplate>
+            </controls:AdaptiveGridView>
 
             <Grid VerticalAlignment="Top"
                   Background="{ThemeResource SystemControlHighlightAltAltMediumHighBrush}">

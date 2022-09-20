@@ -5,9 +5,7 @@
                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
-               xmlns:common="using:BandCentralBase.Common"
                xmlns:converters="using:BandCentral.Uwp.Converters"
-               xmlns:converters1="using:BandCentral.WindowsBase.Converters"
                mc:Ignorable="d"
                Title="Get theme for photo"
                PrimaryButtonText="get theme"
@@ -31,7 +29,7 @@
 
         <Grid Grid.Row="1">
             <Grid.Resources>
-                <converters1:HexToBrushConverter x:Key="HexToBrushConverter"/>
+                <converters:HexToBrushConverter x:Key="HexToBrushConverter"/>
             </Grid.Resources>
             <ListView x:Name="ClThemesListView"
                       ItemsSource="{Binding ElementName=Dialog, Path=ThemesRoot.Cl_themes}">

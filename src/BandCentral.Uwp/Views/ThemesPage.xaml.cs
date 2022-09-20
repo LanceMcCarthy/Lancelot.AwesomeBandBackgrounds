@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using Telerik.UI.Xaml.Controls.Data;
 using Windows.UI.Core;
-using BandCentral.WindowsBase.Common;
+using BandCentral.Uwp.Common;
 using Microsoft.HockeyApp;
 
 namespace BandCentral.Uwp.Views

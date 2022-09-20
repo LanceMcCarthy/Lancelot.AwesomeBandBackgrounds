@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 
-namespace BandCentral.UwpBackgroundTasks
+namespace BandCentral.UwpBackgroundTasks.Helpers
 {
     [DataContract]
     public sealed class BandColorTheme :  INotifyPropertyChanged

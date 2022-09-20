@@ -11,8 +11,7 @@
       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
       xmlns:behaviors="using:BandCentral.Uwp.Behaviors"
       xmlns:controls="using:BandCentral.Uwp.Controls"
-      xmlns:controls1="using:BandCentral.WindowsBase.Controls"
-      xmlns:converters="using:BandCentral.WindowsBase.Converters"
+      xmlns:converters="using:BandCentral.Uwp.Converters"
       d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}"
       mc:Ignorable="d">
 
@@ -61,13 +60,13 @@
             <!--  IsItemClickEnabled="True"
                                         ItemClick="FavoritesList_OnItemClick"  -->
 
-            <controls1:AdaptiveGridView x:Name="FavoritesList"
+            <controls:AdaptiveGridView x:Name="FavoritesList"
                                         SelectionMode="None"
                                         ItemsSource="{Binding FlickrFavs}"
                                         HorizontalAlignment="Center"
                                         MinItemWidth="{Binding MeTileSize.Width}"
                                         MinItemHeight="{Binding MeTileSize.Height}">
-                <controls1:AdaptiveGridView.Header>
+                <controls:AdaptiveGridView.Header>
                     <StackPanel x:Name="HeaderPanel"
                                 VerticalAlignment="Top">
                         <StackPanel x:Name="CurrentBackgroundPanel"
@@ -144,8 +143,8 @@
                             </StackPanel>
                         </Grid>
                     </StackPanel>
-                </controls1:AdaptiveGridView.Header>
-                <controls1:AdaptiveGridView.ItemTemplate>
+                </controls:AdaptiveGridView.Header>
+                <controls:AdaptiveGridView.ItemTemplate>
                     <DataTemplate>
                         <Grid x:Name="BaseGrid"
                               Background="{StaticResource LightGrayBrush}"
@@ -362,8 +361,8 @@
                             </Button>
                         </Grid>
                     </DataTemplate>
-                </controls1:AdaptiveGridView.ItemTemplate>
-                <controls1:AdaptiveGridView.ItemContainerStyle>
+                </controls:AdaptiveGridView.ItemTemplate>
+                <controls:AdaptiveGridView.ItemContainerStyle>
                     <Style TargetType="GridViewItem">
                         <Setter Property="HorizontalContentAlignment"
                                 Value="Stretch" />
@@ -376,16 +375,16 @@
                         <Setter Property="Margin"
                                 Value="5" />
                     </Style>
-                </controls1:AdaptiveGridView.ItemContainerStyle>
-                <controls1:AdaptiveGridView.ItemContainerTransitions>
+                </controls:AdaptiveGridView.ItemContainerStyle>
+                <controls:AdaptiveGridView.ItemContainerTransitions>
                     <TransitionCollection>
                         <EntranceThemeTransition />
                     </TransitionCollection>
-                </controls1:AdaptiveGridView.ItemContainerTransitions>
+                </controls:AdaptiveGridView.ItemContainerTransitions>
                 <interactivity:Interaction.Behaviors>
                     <behaviors:FadeHeaderBehavior />
                 </interactivity:Interaction.Behaviors>
-            </controls1:AdaptiveGridView>
+            </controls:AdaptiveGridView>
         </Grid>
 
         <primitives:RadBusyIndicator IsActive="{Binding IsBusy}"

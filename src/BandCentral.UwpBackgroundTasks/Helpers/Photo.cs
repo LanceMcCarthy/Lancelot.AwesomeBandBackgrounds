@@ -2,11 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Xml;
-using FlickrNet;
 
-namespace BandCentral.UwpBackgroundTasks
+namespace BandCentral.UwpBackgroundTasks.Helpers
 {
-    public class Photo : IFlickrParsable
+    public sealed class Photo : IFlickrParsable
     {
         private string urlSquare;
         private string urlLargeSquare;
@@ -75,43 +74,43 @@ namespace BandCentral.UwpBackgroundTasks
             (object) this.PhotoId
         });
 
-        public string SquareThumbnailUrl => this.urlSquare != null ? this.urlSquare : UtilityMethods.UrlFormat(this, "_s", "jpg");
+        public string SquareThumbnailUrl => this.urlSquare ?? UtilityMethods.UrlFormat(this, "_s", "jpg");
 
         public int? SquareThumbnailWidth { get; set; }
 
         public int? SquareThumbnailHeight { get; set; }
 
-        public string LargeSquareThumbnailUrl => this.urlLargeSquare != null ? this.urlLargeSquare : UtilityMethods.UrlFormat(this, "_q", "jpg");
+        public string LargeSquareThumbnailUrl => this.urlLargeSquare ?? UtilityMethods.UrlFormat(this, "_q", "jpg");
 
         public int? LargeSquareThumbnailWidth { get; set; }
 
         public int? LargeSquareThumbnailHeight { get; set; }
 
-        public string ThumbnailUrl => this.urlThumbnail != null ? this.urlThumbnail : UtilityMethods.UrlFormat(this, "_t", "jpg");
+        public string ThumbnailUrl => this.urlThumbnail ?? UtilityMethods.UrlFormat(this, "_t", "jpg");
 
         public int? ThumbnailWidth { get; set; }
 
         public int? ThumbnailHeight { get; set; }
 
-        public string SmallUrl => this.urlSmall != null ? this.urlSmall : UtilityMethods.UrlFormat(this, "_m", "jpg");
+        public string SmallUrl => this.urlSmall ?? UtilityMethods.UrlFormat(this, "_m", "jpg");
 
         public int? SmallWidth { get; set; }
 
         public int? SmallHeight { get; set; }
 
-        public string Small320Url => this.urlSmall320 != null ? this.urlSmall320 : UtilityMethods.UrlFormat(this, "_n", "jpg");
+        public string Small320Url => this.urlSmall320 ?? UtilityMethods.UrlFormat(this, "_n", "jpg");
 
         public int? Small320Width { get; set; }
 
         public int? Small320Height { get; set; }
 
-        public string Medium640Url => this.urlMedium640 != null ? this.urlMedium640 : UtilityMethods.UrlFormat(this, "_z", "jpg");
+        public string Medium640Url => this.urlMedium640 ?? UtilityMethods.UrlFormat(this, "_z", "jpg");
 
         public int? Medium640Width { get; set; }
 
         public int? Medium640Height { get; set; }
 
-        public string Medium800Url => this.urlMedium800 != null ? this.urlMedium800 : UtilityMethods.UrlFormat(this, "_z", "jpg");
+        public string Medium800Url => this.urlMedium800 ?? UtilityMethods.UrlFormat(this, "_z", "jpg");
 
         public int? Medium800Width { get; set; }
 
@@ -129,13 +128,13 @@ namespace BandCentral.UwpBackgroundTasks
 
         public int? Large2048Height { get; set; }
 
-        public string MediumUrl => this.urlMedium != null ? this.urlMedium : UtilityMethods.UrlFormat(this, string.Empty, "jpg");
+        public string MediumUrl => this.urlMedium ?? UtilityMethods.UrlFormat(this, string.Empty, "jpg");
 
         public int? MediumWidth { get; set; }
 
         public int? MediumHeight { get; set; }
 
-        public string LargeUrl => this.urlLarge != null ? this.urlLarge : UtilityMethods.UrlFormat(this, "_b", "jpg");
+        public string LargeUrl => this.urlLarge ?? UtilityMethods.UrlFormat(this, "_b", "jpg");
 
         public int? LargeWidth { get; set; }
 
@@ -161,7 +160,7 @@ namespace BandCentral.UwpBackgroundTasks
 
         public GeoAccuracy Accuracy { get; set; }
 
-        public FlickrNet.GeoContext? GeoContext { get; set; }
+        public GeoContext? GeoContext { get; set; }
 
         public bool? CanComment { get; set; }
 
@@ -252,7 +251,7 @@ namespace BandCentral.UwpBackgroundTasks
                             this.Tags.Add(str2);
                         continue;
                     case "datetaken":
-                        this.DateTaken = UtilityMethods.ParseDateWithGranularity(reader.Value);
+                        this.DateTaken = UtilityMethods.ParseDateWithGranularity(reader.Value).DateTime;
                         continue;
                     case "datetakengranularity":
                     case "isprimary":
@@ -260,7 +259,7 @@ namespace BandCentral.UwpBackgroundTasks
                     case "has_comment":
                         continue;
                     case "dateupload":
-                        this.DateUploaded = UtilityMethods.UnixTimestampToDate(reader.Value);
+                        this.DateUploaded = UtilityMethods.UnixTimestampToDate(reader.Value).DateTime;
                         continue;
                     case "license":
                         this.License = (LicenseType)int.Parse(reader.Value, (IFormatProvider)CultureInfo.InvariantCulture);
@@ -269,7 +268,7 @@ namespace BandCentral.UwpBackgroundTasks
                         this.OwnerName = reader.Value;
                         continue;
                     case "lastupdate":
-                        this.LastUpdated = UtilityMethods.UnixTimestampToDate(reader.Value);
+                        this.LastUpdated = UtilityMethods.UnixTimestampToDate(reader.Value).DateTime;
                         continue;
                     case "originalformat":
                         this.OriginalFormat = reader.Value;
@@ -432,10 +431,10 @@ namespace BandCentral.UwpBackgroundTasks
                         this.Large2048Height = new int?(reader.ReadContentAsInt());
                         continue;
                     case "dateadded":
-                        this.DateAddedToGroup = new DateTime?(UtilityMethods.UnixTimestampToDate(reader.Value));
+                        this.DateAddedToGroup = new DateTime?(UtilityMethods.UnixTimestampToDate(reader.Value).DateTime);
                         continue;
                     case "date_faved":
-                        this.DateFavorited = new DateTime?(UtilityMethods.UnixTimestampToDate(reader.Value));
+                        this.DateFavorited = new DateTime?(UtilityMethods.UnixTimestampToDate(reader.Value).DateTime);
                         continue;
                     case "can_comment":
                         this.CanComment = new bool?(reader.Value == "1");
@@ -488,7 +487,7 @@ namespace BandCentral.UwpBackgroundTasks
                         this.GeoPermissions.IsContact = reader.Value == "1";
                         continue;
                     case "context":
-                        this.GeoContext = new FlickrNet.GeoContext?((FlickrNet.GeoContext)reader.ReadContentAsInt());
+                        this.GeoContext = new GeoContext?((GeoContext)reader.ReadContentAsInt());
                         continue;
                     case "rotation":
                         this.Rotation = new int?(reader.ReadContentAsInt());

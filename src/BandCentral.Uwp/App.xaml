@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="using:BandCentral.Uwp"
              xmlns:converters="using:BandCentral.Uwp.Converters"
-             xmlns:baseConverters="using:BandCentral.WindowsBase.Converters"
              RequestedTheme="Light">
 
     <Application.Resources>
@@ -15,12 +14,12 @@
 
             <!-- CONVERTERS -->
 
-            <baseConverters:BoolToVisibilityConverter x:Key="InvertedBoolToVisibilityConverter"
+            <converters:BoolToVisibilityConverter x:Key="InvertedBoolToVisibilityConverter"
                                                       IsInverted="True" />
-            <baseConverters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"
                                                       IsInverted="False" />
-            <baseConverters:TimespanToStringConverter x:Key="TimespanToStringConverter" />
-            <baseConverters:InvertBoolConverter x:Key="InvertBoolConverter" />
+            <converters:TimespanToStringConverter x:Key="TimespanToStringConverter" />
+            <converters:InvertBoolConverter x:Key="InvertBoolConverter" />
             <converters:FavImageSourceConverter x:Name="FavImageSourceConverter" />
 
             <Style x:Key="IconButtonStyle"

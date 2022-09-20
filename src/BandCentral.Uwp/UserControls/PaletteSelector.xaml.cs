@@ -13,7 +13,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using BandCentral.Uwp.Common;
-using BandCentral.WindowsBase.Common;
 
 namespace BandCentral.Uwp.UserControls
 {

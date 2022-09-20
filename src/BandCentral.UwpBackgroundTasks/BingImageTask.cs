@@ -1,6 +1,4 @@
-﻿using BandCentral.Models.Bing;
-using BandCentral.Models.Secrets;
-using Microsoft.Band;
+﻿using Microsoft.Band;
 using NotificationsExtensions;
 using NotificationsExtensions.Toasts;
 using System;
@@ -19,6 +17,8 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml.Media.Imaging;
+using BandCentral.UwpBackgroundTasks.Helpers;
+using BandCentral.UwpBackgroundTasks.Secrets;
 
 namespace BandCentral.UwpBackgroundTasks
 {
@@ -68,7 +68,7 @@ namespace BandCentral.UwpBackgroundTasks
                     //{
                     //    if (lastDayUpdated.Date == DateTime.Today.Date)
                     //    {
-                    //        localSettings.Values[Constants.BingTaskStatusKey] = $"Cancelled. Image already set for the day...";
+                    //        localSettings.Values[GeneralConstants.BingTaskStatusKey] = $"Cancelled. Image already set for the day...";
                     //        return;
                     //    }
                     //}
@@ -79,7 +79,7 @@ namespace BandCentral.UwpBackgroundTasks
 
                 string preferredBandName = "";
                 object val;
-                if (localSettings.Values.TryGetValue(Constants.PreferredBandNameKey, out val))
+                if (localSettings.Values.TryGetValue(GeneralConstants.PreferredBandNameKey, out val))
                 {
                     preferredBandName = (string) val;
                     Debug.WriteLine($"{taskInstance.Task.Name}: Found Preferred Band {preferredBandName}...");
@@ -190,7 +190,7 @@ namespace BandCentral.UwpBackgroundTasks
 
                 int bandTileHeight = 128;
                 object bandModel;
-                if (localSettings.Values.TryGetValue(Constants.BandModelKey, out bandModel))
+                if (localSettings.Values.TryGetValue(GeneralConstants.BandModelKey, out bandModel))
                 {
                     bandTileHeight = (int) bandModel == 1 ? 102 : 128;
                 }
@@ -272,7 +272,7 @@ namespace BandCentral.UwpBackgroundTasks
 
                 //check to see if toast is muted
                 object notificationMute;
-                if (localSettings.Values.TryGetValue(Constants.BackgroundRotatorNotificationMuteKey, out notificationMute))
+                if (localSettings.Values.TryGetValue(GeneralConstants.BackgroundRotatorNotificationMuteKey, out notificationMute))
                 {
                     if (!(bool) notificationMute)
                     {

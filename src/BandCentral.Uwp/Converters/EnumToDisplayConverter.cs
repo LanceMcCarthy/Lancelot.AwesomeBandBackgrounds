@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Reflection;
 using Windows.UI.Xaml.Data;
-using BandCentralBase.Common;
+using BandCentral.Models.Attributes;
 
-namespace BandCentral.WindowsBase.Converters
+namespace BandCentral.Uwp.Converters
 {
     public class EnumToDisplayConverter : IValueConverter
     {

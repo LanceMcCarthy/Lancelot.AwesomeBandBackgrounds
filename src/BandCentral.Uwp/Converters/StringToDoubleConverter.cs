@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.UI.Xaml.Data;
 
-namespace BandCentral.WindowsBase.Converters
+namespace BandCentral.Uwp.Converters
 {
     public class StringToDoubleConverter : IValueConverter
     {

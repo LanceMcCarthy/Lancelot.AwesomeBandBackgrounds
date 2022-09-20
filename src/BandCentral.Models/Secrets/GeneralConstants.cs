@@ -1,6 +1,6 @@
 ﻿namespace BandCentral.Models.Secrets
 {
-    public class Constants
+    public class GeneralConstants
     {
         //IAP Keys
         public const string BackgroundTasksIapKey = "BackgroundTasksUnlock";

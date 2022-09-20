@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BandCentralBase.Common.Enums
+namespace BandCentral.Models.Enums
 {
     [Flags]
     public enum ListLayoutMode

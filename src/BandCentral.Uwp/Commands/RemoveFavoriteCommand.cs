@@ -3,8 +3,7 @@ using System.Linq;
 using System.Windows.Input;
 using Windows.Storage;
 using Windows.UI.Popups;
-using BandCentral.WindowsBase.Common;
-using BandCentralBase.Common;
+using BandCentral.Uwp.Common;
 using FlickrNet;
 using Photo = FlickrNet.Photo;
 

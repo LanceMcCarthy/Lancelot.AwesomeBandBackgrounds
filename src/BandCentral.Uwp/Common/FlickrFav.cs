@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using BandCentralBase.Common;
+using BandCentral.Models.Favorites;
 
-namespace BandCentral.WindowsBase.Common
+namespace BandCentral.Uwp.Common
 {
     [KnownType(typeof(FavPalette))]
     [KnownType(typeof(BandColorTheme))]

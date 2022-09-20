@@ -7,8 +7,8 @@ using Windows.Foundation;
 using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Media.Imaging;
+using BandCentral.Models.Common;
 using BandCentral.Uwp.Common;
-using BandCentral.WindowsBase.Common;
 using Lumia.Imaging;
 using Lumia.Imaging.Transforms;
 

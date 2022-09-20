@@ -2,7 +2,7 @@
 using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
-using BandCentral.WindowsBase.Common;
+using BandCentral.Uwp.Common;
 
 namespace BandCentral.Uwp.Dialogs
 {

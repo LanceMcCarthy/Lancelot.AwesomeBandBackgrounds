@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace BandCentralBase.Converters
+namespace BandCentral.Uwp.Converters
 {
     public class JsonIntToBoolConverter : JsonConverter
     {

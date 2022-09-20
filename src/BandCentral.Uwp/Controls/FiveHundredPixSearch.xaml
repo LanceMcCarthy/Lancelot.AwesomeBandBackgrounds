@@ -1,10 +1,10 @@
 ﻿<UserControl x:Name="Control"
-             x:Class="BandCentral.WindowsBase.Controls.FiveHundredPixSearch"
+             x:Class="BandCentral.Uwp.Controls.FiveHundredPixSearch"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="using:BandCentral.WindowsBase.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:BandCentral.Uwp.Controls"
              mc:Ignorable="d"
              RequestedTheme="Light"
              d:DesignHeight="500"
@@ -102,7 +102,7 @@
                             <ColumnDefinition />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <local:NetworkImage ImageUrl="{Binding image_url}"
+                        <controls:NetworkImage ImageUrl="{Binding image_url}"
                                             Grid.ColumnSpan="2" />
                         <!--<StackPanel Grid.Row="1" Grid.Column="0">
                             <TextBlock Text="{Binding name}" />

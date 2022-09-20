@@ -18,14 +18,16 @@ using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
+using BandCentral.Models.Common;
+using BandCentral.Models.Secrets;
 using BandCentral.Uwp.Commands;
 using BandCentral.Uwp.Common;
-using BandCentral.WindowsBase.Common;
-using BandCentralBase.Common;
+using CommonHelpers.Mvvm;
 using Size = Windows.Foundation.Size;
 using Microsoft.Band;
 using Microsoft.Band.Notifications;
 using Microsoft.HockeyApp;
+using Microsoft.VisualBasic;
 using Photo = FlickrNet.Photo;
 
 namespace BandCentral.Uwp.ViewModels
@@ -342,7 +344,7 @@ namespace BandCentral.Uwp.ViewModels
             get
             {
                 object val;
-                if (localSettings != null && localSettings.Values.TryGetValue(Constants.BandModelKey, out val))
+                if (localSettings != null && localSettings.Values.TryGetValue(GeneralConstants.BandModelKey, out val))
                 {
                     bandModel = (int) val;
                 }
@@ -352,7 +354,7 @@ namespace BandCentral.Uwp.ViewModels
             set
             {
                 if (bandModel == value) return;
-                if (localSettings != null) localSettings.Values[Constants.BandModelKey] = value;
+                if (localSettings != null) localSettings.Values[GeneralConstants.BandModelKey] = value;
                 bandModel = value;
                 OnPropertyChanged();
             }
@@ -406,7 +408,7 @@ namespace BandCentral.Uwp.ViewModels
             get
             {
                 object val;
-                if (localSettings != null && localSettings.Values.TryGetValue(Constants.PreferredBandNameKey, out val))
+                if (localSettings != null && localSettings.Values.TryGetValue(GeneralConstants.PreferredBandNameKey, out val))
                 {
                     preferredBandName = (string) val;
                 }
@@ -416,7 +418,7 @@ namespace BandCentral.Uwp.ViewModels
             private set
             {
                 preferredBandName = value;
-                if (localSettings != null) localSettings.Values[Constants.PreferredBandNameKey] = preferredBandName;
+                if (localSettings != null) localSettings.Values[GeneralConstants.PreferredBandNameKey] = preferredBandName;
                 OnPropertyChanged();
             }
         }
@@ -427,7 +429,7 @@ namespace BandCentral.Uwp.ViewModels
             get
             {
                 object val;
-                if (localSettings != null && localSettings.Values.TryGetValue(Constants.BackgroundRotatorEnabledKey, out val))
+                if (localSettings != null && localSettings.Values.TryGetValue(GeneralConstants.BackgroundRotatorEnabledKey, out val))
                 {
                     autoFavsEnabled = (bool?) val;
                 }
@@ -437,7 +439,7 @@ namespace BandCentral.Uwp.ViewModels
             set
             {
                 autoFavsEnabled = value;
-                if (localSettings != null) localSettings.Values[Constants.BackgroundRotatorEnabledKey] = autoFavsEnabled;
+                if (localSettings != null) localSettings.Values[GeneralConstants.BackgroundRotatorEnabledKey] = autoFavsEnabled;
                 OnPropertyChanged();
             }
         }
@@ -448,7 +450,7 @@ namespace BandCentral.Uwp.ViewModels
             get
             {
                 object val;
-                if (localSettings != null && localSettings.Values.TryGetValue(Constants.BackgroundRotatorNotificationMuteKey, out val))
+                if (localSettings != null && localSettings.Values.TryGetValue(GeneralConstants.BackgroundRotatorNotificationMuteKey, out val))
                 {
                     autoFavNotificationMute = (bool?) val;
                 }
@@ -458,7 +460,7 @@ namespace BandCentral.Uwp.ViewModels
             set
             {
                 autoFavNotificationMute = value;
-                if (localSettings != null) localSettings.Values[Constants.BackgroundRotatorNotificationMuteKey] = autoFavNotificationMute;
+                if (localSettings != null) localSettings.Values[GeneralConstants.BackgroundRotatorNotificationMuteKey] = autoFavNotificationMute;
                 OnPropertyChanged();
             }
         }
@@ -659,7 +661,7 @@ namespace BandCentral.Uwp.ViewModels
             try
             {
                 //Using datacontract JSON serializer
-                var file = await localFolder.CreateFileAsync(Constants.FlickrFavoritesFileName, CreationCollisionOption.ReplaceExisting);
+                var file = await localFolder.CreateFileAsync(FlickrConstants.FlickrFavoritesFileName, CreationCollisionOption.ReplaceExisting);
 
                 var settings = new DataContractJsonSerializerSettings
                 {
@@ -700,7 +702,7 @@ namespace BandCentral.Uwp.ViewModels
                 IsBusy = true;
                 IsBusyMessage = "loading favorites...";
 
-                var storageItem = await localFolder.TryGetItemAsync(Constants.FlickrFavoritesFileName);
+                var storageItem = await localFolder.TryGetItemAsync(FlickrConstants.FlickrFavoritesFileName);
                 if (storageItem == null)
                 {
                     Debug.WriteLine("No favorties json file present");
@@ -779,7 +781,7 @@ namespace BandCentral.Uwp.ViewModels
             try
             {
                 //Using datacontract JSON serializer
-                var file = await localFolder.CreateFileAsync(Constants.ThemeHistoryFileName, CreationCollisionOption.ReplaceExisting);
+                var file = await localFolder.CreateFileAsync(FlickrConstants.ThemeHistoryFileName, CreationCollisionOption.ReplaceExisting);
 
                 var settings = new DataContractJsonSerializerSettings
                 {
@@ -813,7 +815,7 @@ namespace BandCentral.Uwp.ViewModels
 
             try
             {
-                var storageItem = await localFolder.TryGetItemAsync(Constants.ThemeHistoryFileName);
+                var storageItem = await localFolder.TryGetItemAsync(FlickrConstants.ThemeHistoryFileName);
                 if (storageItem == null)
                 {
                     Debug.WriteLine($"No ThemeHistory json file present, returning empty list");
@@ -883,7 +885,7 @@ namespace BandCentral.Uwp.ViewModels
 
                 HockeyClient.Current.TrackEvent("FavoritesBackedUp");
 
-                var file = await roamingFolder.CreateFileAsync(Constants.FlickrFavoritesBackupFileName, CreationCollisionOption.ReplaceExisting);
+                var file = await roamingFolder.CreateFileAsync(FlickrConstants.FlickrFavoritesBackupFileName, CreationCollisionOption.ReplaceExisting);
 
                 var settings = new DataContractJsonSerializerSettings
                 {
@@ -940,7 +942,7 @@ namespace BandCentral.Uwp.ViewModels
                 IsBusy = true;
                 IsBusyMessage = "loading favorites from backup...";
 
-                var storageItem = await roamingFolder.TryGetItemAsync(Constants.FlickrFavoritesBackupFileName);
+                var storageItem = await roamingFolder.TryGetItemAsync(FlickrConstants.FlickrFavoritesBackupFileName);
                 if (storageItem == null)
                 {
                     Debug.WriteLine("No ROAMING favorties json file present");

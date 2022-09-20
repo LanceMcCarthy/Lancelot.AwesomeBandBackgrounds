@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 
-namespace BandCentral.UwpBackgroundTasks
+namespace BandCentral.UwpBackgroundTasks.Helpers
 {
     public static class UtilityMethods
     {
         private const string PhotoUrlFormat = "https://farm{0}.staticflickr.com/{1}/{2}_{3}{4}.{5}";
         private static readonly DateTime unixStartDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        public static DateTime UnixTimestampToDate(string timestamp)
+        public static DateTimeOffset UnixTimestampToDate(string timestamp)
         {
             if (string.IsNullOrEmpty(timestamp))
                 return DateTime.MinValue;
@@ -70,7 +70,7 @@ namespace BandCentral.UwpBackgroundTasks
 
         private static string UrlFormat(string format, params object[] parameters) => string.Format((IFormatProvider)CultureInfo.InvariantCulture, format, parameters);
 
-        public static DateTime ParseDateWithGranularity(string date)
+        public static DateTimeOffset ParseDateWithGranularity(string date)
         {
             DateTime dateWithGranularity = DateTime.MinValue;
             if (string.IsNullOrEmpty(date) || date == "0000-00-00 00:00:00")

@@ -1,55 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace BandCentralBase.Common
+namespace BandCentral.Models.Pictalicious
 {
-    [DataContract]
-    public class PictaliciousRoot
-    {
-        [DataMember(Name = "info")]
-        public Info Info { get; set; }
-
-        [DataMember(Name = "kuler_themes")]
-        public List<Kuler_Themes> Kuler_themes { get; set; }
-
-        [DataMember(Name = "cl_themes")]
-        public List<Cl_Themes> Cl_themes { get; set; }
-    }
-
-    [DataContract]
-    public class Info
-    {
-        [DataMember(Name = "colors")]
-        public List<string> Colors { get; set; }
-        [DataMember(Name = "url")]
-        public string Url { get; set; }
-    }
-
-    [DataContract]
-    public class Kuler_Themes
-    {
-        [DataMember(Name = "title")]
-        public string Title { get; set; }
-
-        [DataMember(Name = "colors")]
-        public List<string> Colors { get; set; }
-
-        [DataMember(Name = "id")]
-        public string Id { get; set; }
-
-        [DataMember(Name = "author")]
-        public string Author { get; set; }
-
-        [DataMember(Name = "url")]
-        public string Url { get; set; }
-
-        [DataMember(Name = "rating")]
-        public double Rating { get; set; }
-
-        [DataMember(Name = "thumb")]
-        public string Thumb { get; set; }
-    }
-
     public class Cl_Themes
     {
         [DataMember(Name = "id")]
@@ -109,5 +62,4 @@ namespace BandCentralBase.Common
         [DataMember(Name = "thumb")]
         public string Thumb { get; set; }
     }
-
 }

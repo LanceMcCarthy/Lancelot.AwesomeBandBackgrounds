@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace BandCentralBase.Common
+namespace BandCentral.Uwp.Common
 {
     [DataContract]
     public class FiveHundredPixSearchResultRoot

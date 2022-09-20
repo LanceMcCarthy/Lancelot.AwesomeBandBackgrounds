@@ -1,33 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Windows.UI.Core;
 using Windows.UI.Popups;
-using BandCentralBase.Common;
 using Newtonsoft.Json;
 
-namespace BandCentral.WindowsBase.Common
+namespace BandCentral.Uwp.Common
 {
     public class FiveHundredPix
     {
         private readonly string baseUrl = @"https://api.500px.com/v1/";
         private readonly string consumerKey;
 
-        private string excludes;
-        public string Excludes
-        {
-            get { return excludes;}
-            set { excludes = value; }
-        }
+        public string Excludes { get; set; }
 
         public IncrementalLoadingCollection<PixPhoto> PixPhotos { get; set; }
 
         public FiveHundredPix(string consumerKey, string excludes = "nude, people")
         {
-            this.excludes = excludes;
+            this.Excludes = excludes;
             this.consumerKey = consumerKey;
         }
 
@@ -51,7 +43,7 @@ namespace BandCentral.WindowsBase.Common
 
                 using (var client = new HttpClient(handler))
                 {
-                    var url = $"{baseUrl}/photos/search?consumer_key={consumerKey}&feature=popular&exclude={excludes}&term={term}";
+                    var url = $"{baseUrl}/photos/search?consumer_key={consumerKey}&feature=popular&exclude={Excludes}&term={term}";
                     var jsonResult = await client.GetStringAsync(url);
 
                     if (jsonResult == null)
@@ -92,7 +84,7 @@ namespace BandCentral.WindowsBase.Common
 
                 using (var client = new HttpClient(handler))
                 {
-                    var url = $"{baseUrl}photos/search?consumer_key={consumerKey}&feature=popular&exclude={excludes}&tag={tag}";
+                    var url = $"{baseUrl}photos/search?consumer_key={consumerKey}&feature=popular&exclude={Excludes}&tag={tag}";
                     var jsonResult = await client.GetStringAsync(url);
 
                     if (jsonResult == null)
@@ -262,7 +254,7 @@ namespace BandCentral.WindowsBase.Common
 
                     using (var client = new HttpClient(handler))
                     {
-                        var url = $"{baseUrl}/photos/search?consumer_key={consumerKey}&feature=popular&exclude={excludes}&term={searchTerm}&page={pageNumber}&rpp={itemsPerPage}";
+                        var url = $"{baseUrl}/photos/search?consumer_key={consumerKey}&feature=popular&exclude={Excludes}&term={searchTerm}&page={pageNumber}&rpp={itemsPerPage}";
                         var jsonResult = await client.GetStringAsync(url);
 
                         if (jsonResult == null)

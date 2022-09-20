@@ -18,7 +18,6 @@ using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Media.Imaging;
 using BandCentral.Uwp.Common;
-using BandCentral.WindowsBase.Common;
 using FlickrNet;
 using Lumia.Imaging;
 using Lumia.Imaging.Transforms;

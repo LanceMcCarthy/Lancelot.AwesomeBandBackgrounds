@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using BandCentral.WindowsBase.Common;
-using BandCentralBase.Common;
+using BandCentral.Models.Bing;
 
-namespace BandCentral.WindowsBase.Controls
+namespace BandCentral.Uwp.Controls
 {
     public sealed partial class BingImages : UserControl
     {

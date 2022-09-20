@@ -1,9 +1,9 @@
 ﻿using System;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media.Imaging;
-using BandCentral.WindowsBase.Common;
+using BandCentral.Uwp.Common;
 
-namespace BandCentral.WindowsBase.Converters
+namespace BandCentral.Uwp.Converters
 {
     public class BitmapImageWithProgressConverter : IValueConverter
     {

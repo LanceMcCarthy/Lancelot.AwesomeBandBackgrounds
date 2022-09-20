@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Reflection;
-using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 using FlickrNet;
 
-namespace BandCentral.WindowsBase.Common
+namespace BandCentral.Uwp.Common
 {
-    public static class Helpers
+    public static partial class Helpers
     {
         public static SolidColorBrush ColorToBrush(string color)
         {

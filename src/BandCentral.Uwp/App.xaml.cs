@@ -22,9 +22,9 @@ using Windows.UI.Xaml.Navigation;
 using BandCentral.Uwp.Common;
 using BandCentral.Uwp.ViewModels;
 using BandCentral.Uwp.Views;
-using BandCentral.WindowsBase.Common;
 using Microsoft.HockeyApp;
 using Microsoft.Services.Store.Engagement;
+using UnhandledExceptionEventArgs = Windows.UI.Xaml.UnhandledExceptionEventArgs;
 
 namespace BandCentral.Uwp
 {

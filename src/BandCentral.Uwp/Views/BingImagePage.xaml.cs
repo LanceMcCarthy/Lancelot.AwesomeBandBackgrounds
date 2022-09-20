@@ -14,8 +14,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using BandCentral.Uwp.Common;
-using BandCentral.WindowsBase.Common;
-using BandCentralBase.Common;
 using Lumia.Imaging;
 using Lumia.Imaging.Transforms;
 using Lumia.InteropServices.WindowsRuntime;
@@ -24,9 +22,12 @@ using Windows.ApplicationModel.Background;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using BandCentral.Models.Bing;
+using BandCentral.Models.Secrets;
 using BandCentral.Uwp.ViewModels;
-using BandCentral.UwpBackgroundTasks;
+//using BandCentral.UwpBackgroundTasks;
 using Microsoft.HockeyApp;
+using Microsoft.VisualBasic;
 
 namespace BandCentral.Uwp.Views
 {
@@ -162,7 +163,7 @@ namespace BandCentral.Uwp.Views
 
         private async void UnlockTasksButton_OnClick(object sender, RoutedEventArgs e)
         {
-            if (await Constants.BackgroundTasksIapKey.PurchaseProductAsync())
+            if (await GeneralConstants.BackgroundTasksIapKey.PurchaseProductAsync())
             {
                 ((MainViewModel) DataContext).IapBackgroundTasks = true;
             }
@@ -262,9 +263,10 @@ namespace BandCentral.Uwp.Views
                     case BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity:
                     case BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity:
                     case BackgroundAccessStatus.AllowedSubjectToSystemPolicy:
-                        await BackgroundTaskEngine.RegisterTaskRequiringInternetAsync(Constants.BingTaskName, typeof(BingImageTask).FullName, (uint) 240);
+                        // TODO This needs to be re-implemented after riuntime component classes are fixed
+                        //await BackgroundTaskEngine.RegisterTaskRequiringInternetAsync(BingConstants.BingTaskName, typeof(BingImageTask).FullName, (uint) 240);
                         UpdateStatus($"Bing Image of the Day task is running");
-                        localSettings.Values[Constants.BingTaskLastSetKey] = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+                        localSettings.Values[BingConstants.BingTaskLastSetKey] = DateTime.Now.ToString(CultureInfo.InvariantCulture);
                         return true;
                     case BackgroundAccessStatus.DeniedBySystemPolicy:
                         UpdateStatus($"Bing Image task was DENIED access", false);
@@ -306,7 +308,7 @@ namespace BandCentral.Uwp.Views
                 selectionMute = true;
 
                 //unregister the task and confirm to user it was successful
-                if (await BackgroundTaskEngine.UnregisterTaskAsync(Constants.BingTaskName))
+                if (await BackgroundTaskEngine.UnregisterTaskAsync(BingConstants.BingTaskName))
                 {
                     UpdateStatus("Background task was removed!", false);
                     HockeyClient.Current.TrackEvent("BingBackgroundTaskDisabled");
@@ -331,7 +333,7 @@ namespace BandCentral.Uwp.Views
         {
             base.OnNavigatedTo(e);
 
-            if (await BackgroundTaskEngine.CheckBackgroundTasksAsync(Constants.BingTaskName))
+            if (await BackgroundTaskEngine.CheckBackgroundTasksAsync(BingConstants.BingTaskName))
             {
                 BingTaskEnabledToggle.IsOn = true;
                 UpdateStatus($"Bing Image of the Day task is running");
@@ -346,14 +348,14 @@ namespace BandCentral.Uwp.Views
 
             object settingValue;
 
-            if (localSettings.Values.TryGetValue(Constants.BingTaskStatusKey, out settingValue))
+            if (localSettings.Values.TryGetValue(BingConstants.BingTaskStatusKey, out settingValue))
                 LastStatusTextBlock.Text = (string) settingValue;
 
-            if (localSettings.Values.TryGetValue(Constants.BingTaskLastAttemptedKey, out settingValue))
+            if (localSettings.Values.TryGetValue(BingConstants.BingTaskLastAttemptedKey, out settingValue))
                 LastAttemptTextBlock.Text = (string) settingValue;
 
 
-            if (localSettings.Values.TryGetValue(Constants.BingTaskLastCompletedKey, out settingValue))
+            if (localSettings.Values.TryGetValue(BingConstants.BingTaskLastCompletedKey, out settingValue))
                 LastSuccessTextBlock.Text = (string) settingValue;
 
             //handle reactivation of Task 

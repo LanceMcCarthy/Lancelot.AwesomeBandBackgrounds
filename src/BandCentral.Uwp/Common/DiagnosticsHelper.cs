@@ -13,7 +13,7 @@ using Windows.Security.ExchangeActiveSyncProvisioning;
 using Windows.Storage;
 using Windows.UI.Xaml;
 
-namespace BandCentral.WindowsBase.Common
+namespace BandCentral.Uwp.Common
 {
     public class DiagnosticsHelper
     {

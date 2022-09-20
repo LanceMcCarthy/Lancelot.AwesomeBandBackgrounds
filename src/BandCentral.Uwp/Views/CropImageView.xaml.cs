@@ -7,8 +7,8 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using BandCentral.Uwp.Common;
 using BandCentral.Uwp.Controls.ImageCropper.Helpers;
-using BandCentralBase.Common;
 using System.Threading.Tasks;
+using BandCentral.Models.Common;
 using Microsoft.HockeyApp;
 
 namespace BandCentral.Uwp.Views

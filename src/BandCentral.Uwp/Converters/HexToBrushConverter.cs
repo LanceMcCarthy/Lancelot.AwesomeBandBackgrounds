@@ -3,9 +3,9 @@ using System.Diagnostics;
 using Windows.UI;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
-using BandCentral.WindowsBase.Common;
+using BandCentral.Uwp.Common;
 
-namespace BandCentral.WindowsBase.Converters
+namespace BandCentral.Uwp.Converters
 {
     public class HexToBrushConverter : IValueConverter
     {

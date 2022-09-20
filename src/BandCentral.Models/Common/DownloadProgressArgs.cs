@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BandCentral.WindowsBase.Common
+namespace BandCentral.Models.Common
 {
     public class DownloadProgressArgs : EventArgs
     {

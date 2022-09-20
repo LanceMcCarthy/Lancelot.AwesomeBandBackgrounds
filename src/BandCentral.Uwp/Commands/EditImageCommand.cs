@@ -2,8 +2,8 @@
 using System.Windows.Input;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
+using BandCentral.Uwp.Common;
 using BandCentral.Uwp.Views;
-using BandCentral.WindowsBase.Common;
 
 namespace BandCentral.Uwp.Commands
 {

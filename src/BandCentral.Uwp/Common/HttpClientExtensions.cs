@@ -5,8 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.Storage;
+using BandCentral.Models.Common;
 
-namespace BandCentral.WindowsBase.Common
+namespace BandCentral.Uwp.Common
 {
     public static class HttpClientExtensions
     {

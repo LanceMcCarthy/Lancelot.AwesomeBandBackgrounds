@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace BandCentralBase.Converters
+namespace BandCentral.Uwp.Converters
 {
     public class UnixToDateTimeConverter : DateTimeConverterBase
     {

@@ -23,7 +23,7 @@ using Telerik.Core;
 using Telerik.UI.Xaml.Controls.Data;
 using Size = Windows.Foundation.Size;
 using System.Diagnostics;
-using BandCentral.WindowsBase.Common;
+using BandCentral.Models.Common;
 using Microsoft.HockeyApp;
 using Newtonsoft.Json;
 using Photo = FlickrNet.Photo;

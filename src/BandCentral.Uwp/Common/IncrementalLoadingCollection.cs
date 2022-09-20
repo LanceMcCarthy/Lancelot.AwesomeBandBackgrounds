@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml.Data;
 
-namespace BandCentral.WindowsBase.Common
+namespace BandCentral.Uwp.Common
 {
     public class IncrementalLoadingCollection<T> : ObservableCollection<T>, ISupportIncrementalLoading
     {
