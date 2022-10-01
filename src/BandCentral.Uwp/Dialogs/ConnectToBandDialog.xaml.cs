@@ -1,9 +1,13 @@
-﻿using System;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using BandCentral.Uwp.Common;
+using System;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using BandCentral.Uwp.Common;
 
 namespace BandCentral.Uwp.Dialogs
 {

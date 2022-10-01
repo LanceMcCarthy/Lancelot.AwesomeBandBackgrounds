@@ -1,4 +1,9 @@
-﻿using System;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using BandCentral.Uwp.Controls.ImageCropper.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -11,14 +16,12 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Shapes;
-using BandCentral.Uwp.Controls.ImageCropper.Helpers;
-using System.Diagnostics;
-using Microsoft.Band.Sensors;
 
 namespace BandCentral.Uwp.Controls.ImageCropper
 {
     /// <summary>
-    /// Image Control with Cropper.
+    /// Custom Image Control with cropping rect designed specifically for the Microsoft Band 2.
+    /// Lance McCarthy
     /// </summary>
     [TemplatePart(Name = SelectRegionPartName, Type = typeof(Path))]
     [TemplatePart(Name = TopLeftCornerPartName, Type = typeof(ContentControl))]
@@ -60,7 +63,7 @@ namespace BandCentral.Uwp.Controls.ImageCropper
         private uint sourceImagePixelWidth;
         private uint sourceImagePixelHeight;
 
-        private Dictionary<uint, Point?> pointerPositionHistory = new Dictionary<uint, Point?>();
+        private readonly Dictionary<uint, Point?> pointerPositionHistory = new Dictionary<uint, Point?>();
 
         private StorageFile sourceImageFile = null;
 
@@ -70,36 +73,36 @@ namespace BandCentral.Uwp.Controls.ImageCropper
 
         #region Dependency Properties
 
-        public WriteableBitmap SourceImage
-        {
-            get { return (WriteableBitmap)GetValue(SourceImageProperty); }
-            set { SetValue(SourceImageProperty, value); }
-        }
-
-        public static readonly DependencyProperty SourceImageProperty =
-            DependencyProperty.Register("SourceImage", typeof(WriteableBitmap), typeof(ImageCropper), new PropertyMetadata(null, OnSourceImageChanged));
+        public static readonly DependencyProperty SourceImageProperty = DependencyProperty.Register(
+            nameof(SourceImage), typeof(WriteableBitmap), typeof(ImageCropper), new PropertyMetadata(null, OnSourceImageChanged));
 
         public static readonly DependencyProperty AspectRatioProperty = DependencyProperty.Register(
-            "AspectRatio", typeof (double), typeof (ImageCropper), new PropertyMetadata(0));
+            nameof(AspectRatio), typeof (double), typeof (ImageCropper), new PropertyMetadata(0));
+        
+        public WriteableBitmap SourceImage
+        {
+            get => (WriteableBitmap)GetValue(SourceImageProperty);
+            set => SetValue(SourceImageProperty, value);
+        }
 
         public double AspectRatio
         {
-            get { return (double) GetValue(AspectRatioProperty); }
-            set { SetValue(AspectRatioProperty, value); }
+            get => (double) GetValue(AspectRatioProperty);
+            set => SetValue(AspectRatioProperty, value);
         }
 
         private static async void OnSourceImageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var that = d as ImageCropper;
-            var wb = e.NewValue as WriteableBitmap;
+            if (d is ImageCropper self && e.NewValue is WriteableBitmap wb)
+            {
+                // Save local copy.
+                StorageFolder temp = ApplicationData.Current.LocalCacheFolder;
+                StorageFile file = await temp.CreateFileAsync("current_image.png", CreationCollisionOption.ReplaceExisting);
+                await wb.SaveAsync(file);
 
-            // Save local copy.
-            StorageFolder temp = ApplicationData.Current.LocalCacheFolder;
-            StorageFile file = await temp.CreateFileAsync("current_image.png", CreationCollisionOption.ReplaceExisting);
-            await wb.SaveAsync(file);
-
-            // Load
-            await that.LoadImage(file);
+                // Load
+                await self.LoadImage(file);
+            }
         }
 
         #endregion
@@ -114,7 +117,7 @@ namespace BandCentral.Uwp.Controls.ImageCropper
 
         public WriteableBitmap CroppedImage
         {
-            get { return this.croppedImage; }
+            get => this.croppedImage;
             private set
             {
                 this.croppedImage = value;

@@ -1,26 +1,20 @@
-﻿using System;
-using System.IO;
-using System.Numerics;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Graphics.Display;
-using Windows.Graphics.Imaging;
-using Windows.Storage;
-using Windows.Storage.Streams;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Imaging;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Graphics.Canvas.UI.Xaml;
+using System;
+using System.Numerics;
+using Windows.Graphics.Display;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace BandCentral.Uwp.Controls
 {
     public sealed class BlurredImageControl : Control
     {
-        public static readonly DependencyProperty ImageUrlProperty = DependencyProperty.Register("ImageUrl", typeof(string), typeof(string), new PropertyMetadata(string.Empty, SourceSet));
-        public static readonly DependencyProperty BlurProperty = DependencyProperty.Register("Blur", typeof(float), typeof(BlurredImageControl), new PropertyMetadata(15.0f));
-
         private CanvasControl control;
         private bool imageLoaded;
         private CanvasBitmap image;
@@ -33,24 +27,30 @@ namespace BandCentral.Uwp.Controls
             this.DefaultStyleKey = typeof(BlurredImageControl);
         }
 
-        public float Blur
-        {
-            get { return (float) GetValue(BlurProperty); }
-            set { SetValue(BlurProperty, value); }
-        }
-
-        public string ImageUrl
-        {
-            get { return (string) GetValue(ImageUrlProperty); }
-            set { SetValue(ImageUrlProperty, value); }
-        }
-
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
             contentPresenter = GetTemplateChild("imagePresenter") as ContentPresenter;
 
             RenderImage();
+        }
+
+        public static readonly DependencyProperty ImageUrlProperty = DependencyProperty.Register(
+            nameof(ImageUrl), typeof(string), typeof(string), new PropertyMetadata(string.Empty, SourceSet));
+        
+        public static readonly DependencyProperty BlurProperty = DependencyProperty.Register(
+            nameof(Blur), typeof(float), typeof(BlurredImageControl), new PropertyMetadata(15.0f));
+        
+        public float Blur
+        {
+            get => (float) GetValue(BlurProperty);
+            set => SetValue(BlurProperty, value);
+        }
+
+        public string ImageUrl
+        {
+            get => (string) GetValue(ImageUrlProperty);
+            set => SetValue(ImageUrlProperty, value);
         }
 
         private static void SourceSet(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -119,6 +119,5 @@ namespace BandCentral.Uwp.Controls
                 }
             }
         }
-        
     }
 }

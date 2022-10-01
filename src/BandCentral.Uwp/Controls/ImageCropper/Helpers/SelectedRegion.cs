@@ -1,7 +1,10 @@
-﻿using System;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using Windows.Foundation;
 
 namespace BandCentral.Uwp.Controls.ImageCropper.Helpers
@@ -34,10 +37,10 @@ namespace BandCentral.Uwp.Controls.ImageCropper.Helpers
         /// </summary>
         public double TopLeftCornerCanvasLeft
         {
-            get { return topLeftCornerCanvasLeft; }
+            get => topLeftCornerCanvasLeft;
             protected set
             {
-                if (topLeftCornerCanvasLeft != value)
+                if (Math.Abs(topLeftCornerCanvasLeft - value) > 0.001)
                 {
                     topLeftCornerCanvasLeft = value;
                     this.OnPropertyChanged(TopLeftCornerCanvasLeftPropertyName);
@@ -52,10 +55,10 @@ namespace BandCentral.Uwp.Controls.ImageCropper.Helpers
         /// </summary>
         public double TopLeftCornerCanvasTop
         {
-            get { return topLeftCornerCanvasTop; }
+            get => topLeftCornerCanvasTop;
             protected set
             {
-                if (topLeftCornerCanvasTop != value)
+                if (Math.Abs(topLeftCornerCanvasTop - value) > 0.001)
                 {
                     topLeftCornerCanvasTop = value;
                     this.OnPropertyChanged(TopLeftCornerCanvasTopPropertyName);
@@ -70,13 +73,12 @@ namespace BandCentral.Uwp.Controls.ImageCropper.Helpers
         /// </summary>
         public double BottomRightCornerCanvasLeft
         {
-            get { return bottomRightCornerCanvasLeft; }
+            get => bottomRightCornerCanvasLeft;
             protected set
             {
-                if (bottomRightCornerCanvasLeft != value)
+                if (Math.Abs(bottomRightCornerCanvasLeft - value) > 0.001)
                 {
                     bottomRightCornerCanvasLeft = value;
-
                     this.OnPropertyChanged(BottomRightCornerCanvasLeftPropertyName);
                 }
             }
@@ -89,10 +91,10 @@ namespace BandCentral.Uwp.Controls.ImageCropper.Helpers
         /// </summary>
         public double BottomRightCornerCanvasTop
         {
-            get { return bottomRightCornerCanvasTop; }
+            get => bottomRightCornerCanvasTop;
             protected set
             {
-                if (bottomRightCornerCanvasTop != value)
+                if (Math.Abs(bottomRightCornerCanvasTop - value) > 0.001)
                 {
                     bottomRightCornerCanvasTop = value;
                     this.OnPropertyChanged(BottomRightCornerCanvasTopPropertyName);
@@ -108,15 +110,14 @@ namespace BandCentral.Uwp.Controls.ImageCropper.Helpers
         /// </summary>
         public Rect OuterRect
         {
-            get { return outerRect; }
+            get => outerRect;
             set
             {
-                if (outerRect != value)
-                {
-                    outerRect = value;
+                if (outerRect == value) 
+                    return;
 
-                    this.OnPropertyChanged(OutterRectPropertyName);
-                }
+                outerRect = value;
+                this.OnPropertyChanged(OutterRectPropertyName);
             }
         }
 
@@ -127,24 +128,20 @@ namespace BandCentral.Uwp.Controls.ImageCropper.Helpers
         /// </summary>
         public Rect SelectedRect
         {
-            get { return selectedRect; }
+            get => selectedRect;
             protected set
             {
-                if (selectedRect != value)
-                {
-                    selectedRect = value;
+                if (selectedRect == value)
+                    return;
 
-                    this.OnPropertyChanged(SelectedRectPropertyName);
-                }
+                selectedRect = value;
+                this.OnPropertyChanged(SelectedRectPropertyName);
             }
         }
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
             // When the corner is moved, update the SelectedRect.
             if (propertyName == TopLeftCornerCanvasLeftPropertyName ||
@@ -161,13 +158,12 @@ namespace BandCentral.Uwp.Controls.ImageCropper.Helpers
         }
 
 
-        public void ResetCorner(double topLeftCornerCanvasLeft, double topLeftCornerCanvasTop,
-            double bottomRightCornerCanvasLeft, double bottomRightCornerCanvasTop)
+        public void ResetCorner(double tll, double tlt, double brl, double brt)
         {
-            this.TopLeftCornerCanvasLeft = topLeftCornerCanvasLeft;
-            this.TopLeftCornerCanvasTop = topLeftCornerCanvasTop;
-            this.BottomRightCornerCanvasLeft = bottomRightCornerCanvasLeft;
-            this.BottomRightCornerCanvasTop = bottomRightCornerCanvasTop;
+            this.TopLeftCornerCanvasLeft = tll;
+            this.TopLeftCornerCanvasTop = tlt;
+            this.BottomRightCornerCanvasLeft = brl;
+            this.BottomRightCornerCanvasTop = brt;
         }
 
         /// <summary>
@@ -231,7 +227,7 @@ namespace BandCentral.Uwp.Controls.ImageCropper.Helpers
             double width = bottomRightCornerCanvasLeft - topLeftCornerCanvasLeft;
             double height = bottomRightCornerCanvasTop - topLeftCornerCanvasTop;
 
-            if (scale != 1)
+            if (Math.Abs(scale - 1) > 0.01)
             {
                 double scaledLeftUpdate = width * (scale - 1) / 2;
                 double scaledTopUpdate = height * (scale - 1) / 2;
@@ -253,32 +249,36 @@ namespace BandCentral.Uwp.Controls.ImageCropper.Helpers
             double minWidth = Math.Max(this.MinSelectRegionSize, width * scale);
             double minHeight = Math.Max(this.MinSelectRegionSize, height * scale);
 
-            // Move towards BottomRight: Move BottomRightCorner first, and then move TopLeftCorner.
-            if (leftUpdate >= 0 && topUpdate >= 0)
+            switch (leftUpdate >= 0)
             {
-                this.UpdateCorner(SelectedRegion.BottomRightCornerName, leftUpdate, topUpdate, minWidth, minHeight);
-                this.UpdateCorner(SelectedRegion.TopLeftCornerName, leftUpdate, topUpdate, minWidth, minHeight);
-            }
+                // Move towards BottomRight: Move BottomRightCorner first, and then move TopLeftCorner.
+                case true when topUpdate >= 0:
+                    this.UpdateCorner(SelectedRegion.BottomRightCornerName, leftUpdate, topUpdate, minWidth, minHeight);
+                    this.UpdateCorner(SelectedRegion.TopLeftCornerName, leftUpdate, topUpdate, minWidth, minHeight);
+                    break;
+                // Move towards TopRight: Move TopRightCorner first, and then move BottomLeftCorner.
+                case true when topUpdate < 0:
+                    this.UpdateCorner(SelectedRegion.TopRightCornerName, leftUpdate, topUpdate, minWidth, minHeight);
+                    this.UpdateCorner(SelectedRegion.BottomLeftCornerName, leftUpdate, topUpdate, minWidth, minHeight);
+                    break;
+                // Move towards BottomLeft: Move BottomLeftCorner first, and then move TopRightCorner.
+                default:
+                {
+                    if (leftUpdate < 0 && topUpdate >= 0)
+                    {
+                        this.UpdateCorner(SelectedRegion.BottomLeftCornerName, leftUpdate, topUpdate, minWidth, minHeight);
+                        this.UpdateCorner(SelectedRegion.TopRightCornerName, leftUpdate, topUpdate, minWidth, minHeight);
+                    }
 
-            // Move towards TopRight: Move TopRightCorner first, and then move BottomLeftCorner.
-            else if (leftUpdate >= 0 && topUpdate < 0)
-            {
-                this.UpdateCorner(SelectedRegion.TopRightCornerName, leftUpdate, topUpdate, minWidth, minHeight);
-                this.UpdateCorner(SelectedRegion.BottomLeftCornerName, leftUpdate, topUpdate, minWidth, minHeight);
-            }
+                    // Move towards TopLeft: Move TopLeftCorner first, and then move BottomRightCorner.
+                    else if (leftUpdate < 0 && topUpdate < 0)
+                    {
+                        this.UpdateCorner(SelectedRegion.TopLeftCornerName, leftUpdate, topUpdate, minWidth, minHeight);
+                        this.UpdateCorner(SelectedRegion.BottomRightCornerName, leftUpdate, topUpdate, minWidth, minHeight);
+                    }
 
-            // Move towards BottomLeft: Move BottomLeftCorner first, and then move TopRightCorner.
-            else if (leftUpdate < 0 && topUpdate >= 0)
-            {
-                this.UpdateCorner(SelectedRegion.BottomLeftCornerName, leftUpdate, topUpdate, minWidth, minHeight);
-                this.UpdateCorner(SelectedRegion.TopRightCornerName, leftUpdate, topUpdate, minWidth, minHeight);
-            }
-
-            // Move towards TopLeft: Move TopLeftCorner first, and then move BottomRightCorner.
-            else if (leftUpdate < 0 && topUpdate < 0)
-            {
-                this.UpdateCorner(SelectedRegion.TopLeftCornerName, leftUpdate, topUpdate, minWidth, minHeight);
-                this.UpdateCorner(SelectedRegion.BottomRightCornerName, leftUpdate, topUpdate, minWidth, minHeight);
+                    break;
+                }
             }
         }
     }

@@ -1,4 +1,8 @@
-﻿using BandCentral.Uwp.Annotations;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using BandCentral.Uwp.Annotations;
 using CommonHelpers.Mvvm;
 using System.ComponentModel;
 using System.Diagnostics;

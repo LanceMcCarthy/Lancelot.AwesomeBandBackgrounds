@@ -1,15 +1,19 @@
-﻿using System;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using BandCentral.Models.Common;
+using BandCentral.Uwp.Common;
+using BandCentral.Uwp.Controls.ImageCropper.Helpers;
+using Microsoft.HockeyApp;
+using System;
+using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
-using BandCentral.Uwp.Common;
-using BandCentral.Uwp.Controls.ImageCropper.Helpers;
-using System.Threading.Tasks;
-using BandCentral.Models.Common;
-using Microsoft.HockeyApp;
 
 namespace BandCentral.Uwp.Views
 {

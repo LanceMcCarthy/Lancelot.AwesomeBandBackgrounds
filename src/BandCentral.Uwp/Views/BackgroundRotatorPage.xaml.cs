@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -17,6 +21,9 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using BandCentral.Models.Common;
+using BandCentral.Models.Favorites;
+using BandCentral.Models.Helpers;
 using BandCentral.Models.Secrets;
 using BandCentral.Uwp.Common;
 using Lumia.Imaging;

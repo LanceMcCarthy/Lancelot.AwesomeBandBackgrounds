@@ -1,51 +1,58 @@
-﻿using System;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using BandCentral.Models.Extensions;
+using BandCentral.Models.Favorites;
+using BandCentral.Models.Helpers;
+using BandCentral.Uwp.Common;
+using BandCentral.Uwp.ViewModels;
+using FlickrNet;
+using Lumia.Imaging;
+using Lumia.Imaging.Transforms;
+using Microsoft.HockeyApp;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Storage;
+using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
-using BandCentral.Uwp.ViewModels;
-using System.Threading.Tasks;
-using Windows.ApplicationModel;
-using Windows.UI.Core;
-using Windows.UI.Popups;
 using Windows.UI.Xaml.Media.Imaging;
-using BandCentral.Uwp.Common;
-using FlickrNet;
-using Lumia.Imaging;
-using Lumia.Imaging.Transforms;
-using Microsoft.HockeyApp;
+using Windows.UI.Xaml.Navigation;
 
 namespace BandCentral.Uwp.Views
 {
     public sealed partial class TempSearchPage : Page
     {
         public static readonly DependencyProperty FlickrViewModelProperty = DependencyProperty.Register(
-            "FlickrViewModel", typeof(FlickrViewModel), typeof(TempSearchPage), new PropertyMetadata(new FlickrViewModel()));
+            nameof(FlickrViewModel), typeof(FlickrViewModel), typeof(TempSearchPage), new PropertyMetadata(new FlickrViewModel()));
 
         public FlickrViewModel FlickrViewModel
         {
-            get { return (FlickrViewModel) GetValue(FlickrViewModelProperty); }
-            set { SetValue(FlickrViewModelProperty, value); }
+            get => (FlickrViewModel) GetValue(FlickrViewModelProperty);
+            set => SetValue(FlickrViewModelProperty, value);
         }
 
         public static readonly DependencyProperty IsPreviewGridVisibleProperty = DependencyProperty.Register(
-            "IsPreviewGridVisible", typeof(bool), typeof(TempSearchPage), new PropertyMetadata(default(bool)));
+            nameof(IsPreviewGridVisible), typeof(bool), typeof(TempSearchPage), new PropertyMetadata(default(bool)));
 
         public bool IsPreviewGridVisible
         {
-            get { return (bool) GetValue(IsPreviewGridVisibleProperty); }
-            set { SetValue(IsPreviewGridVisibleProperty, value); }
+            get => (bool) GetValue(IsPreviewGridVisibleProperty);
+            set => SetValue(IsPreviewGridVisibleProperty, value);
         }
 
-        readonly List<string> autoCompleteList = new List<string>
+        private readonly List<string> autoCompleteList = new List<string>
         {
             "Eyes","Lips","Nails","Hair","Wallpaper","Backgrounds","Technology","Nature",
             "Art","Animals","Cars","Women","Men","Landscape",
@@ -55,7 +62,7 @@ namespace BandCentral.Uwp.Views
             "Klingon","Flowers","","","","","",""
         };
 
-        ApplicationDataContainer localSettings;
+        private ApplicationDataContainer localSettings;
 
         public TempSearchPage()
         {
@@ -100,9 +107,8 @@ namespace BandCentral.Uwp.Views
             ResultsGridView.ItemsSource = FlickrViewModel.Source;
         }
 
-        #region click-tap event handlers
+        #region Event handlers
         
-
         private void ShowHidePreviewButton_OnTapped(object sender, TappedRoutedEventArgs e)
         {
             //in case the user pops out the preview grid before making a selection
@@ -203,7 +209,7 @@ namespace BandCentral.Uwp.Views
 
         #endregion
 
-        #region image processing
+        #region Image processing
 
         private async Task<WriteableBitmap> ApplyFilterAsync(string url, ImageFormat imageFormat)
         {

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using BandCentral.Models.Attributes;
+using System;
 using System.Linq;
 using System.Reflection;
 using Windows.UI.Xaml.Data;
-using BandCentral.Models.Attributes;
 
 namespace BandCentral.Uwp.Converters
 {
@@ -10,7 +10,7 @@ namespace BandCentral.Uwp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            //credit for this converter aproach goes to Jerry Nixon
+            //credit for this converter approach goes to Jerry Nixon
             if (value == null) return "Null Value";
             var member = value.GetType().GetRuntimeFields().FirstOrDefault(x => x.Name == value.ToString());
             if (member == null) return "Null Member";

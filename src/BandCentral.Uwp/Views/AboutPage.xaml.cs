@@ -1,4 +1,9 @@
-﻿using System;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using Microsoft.HockeyApp;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -11,7 +16,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
-using Microsoft.HockeyApp;
 
 namespace BandCentral.Uwp.Views
 {
@@ -31,8 +35,7 @@ namespace BandCentral.Uwp.Views
         {
             var selectedRating = Rating.Value;
             
-            var metrics = new Dictionary<string, string>();
-            metrics.Add("RatingValue", selectedRating.ToString(CultureInfo.InvariantCulture));
+            var metrics = new Dictionary<string, string> { { "RatingValue", selectedRating.ToString(CultureInfo.InvariantCulture) } };
 
             HockeyClient.Current.TrackEvent("RatingTapped", metrics);
 
@@ -62,10 +65,10 @@ namespace BandCentral.Uwp.Views
 
         private async Task EmailSupportAsync(string context)
         {
-            string subjectName = "Band Background " + context;
-            string emailAddress = "awesome.apps@outlook.com";
+            var subjectName = "Band Background " + context;
+            var emailAddress = "awesome.apps@outlook.com";
 
-            string emailName = "Awesome Band Background";
+            var emailName = "Awesome Band Background";
             var email = new EmailMessage()
             {
                 Subject = subjectName

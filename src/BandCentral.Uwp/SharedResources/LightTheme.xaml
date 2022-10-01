@@ -500,7 +500,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <!-- RadBusyIndicator custom animation style -->
 
     <Style x:Key="DownloadingAnimationStyle"
@@ -758,7 +758,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <!-- Blurred Image Control -->
     <Style TargetType="controls:BlurredImageControl">
         <Setter Property="Template">

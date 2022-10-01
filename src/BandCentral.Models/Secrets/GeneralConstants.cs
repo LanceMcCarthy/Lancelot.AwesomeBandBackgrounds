@@ -26,5 +26,8 @@
         public const string BackgroundRotatorNotificationMuteKey = "BRNMute";
         public const string BackgroundRotatorEnabledKey = "BREnabled";
         public const string BackgroundRotatorThemeEnabledKey = "BRThemeEnabled";
+
+        // HockeyApp/AppInsights
+        public const string HockeyAppClientId = "";
     }
 }

@@ -1,9 +1,8 @@
 ﻿<Page x:Name="Page"
       x:Class="BandCentral.Uwp.Views.CropImageView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="using:BandCentral.Uwp.Views"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:imageCropper="using:BandCentral.Uwp.Controls.ImageCropper"
       d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}"
@@ -46,8 +45,10 @@
         <Grid x:Name="ContentRoot"
               Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="LeftColumnDefinition" Width="*" />
-                <ColumnDefinition x:Name="RightColumnDefinition" Width="*" />
+                <ColumnDefinition x:Name="LeftColumnDefinition"
+                                  Width="*" />
+                <ColumnDefinition x:Name="RightColumnDefinition"
+                                  Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition x:Name="TopRowDefinition" />
@@ -64,7 +65,7 @@
                 <Button Content="open image file"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Click="OpenButton_Click"  />
+                        Click="OpenButton_Click" />
             </Grid>
 
             <Grid x:Name="ResultsGrid"
@@ -72,7 +73,7 @@
                   Grid.Row="0"
                   Grid.RowSpan="2"
                   Background="{StaticResource BlueAgainGrayBrush}">
-                
+
                 <Grid x:Name="BandPreviewGrid"
                       Visibility="Visible"
                       Margin="20">
@@ -81,7 +82,7 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        
+
                         <Grid x:Name="BandContainerGrid"
                               Height="{Binding ElementName=Page, Path=DataContext.MeTileSize.Height}"
                               Width="{Binding ElementName=Page, Path=DataContext.MeTileSize.Width}"
@@ -125,7 +126,8 @@
                             </Grid>
                         </Grid>
 
-                        <Grid x:Name="ButtonsGrid" Visibility="Collapsed"
+                        <Grid x:Name="ButtonsGrid"
+                              Visibility="Collapsed"
                               Width="{Binding ElementName=Page, Path=DataContext.MeTileSize.Width}"
                               Grid.Row="1"
                               Background="{StaticResource LightBrush}">

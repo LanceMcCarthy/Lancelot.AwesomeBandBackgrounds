@@ -1,10 +1,8 @@
-﻿using System;
+﻿using BandCentral.Models.Favorites;
+using System;
 using System.Linq;
 using System.Windows.Input;
-using Windows.Storage;
 using Windows.UI.Popups;
-using BandCentral.Uwp.Common;
-using FlickrNet;
 using Photo = FlickrNet.Photo;
 
 namespace BandCentral.Uwp.Commands
@@ -13,24 +11,20 @@ namespace BandCentral.Uwp.Commands
     {
         public bool CanExecute(object parameter)
         {
-            if (parameter is FlickrFav)
+            switch (parameter)
             {
-                var fav = (FlickrFav)parameter;
-                return App.ViewModel.FlickrFavs.FirstOrDefault(x => x.Photo.PhotoId == fav.Photo.PhotoId) != null; //if item does not exist, disable button
+                case FlickrFav fav:
+                    return App.ViewModel.FlickrFavs.FirstOrDefault(x => x.Photo.PhotoId == fav.Photo.PhotoId) != null; //if item does not exist, disable button
+                case Photo photo:
+                    return App.ViewModel.FlickrFavs.FirstOrDefault(x => x.Photo.PhotoId == photo.PhotoId) != null; //if item exists, disable button
+                default:
+                    return false;
             }
-
-            if (parameter is Photo)
-            {
-                var photo = (Photo)parameter;
-                return App.ViewModel.FlickrFavs.FirstOrDefault(x => x.Photo.PhotoId == photo.PhotoId) != null; //if item exists, disable button
-            }
-
-            return false;
         }
 
         public async void Execute(object parameter)
         {
-            bool deleteConfirmed = false;
+            var deleteConfirmed = false;
             var md = new MessageDialog("Are you sure you want to remove this item?", "Delete confirmation");
 
             md.Commands.Add(new UICommand("delete", command =>

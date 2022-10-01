@@ -1,4 +1,9 @@
-﻿using Windows.UI.Xaml;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/UwpProjects for custom controls
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds for original app
+
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
@@ -9,81 +14,81 @@ namespace BandCentral.Uwp.Controls
         #region dependency properties
 
         public static readonly DependencyProperty ImageUrlProperty = DependencyProperty.Register(
-            "ImageUrl", typeof(string), typeof(NetworkImage), new PropertyMetadata(default(string)));
+            nameof(ImageUrl), typeof(string), typeof(NetworkImage), new PropertyMetadata(default(string)));
 
         public string ImageUrl
         {
-            get { return (string) GetValue(ImageUrlProperty); }
-            set { SetValue(ImageUrlProperty, value); }
+            get => (string) GetValue(ImageUrlProperty);
+            set => SetValue(ImageUrlProperty, value);
         }
 
         public static readonly DependencyProperty ImageDecodeWidthProperty = DependencyProperty.Register(
-            "ImageDecodeWidth", typeof(double), typeof(NetworkImage), new PropertyMetadata(default(double)));
+            nameof(ImageDecodeWidth), typeof(double), typeof(NetworkImage), new PropertyMetadata(default(double)));
 
         public double ImageDecodeWidth
         {
-            get { return (double) GetValue(ImageDecodeWidthProperty); }
-            set { SetValue(ImageDecodeWidthProperty, value); }
+            get => (double) GetValue(ImageDecodeWidthProperty);
+            set => SetValue(ImageDecodeWidthProperty, value);
         }
 
         public static readonly DependencyProperty ImageDecodeHeightProperty = DependencyProperty.Register(
-            "ImageDecodeHeight", typeof(double), typeof(NetworkImage), new PropertyMetadata(default(double)));
+            nameof(ImageDecodeHeight), typeof(double), typeof(NetworkImage), new PropertyMetadata(default(double)));
 
         public double ImageDecodeHeight
         {
-            get { return (double) GetValue(ImageDecodeHeightProperty); }
-            set { SetValue(ImageDecodeHeightProperty, value); }
+            get => (double) GetValue(ImageDecodeHeightProperty);
+            set => SetValue(ImageDecodeHeightProperty, value);
         }
 
         public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register(
-            "IsActive", typeof(bool), typeof(NetworkImage), new PropertyMetadata(false));
+            nameof(IsActive), typeof(bool), typeof(NetworkImage), new PropertyMetadata(false));
 
         public bool IsActive
         {
-            get { return (bool) GetValue(IsActiveProperty); }
-            set { SetValue(IsActiveProperty, value); }
+            get => (bool) GetValue(IsActiveProperty);
+            set => SetValue(IsActiveProperty, value);
         }
 
         public static readonly DependencyProperty DownloadProgressStatusProperty = DependencyProperty.Register(
-            "DownloadProgressStatus", typeof(string), typeof(NetworkImage), new PropertyMetadata(@"0%"));
+            nameof(DownloadProgressStatus), typeof(string), typeof(NetworkImage), new PropertyMetadata(@"0%"));
 
         public string DownloadProgressStatus
         {
-            get { return (string) GetValue(DownloadProgressStatusProperty); }
-            set { SetValue(DownloadProgressStatusProperty, value); }
+            get => (string) GetValue(DownloadProgressStatusProperty);
+            set => SetValue(DownloadProgressStatusProperty, value);
         }
 
         public static readonly DependencyProperty ImageStretchProperty = DependencyProperty.Register(
-            "ImageStretch", typeof(Stretch), typeof(NetworkImage), new PropertyMetadata(default(Stretch)));
+            nameof(ImageStretch), typeof(Stretch), typeof(NetworkImage), new PropertyMetadata(default(Stretch)));
 
         public Stretch ImageStretch
         {
-            get { return (Stretch) GetValue(ImageStretchProperty); }
-            set { SetValue(ImageStretchProperty, value); }
+            get => (Stretch) GetValue(ImageStretchProperty);
+            set => SetValue(ImageStretchProperty, value);
         }
 
         public static readonly DependencyProperty DownloadPercentageVisibilityProperty = DependencyProperty.Register(
-            "DownloadPercentageVisibility",
+            nameof(DownloadPercentageVisibility),
             typeof(Visibility),
             typeof(NetworkImage),
             new PropertyMetadata(Visibility.Visible));
 
         public Visibility DownloadPercentageVisibility
         {
-            get { return (Visibility) GetValue(DownloadPercentageVisibilityProperty); }
-            set { SetValue(DownloadPercentageVisibilityProperty, value); }
+            get => (Visibility) GetValue(DownloadPercentageVisibilityProperty);
+            set => SetValue(DownloadPercentageVisibilityProperty, value);
         }
 
         public static readonly DependencyProperty ProgressRingVisibilityProperty = DependencyProperty.Register(
-            "ProgressRingVisibility",
+            nameof(ProgressRingVisibility),
             typeof(Visibility),
             typeof(NetworkImage),
             new PropertyMetadata(Visibility.Visible));
 
         public Visibility ProgressRingVisibility
         {
-            get { return (Visibility) GetValue(ProgressRingVisibilityProperty); }
-            set { SetValue(ProgressRingVisibilityProperty, value); }
+            get => (Visibility) GetValue(ProgressRingVisibilityProperty);
+            set => SetValue(ProgressRingVisibilityProperty, value);
         }
 
         #endregion

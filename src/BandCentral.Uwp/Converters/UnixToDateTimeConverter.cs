@@ -9,14 +9,14 @@ namespace BandCentral.Uwp.Converters
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             long ticks;
-            if(value is DateTime)
+            if(value is DateTime time)
             {
                 var epoc = new DateTime(1970, 1, 1);
-                var delta = ((DateTime)value) - epoc;
+                var delta = time - epoc;
                 if(delta.TotalSeconds < 0)
                 {
                     //Unix epoc starts January 1st, 1970
-                    throw new ArgumentOutOfRangeException("writer");
+                    throw new ArgumentOutOfRangeException(nameof(writer));
                 }
                 ticks = (long)delta.TotalSeconds;
             }
@@ -31,15 +31,12 @@ namespace BandCentral.Uwp.Converters
         {
             if(reader.TokenType != JsonToken.String)
             {
-                throw new Exception(
-                    String.Format("Unexpected token parsing date. Expected String, got {0}.",
-                    reader.TokenType));
+                throw new Exception($"Unexpected token parsing date. Expected String, got {reader.TokenType}.");
             }
 
             var date = new DateTime(1970, 1, 1);
 
-            long val;
-            if (long.TryParse((string)reader.Value, out val))
+            if (long.TryParse((string)reader.Value, out var val))
             {
                 var ticks = val;
                 date = date.AddSeconds(ticks);

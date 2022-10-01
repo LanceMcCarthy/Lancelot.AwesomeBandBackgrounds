@@ -1,14 +1,18 @@
-﻿using System;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using BandCentral.Models.Common;
+using Microsoft.HockeyApp;
+using System;
 using System.Collections.Generic;
+using Telerik.UI.Xaml.Controls.Data;
 using Windows.Storage;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
-using Telerik.UI.Xaml.Controls.Data;
-using Windows.UI.Core;
-using BandCentral.Uwp.Common;
-using Microsoft.HockeyApp;
 
 namespace BandCentral.Uwp.Views
 {
@@ -51,9 +55,8 @@ namespace BandCentral.Uwp.Views
             DataContext = App.ViewModel;
 
             HockeyClient.Current.TrackPageView("ThemesPage");
-            
-            object obj;
-            if (roamingSettings != null && roamingSettings.Values.TryGetValue("AreColorsLinked", out obj))
+
+            if (roamingSettings != null && roamingSettings.Values.TryGetValue("AreColorsLinked", out var obj))
             {
                 AreColorsLinked = (bool)obj;
             }

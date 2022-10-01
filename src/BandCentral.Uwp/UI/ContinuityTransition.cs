@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BandCentral.Uwp.Controls;
+using System;
 using System.Numerics;
 using Windows.Foundation;
 using Windows.UI.Composition;
@@ -6,11 +7,10 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Media;
-using BandCentral.Uwp.Controls;
 
 namespace BandCentral.Uwp.UI
 {
-    class ContinuityTransition
+    public class ContinuityTransition
     {
         private UIElement host;
         private UIElement parent;

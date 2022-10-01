@@ -1,4 +1,5 @@
-﻿using Microsoft.Band;
+﻿using BandCentral.Models.Secrets;
+using Microsoft.Band;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,8 +17,7 @@ using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
-using BandCentral.UwpBackgroundTasks.Helpers;
-using BandCentral.UwpBackgroundTasks.Secrets;
+using BandCentral.Models.Bing;
 
 namespace BandCentral.UwpBackgroundTasks
 {

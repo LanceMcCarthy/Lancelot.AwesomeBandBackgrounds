@@ -1,17 +1,16 @@
-﻿using System;
+﻿using BandCentral.Models.Helpers;
+using BandCentral.Uwp.Dialogs;
+using System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using BandCentral.Uwp.Common;
-using BandCentral.Uwp.Dialogs;
 
 namespace BandCentral.Uwp.Views
 {
     public sealed partial class SettingsPage : Page
     {
-        private NavigationHelper navigationHelper;
-        public NavigationHelper NavigationHelper => this.navigationHelper;
+        public NavigationHelper NavigationHelper { get; }
 
         public SettingsPage()
         {
@@ -20,9 +19,9 @@ namespace BandCentral.Uwp.Views
 
             Microsoft.HockeyApp.HockeyClient.Current.TrackPageView("SettingsPage");
 
-            this.navigationHelper = new NavigationHelper(this);
-            this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
-            this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
+            this.NavigationHelper = new NavigationHelper(this);
+            this.NavigationHelper.LoadState += this.NavigationHelper_LoadState;
+            this.NavigationHelper.SaveState += this.NavigationHelper_SaveState;
         }
 
         #region NavigationHelper registration
@@ -37,13 +36,13 @@ namespace BandCentral.Uwp.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.navigationHelper.OnNavigatedTo(e);
+            this.NavigationHelper.OnNavigatedTo(e);
             
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            this.navigationHelper.OnNavigatedFrom(e);
+            this.NavigationHelper.OnNavigatedFrom(e);
         }
 
         #endregion

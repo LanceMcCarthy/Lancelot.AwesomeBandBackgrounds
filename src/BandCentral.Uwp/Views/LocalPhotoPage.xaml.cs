@@ -1,14 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using BandCentral.Models.Common;
+using BandCentral.Models.Helpers;
+using BandCentral.Uwp.Common;
+using Lumia.Imaging;
+using Lumia.Imaging.Transforms;
+using Microsoft.HockeyApp;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -18,39 +25,25 @@ using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using BandCentral.Models.Common;
-using BandCentral.Uwp.Common;
-using Lumia.Imaging;
-using Lumia.Imaging.Transforms;
-using Microsoft.HockeyApp;
 
 namespace BandCentral.Uwp.Views
 {
     public sealed partial class LocalPhotoPage : Page
     {
-        private NavigationHelper navigationHelper;
+        private readonly NavigationHelper navigationHelper;
         public NavigationHelper NavigationHelper => this.navigationHelper;
 
         public static readonly DependencyProperty CropRectProperty =
-            DependencyProperty.Register("CropRect", typeof(Rect), typeof(LocalPhotoPage), new PropertyMetadata(Rect.Empty));
+            DependencyProperty.Register(nameof(CropRect), typeof(Rect), typeof(LocalPhotoPage), new PropertyMetadata(Rect.Empty));
 
         public Rect CropRect
         {
-            get
-            {
-                return (Rect)this.GetValue(CropRectProperty);
-            }
-
-            set
-            {
-                this.SetValue(CropRectProperty, value);
-            }
+            get => (Rect)this.GetValue(CropRectProperty);
+            set => this.SetValue(CropRectProperty, value);
         }
 
         private bool dragTutorialShown = false;
@@ -73,7 +66,7 @@ namespace BandCentral.Uwp.Views
         }
 
         private readonly ApplicationDataContainer localSettings;
-        ConsolidatedImageInfo imageInfo = null;
+        private ConsolidatedImageInfo imageInfo = null;
         private WriteableBitmap baseWriteableBitmap;
         private WriteableBitmap filterAppliedBitmap;
         private WriteableBitmap previewWriteableBitmap;

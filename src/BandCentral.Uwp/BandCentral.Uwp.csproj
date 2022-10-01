@@ -130,45 +130,10 @@
     <Compile Include="Commands\RemoveFavoriteCommand.cs" />
     <Compile Include="Commands\SendToBandCommand.cs" />
     <Compile Include="Common\AdsHelper.cs" />
-    <Compile Include="Common\AutoWidthItemsPanel.cs" />
-    <Compile Include="Common\BackgroundFav.cs" />
     <Compile Include="Common\BackgroundTaskEngine.cs" />
-    <Compile Include="Common\BandColorTheme.cs" />
     <Compile Include="Common\BandConnectionHelper.cs" />
-    <Compile Include="Common\Base58.cs" />
-    <Compile Include="Common\BingImageHelper.cs" />
-    <Compile Include="Common\BingImagesResult.cs" />
-    <Compile Include="Common\ConsolidatedImageInfo.cs" />
     <Compile Include="Common\ContinuationManager.cs" />
-    <Compile Include="Common\DelegateCommand.cs" />
-    <Compile Include="Common\DeviceInfoHelper.cs" />
-    <Compile Include="Common\DiagnosticsHelper.cs" />
-    <Compile Include="Common\ExceptionLogger.cs" />
-    <Compile Include="Common\FavBase.cs" />
-    <Compile Include="Common\FavPalette.cs" />
     <Compile Include="Common\FilterEffectsHelper.cs" />
-    <Compile Include="Common\FiveHundredPix.cs" />
-    <Compile Include="Common\FiveHundredPixRoot.cs" />
-    <Compile Include="Common\FlickrFav.cs" />
-    <Compile Include="Common\FlickrHelpers.cs" />
-    <Compile Include="Common\FrameService.cs" />
-    <Compile Include="Common\GroupedObservableCollection.cs" />
-    <Compile Include="Common\Helpers.cs" />
-    <Compile Include="Common\HttpClientExtensions.cs" />
-    <Compile Include="Common\IapHelper.cs" />
-    <Compile Include="Common\ImageHelpers.cs" />
-    <Compile Include="Common\IncrementalLoadingCollection.cs" />
-    <Compile Include="Common\LocalFav.cs" />
-    <Compile Include="Common\NavigationHelper.cs" />
-    <Compile Include="Common\NetworkHelpers.cs" />
-    <Compile Include="Common\NotificationHelpers.cs" />
-    <Compile Include="Common\PortableHelpers.cs" />
-    <Compile Include="Common\RatioScalingItemsPanel.cs" />
-    <Compile Include="Common\RelayCommand.cs" />
-    <Compile Include="Common\SplitPanel.cs" />
-    <Compile Include="Common\SuspensionManager.cs" />
-    <Compile Include="Common\TaskHelpers.cs" />
-    <Compile Include="Common\VisualTreeHelperExtensions.cs" />
     <Compile Include="Controls\AdaptiveGridView.cs" />
     <Compile Include="Controls\BandBusyIndicator.xaml.cs">
       <DependentUpon>BandBusyIndicator.xaml</DependentUpon>
@@ -177,10 +142,14 @@
       <DependentUpon>BingImages.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\BlurredImageControl.cs" />
-    <Compile Include="Controls\ColorPicker.xaml.cs">
+    <Compile Include="Controls\CustomColorPicker\ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\CompositionImage.cs" />
+    <Compile Include="Controls\CustomColorPicker\ColorPickerViewModel.cs" />
+    <Compile Include="Controls\CustomColorPicker\Palettes.cs" />
+    <Compile Include="Controls\CustomColorPicker\Swatch.cs" />
+    <Compile Include="Controls\CustomColorPicker\SwatchColor.cs" />
     <Compile Include="Controls\FiveHundredPixSearch.xaml.cs">
       <DependentUpon>FiveHundredPixSearch.xaml</DependentUpon>
     </Compile>
@@ -188,7 +157,6 @@
     <Compile Include="Controls\ImageCropper\Helpers\SelectedRegion.cs" />
     <Compile Include="Controls\ImageCropper\Helpers\WriteableBitmapExtensions.cs" />
     <Compile Include="Controls\ImageCropper\ImageCropper.cs" />
-    <Compile Include="Controls\NavMenuListView.cs" />
     <Compile Include="Controls\NetworkImage.xaml.cs">
       <DependentUpon>NetworkImage.xaml</DependentUpon>
     </Compile>
@@ -219,8 +187,7 @@
     <Compile Include="Dialogs\PickFlickrFavDialog.xaml.cs">
       <DependentUpon>PickFlickrFavDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Extensions\Methods.cs" />
-    <Compile Include="Extensions\XAML\Extension.cs" />
+    <Compile Include="Extensions\GeneralExtensionMethods.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Selectors\ImageTemplateSelector.cs" />
     <Compile Include="Shell.xaml.cs">
@@ -231,9 +198,6 @@
     <Compile Include="UI\SurfaceLoader.cs" />
     <Compile Include="UserControls\BandPreview.xaml.cs">
       <DependentUpon>BandPreview.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ColorPicker.xaml.cs">
-      <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\InAppPurchaseManager.xaml.cs">
       <DependentUpon>InAppPurchaseManager.xaml</DependentUpon>
@@ -250,7 +214,6 @@
     <Compile Include="ViewModels\FlickrViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelCore.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
@@ -389,7 +352,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\ColorPicker.xaml">
+    <Page Include="Controls\CustomColorPicker\ColorPicker.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -424,10 +387,6 @@
     <Page Include="UserControls\BandPreview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\ColorPicker.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\InAppPurchaseManager.xaml">
       <SubType>Designer</SubType>
@@ -495,12 +454,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BandCentral.Models\BandCentral.Models.csproj">
-      <Project>{4d6b441b-b5af-4f6e-98f8-9c098061431c}</Project>
-      <Name>BandCentral.Models</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <SDKReference Include="Microsoft.Advertising.Xaml, Version=10.0">
       <Name>Microsoft Advertising SDK for XAML</Name>
     </SDKReference>
@@ -566,6 +519,17 @@
   <ItemGroup>
     <None Include="FlickrNet.chm" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BandCentral.Models\BandCentral.Models.csproj">
+      <Project>{6f346c35-48c1-43b0-b3fc-39910955558e}</Project>
+      <Name>BandCentral.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BandCentral.UwpBackgroundTasks\BandCentral.UwpBackgroundTasks.csproj">
+      <Project>{17e8370c-80c5-42b9-a113-88f9756e0a27}</Project>
+      <Name>BandCentral.UwpBackgroundTasks</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

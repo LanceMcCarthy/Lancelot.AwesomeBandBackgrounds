@@ -1,7 +1,7 @@
-﻿using System;
+﻿using BandCentral.Models.Favorites;
+using System;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media.Imaging;
-using BandCentral.Uwp.Common;
 
 namespace BandCentral.Uwp.Converters
 {

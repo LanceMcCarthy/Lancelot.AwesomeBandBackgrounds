@@ -1,11 +1,19 @@
-﻿using System;
+﻿using BandCentral.Models.Common;
+using BandCentral.Models.Favorites;
+using BandCentral.Models.Secrets;
+using BandCentral.Uwp.Commands;
+using BandCentral.Uwp.Common;
+using CommonHelpers.Common;
+using CommonHelpers.Mvvm;
+using Microsoft.Band;
+using Microsoft.Band.Notifications;
+using Microsoft.HockeyApp;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
@@ -18,22 +26,13 @@ using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
-using BandCentral.Models.Common;
-using BandCentral.Models.Secrets;
-using BandCentral.Uwp.Commands;
-using BandCentral.Uwp.Common;
-using CommonHelpers.Mvvm;
-using Size = Windows.Foundation.Size;
-using Microsoft.Band;
-using Microsoft.Band.Notifications;
-using Microsoft.HockeyApp;
-using Microsoft.VisualBasic;
 using Photo = FlickrNet.Photo;
+using Size = Windows.Foundation.Size;
 
 namespace BandCentral.Uwp.ViewModels
 {
     [DataContract]
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : ViewModelBase
     {
         #region Fields
 
@@ -1503,18 +1502,6 @@ namespace BandCentral.Uwp.ViewModels
                 IsBusyMessage = "";
                 IsBusy = false;
             }
-        }
-
-        #endregion
-
-        #region INPC
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [BandCentral.Uwp.Annotations.NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

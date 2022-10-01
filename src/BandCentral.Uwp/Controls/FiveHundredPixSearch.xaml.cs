@@ -1,4 +1,12 @@
-﻿using System;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/UwpProjects for custom controls
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds for original app
+
+using BandCentral.Models.Common;
+using BandCentral.Models.FiveHundPix;
+using BandCentral.Models.Secrets;
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -7,8 +15,6 @@ using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using BandCentral.Uwp.Common;
-using BandCentral.Models.Secrets;
 
 namespace BandCentral.Uwp.Controls
 {
@@ -17,87 +23,87 @@ namespace BandCentral.Uwp.Controls
         #region dependency properties
 
         public static readonly DependencyProperty PhotosProperty = DependencyProperty.Register(
-            "Photos", 
+            nameof(Photos), 
             typeof (IncrementalLoadingCollection<PixPhoto>), 
             typeof (FiveHundredPixSearch), 
             new PropertyMetadata(default(IncrementalLoadingCollection<PixPhoto>)));
 
         public IncrementalLoadingCollection<PixPhoto> Photos
         {
-            get { return (IncrementalLoadingCollection<PixPhoto>) GetValue(PhotosProperty); }
-            set { SetValue(PhotosProperty, value); }
+            get => (IncrementalLoadingCollection<PixPhoto>) GetValue(PhotosProperty);
+            set => SetValue(PhotosProperty, value);
         }
 
         public static readonly DependencyProperty SelectedPhotoProperty = DependencyProperty.Register(
-            "SelectedPhoto", 
+            nameof(SelectedPhoto), 
             typeof (PixPhoto), 
             typeof (FiveHundredPixSearch),
             new PropertyMetadata(default(PixPhoto)));
 
         public PixPhoto SelectedPhoto
         {
-            get { return (PixPhoto) GetValue(SelectedPhotoProperty); }
-            set { SetValue(SelectedPhotoProperty, value); }
+            get => (PixPhoto) GetValue(SelectedPhotoProperty);
+            set => SetValue(SelectedPhotoProperty, value);
         }
 
         public static readonly DependencyProperty PhotosPerPageProperty = DependencyProperty.Register(
-            "PhotosPerPage", 
+            nameof(PhotosPerPage), 
             typeof (int), 
             typeof (FiveHundredPixSearch), 
             new PropertyMetadata(50));
 
         public int PhotosPerPage
         {
-            get { return (int) GetValue(PhotosPerPageProperty); }
-            set { SetValue(PhotosPerPageProperty, value); }
+            get => (int) GetValue(PhotosPerPageProperty);
+            set => SetValue(PhotosPerPageProperty, value);
         }
 
         public static readonly DependencyProperty TotalPhotosProperty = DependencyProperty.Register(
-            "TotalPhotos", 
+            nameof(TotalPhotos), 
             typeof (int), 
             typeof (FiveHundredPixSearch), 
             new PropertyMetadata(default(int)));
 
         public int TotalPhotos
         {
-            get { return (int) GetValue(TotalPhotosProperty); }
-            set { SetValue(TotalPhotosProperty, value); }
+            get => (int) GetValue(TotalPhotosProperty);
+            set => SetValue(TotalPhotosProperty, value);
         }
 
         public static readonly DependencyProperty TotalPagesProperty = DependencyProperty.Register(
-            "TotalPages", 
+            nameof(TotalPages), 
             typeof (int), 
             typeof (FiveHundredPixSearch), 
             new PropertyMetadata(default(int)));
 
         public int TotalPages
         {
-            get { return (int) GetValue(TotalPagesProperty); }
-            set { SetValue(TotalPagesProperty, value); }
+            get => (int) GetValue(TotalPagesProperty);
+            set => SetValue(TotalPagesProperty, value);
         }
 
         public static readonly DependencyProperty CurrentPageProperty = DependencyProperty.Register(
-            "CurrentPage", 
+            nameof(CurrentPage), 
             typeof (int), 
             typeof (FiveHundredPixSearch), 
             new PropertyMetadata(1));
 
         public int CurrentPage
         {
-            get { return (int) GetValue(CurrentPageProperty); }
-            set { SetValue(CurrentPageProperty, value); }
+            get => (int) GetValue(CurrentPageProperty);
+            set => SetValue(CurrentPageProperty, value);
         }
 
         public static readonly DependencyProperty SearchTermProperty = DependencyProperty.Register(
-            "SearchTerm", 
+            nameof(SearchTerm), 
             typeof (string), 
             typeof (FiveHundredPixSearch), 
             new PropertyMetadata("beaches"));
 
         public string SearchTerm
         {
-            get { return (string) GetValue(SearchTermProperty); }
-            set { SetValue(SearchTermProperty, value); }
+            get => (string) GetValue(SearchTermProperty);
+            set => SetValue(SearchTermProperty, value);
         }
 
         #endregion
@@ -181,6 +187,5 @@ namespace BandCentral.Uwp.Controls
         {
             OnFiveHundredPixSelectionChanged(e);
         }
-        
     }
 }

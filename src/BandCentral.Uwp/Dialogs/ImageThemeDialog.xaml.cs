@@ -1,4 +1,16 @@
-﻿using System;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using BandCentral.Models.Extensions;
+using BandCentral.Models.Helpers;
+using BandCentral.Models.Pictalicious;
+using BandCentral.Uwp.Controls.ImageCropper.Helpers;
+using Lumia.Imaging;
+using Lumia.Imaging.Transforms;
+using Microsoft.HockeyApp;
+using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -9,25 +21,18 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
-using BandCentral.Models.Pictalicious;
-using BandCentral.Uwp.Common;
-using BandCentral.Uwp.Controls.ImageCropper.Helpers;
-using Lumia.Imaging;
-using Lumia.Imaging.Transforms;
-using Microsoft.HockeyApp;
-using Newtonsoft.Json;
 
 namespace BandCentral.Uwp.Dialogs
 {
     public sealed partial class ImageThemeDialog : ContentDialog
     {
         public static readonly DependencyProperty ThemesRootProperty = DependencyProperty.Register(
-            "ThemesRoot", typeof(PictaliciousRoot), typeof(ImageThemeDialog), new PropertyMetadata(default(PictaliciousRoot)));
+            nameof(ThemesRoot), typeof(PictaliciousRoot), typeof(ImageThemeDialog), new PropertyMetadata(default(PictaliciousRoot)));
 
         public PictaliciousRoot ThemesRoot
         {
-            get { return (PictaliciousRoot) GetValue(ThemesRootProperty); }
-            set { SetValue(ThemesRootProperty, value); }
+            get => (PictaliciousRoot) GetValue(ThemesRootProperty);
+            set => SetValue(ThemesRootProperty, value);
         }
 
         public static readonly DependencyProperty PhotoProperty = DependencyProperty.Register(
@@ -35,8 +40,8 @@ namespace BandCentral.Uwp.Dialogs
 
         public FlickrNet.Photo Photo
         {
-            get { return (FlickrNet.Photo) GetValue(PhotoProperty); }
-            set { SetValue(PhotoProperty, value); }
+            get => (FlickrNet.Photo) GetValue(PhotoProperty);
+            set => SetValue(PhotoProperty, value);
         }
 
         public ImageThemeDialog(FlickrNet.Photo photo)

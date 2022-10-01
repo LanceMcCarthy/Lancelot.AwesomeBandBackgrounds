@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using System;
 using System.Collections.Generic;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Store;
@@ -11,7 +15,7 @@ namespace BandCentral.Uwp.UserControls
 {
     public sealed partial class ReviewReminder : UserControl
     {
-        private List<int> reminderRunPoints;
+        private readonly List<int> reminderRunPoints;
         
         public ReviewReminder()
         {

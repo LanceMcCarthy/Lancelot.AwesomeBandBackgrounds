@@ -1,5 +1,9 @@
-﻿using BandCentral.Models.Secrets;
-using BandCentral.Uwp.Common;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using BandCentral.Models.Helpers;
+using BandCentral.Models.Secrets;
 using BandCentral.Uwp.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

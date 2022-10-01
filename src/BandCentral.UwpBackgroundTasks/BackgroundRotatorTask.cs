@@ -1,5 +1,4 @@
-﻿using BandCentral.UwpBackgroundTasks.Helpers;
-using Microsoft.Band;
+﻿using Microsoft.Band;
 using Newtonsoft.Json;
 using NotificationsExtensions;
 using NotificationsExtensions.Toasts;
@@ -13,7 +12,8 @@ using Windows.ApplicationModel.Background;
 using Windows.Storage;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml.Media.Imaging;
-using BandCentral.UwpBackgroundTasks.Secrets;
+using BandCentral.Models.Favorites;
+using BandCentral.Models.Secrets;
 
 namespace BandCentral.UwpBackgroundTasks
 {

@@ -1,4 +1,14 @@
-﻿using System;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using BandCentral.Models.Common;
+using BandCentral.Models.Helpers;
+using BandCentral.Uwp.Common;
+using Lumia.Imaging;
+using Lumia.Imaging.Transforms;
+using Microsoft.HockeyApp;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -20,33 +30,20 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using BandCentral.Models.Common;
-using BandCentral.Uwp.Common;
-using FlickrNet;
-using Lumia.Imaging;
-using Lumia.Imaging.Transforms;
-using Microsoft.HockeyApp;
-using Size = Windows.Foundation.Size;
 using Photo = FlickrNet.Photo;
+using Size = Windows.Foundation.Size;
 
 namespace BandCentral.Uwp.Views
 {
     public sealed partial class PhotoDetailsPage : Page
     {
-        public static readonly DependencyProperty CropRectProperty =
-            DependencyProperty.Register("CropRect", typeof(Rect), typeof(PhotoDetailsPage), new PropertyMetadata(Rect.Empty));
+        public static readonly DependencyProperty CropRectProperty = DependencyProperty.Register(
+            nameof(CropRect), typeof(Rect), typeof(PhotoDetailsPage), new PropertyMetadata(Rect.Empty));
 
         public Rect CropRect
         {
-            get
-            {
-                return (Rect)this.GetValue(CropRectProperty);
-            }
-
-            set
-            {
-                this.SetValue(CropRectProperty, value);
-            }
+            get => (Rect)this.GetValue(CropRectProperty);
+            set => this.SetValue(CropRectProperty, value);
         }
 
         private bool dragTutorialShown = false;
@@ -54,10 +51,7 @@ namespace BandCentral.Uwp.Views
         {
             get
             {
-
-                object obj;
-
-                if (localSettings.Values.TryGetValue("DragTutorialShown", out obj))
+                if (localSettings.Values.TryGetValue("DragTutorialShown", out var obj))
                 {
                     dragTutorialShown = (bool)obj;
                 }
@@ -72,7 +66,7 @@ namespace BandCentral.Uwp.Views
         }
 
         private ApplicationDataContainer localSettings;
-        ConsolidatedImageInfo imageInfo = null;
+        private ConsolidatedImageInfo imageInfo = null;
         private WriteableBitmap baseWriteableBitmap;
         private WriteableBitmap filterAppliedBitmap;
         private WriteableBitmap previewWriteableBitmap = null;

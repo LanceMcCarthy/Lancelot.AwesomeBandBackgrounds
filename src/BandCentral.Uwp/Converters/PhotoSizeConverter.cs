@@ -5,13 +5,7 @@ namespace BandCentral.Uwp.Converters
 {
     public class PhotoSizeConverter : IValueConverter
     {
-        private string widthOrHeight = "Width";
-
-        public string WidthOrHeight
-        {
-            get { return widthOrHeight; }
-            set { widthOrHeight = value; }
-        }
+        public string WidthOrHeight { get; set; } = "Width";
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {

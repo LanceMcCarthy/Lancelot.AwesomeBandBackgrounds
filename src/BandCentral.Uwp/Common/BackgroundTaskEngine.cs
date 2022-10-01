@@ -28,9 +28,11 @@ namespace BandCentral.Uwp.Common
                     task.Value.Unregister(true);
                 }
 
-                var builder = new BackgroundTaskBuilder();
-                builder.Name = taskFriendlyName;
-                builder.TaskEntryPoint = taskEntryPoint;
+                var builder = new BackgroundTaskBuilder
+                {
+                    Name = taskFriendlyName,
+                    TaskEntryPoint = taskEntryPoint
+                };
                 builder.SetTrigger(new TimeTrigger(taskRunFrequency, false));
                 builder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
                 builder.Register();

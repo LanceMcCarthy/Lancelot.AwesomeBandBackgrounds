@@ -1,7 +1,7 @@
-﻿using System;
+﻿using BandCentral.Models.Enums;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
-using BandCentral.Models.Enums;
 
 namespace BandCentral.Uwp.Converters
 {

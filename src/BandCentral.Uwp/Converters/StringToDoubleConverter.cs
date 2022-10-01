@@ -10,9 +10,7 @@ namespace BandCentral.Uwp.Converters
             if (value == null)
                 return 0;
 
-            double parsedValue;
-
-            return double.TryParse((string) value, out parsedValue) 
+            return double.TryParse((string) value, out var parsedValue) 
                 ? parsedValue 
                 : 0;
         }

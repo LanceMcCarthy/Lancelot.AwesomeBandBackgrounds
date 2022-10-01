@@ -8,15 +8,15 @@ using Windows.Storage;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using BandCentral.Models.Enums;
+using BandCentral.Models.Helpers;
 using BandCentral.Uwp.Commands;
-using BandCentral.Uwp.Common;
-using BandCentralBase.ViewModels;
+using CommonHelpers.Common;
 using FlickrNet;
 using Photo = FlickrNet.Photo;
 
 namespace BandCentral.Uwp.ViewModels
 {
-    public class FlickrViewModel : ViewModelCore
+    public class FlickrViewModel : ViewModelBase
     {
         private readonly ApplicationDataContainer localSettings;
         private readonly ApplicationDataContainer roamingSettings;

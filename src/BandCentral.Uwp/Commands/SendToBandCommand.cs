@@ -1,4 +1,10 @@
-﻿using System;
+﻿using BandCentral.Models.Favorites;
+using BandCentral.Models.Helpers;
+using FlickrNet;
+using Lumia.Imaging;
+using Lumia.Imaging.Transforms;
+using Microsoft.HockeyApp;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -7,11 +13,6 @@ using System.Windows.Input;
 using Windows.Foundation;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Media.Imaging;
-using BandCentral.Uwp.Common;
-using FlickrNet;
-using Lumia.Imaging;
-using Lumia.Imaging.Transforms;
-using Microsoft.HockeyApp;
 
 namespace BandCentral.Uwp.Commands
 {
@@ -30,23 +31,20 @@ namespace BandCentral.Uwp.Commands
             //    await new MessageDialog("Reconnect to your Band, then try again.", "Band not connected").ShowAsync();
             //}
 
-            if (parameter is Photo)
+            switch (parameter)
             {
-                var selectedPhoto = (Photo)parameter;
-                await SetBandImageAsync(await DownloadAndCropAsync(selectedPhoto));
-            }
-
-            if (parameter is FlickrFav)
-            {
-                var selectedPhoto = (FlickrFav)parameter;
-
-                await SetBandImageAsync(await DownloadAndCropAsync(selectedPhoto.Photo));
+                case Photo photo:
+                    await SetBandImageAsync(await DownloadAndCropAsync(photo));
+                    break;
+                case FlickrFav fav:
+                    await SetBandImageAsync(await DownloadAndCropAsync(fav.Photo));
+                    break;
             }
         }
 
         public event EventHandler CanExecuteChanged;
 
-        private async Task<WriteableBitmap> DownloadAndCropAsync(Photo photo)
+        private static async Task<WriteableBitmap> DownloadAndCropAsync(Photo photo)
         {
             try
             {
@@ -68,8 +66,7 @@ namespace BandCentral.Uwp.Commands
                 }
 
                 var start = DateTimeOffset.Now;
-
-                //http get for image stream
+                
                 var handler = new HttpClientHandler();
                 if (handler.SupportsAutomaticDecompression)
                     handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
@@ -77,7 +74,7 @@ namespace BandCentral.Uwp.Commands
                 var client = new HttpClient(handler);
                 var stream = await client.GetStreamAsync(imageInfo.Url);
 
-                //analytics
+                // Analytics
                 //App.TelemetryClient.TrackRequest("SendToBandCommand GetStreamAsync", start, DateTimeOffset.Now - start, "200", true);
 
                 //seekable stream

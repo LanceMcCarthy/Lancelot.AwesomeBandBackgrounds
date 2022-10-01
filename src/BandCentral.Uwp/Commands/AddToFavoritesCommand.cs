@@ -1,4 +1,10 @@
-﻿using System;
+﻿using BandCentral.Models.Common;
+using BandCentral.Models.Extensions;
+using BandCentral.Models.Favorites;
+using BandCentral.Models.Helpers;
+using Lumia.Imaging;
+using Lumia.Imaging.Transforms;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -7,10 +13,6 @@ using Windows.Foundation;
 using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Media.Imaging;
-using BandCentral.Models.Common;
-using BandCentral.Uwp.Common;
-using Lumia.Imaging;
-using Lumia.Imaging.Transforms;
 
 namespace BandCentral.Uwp.Commands
 {

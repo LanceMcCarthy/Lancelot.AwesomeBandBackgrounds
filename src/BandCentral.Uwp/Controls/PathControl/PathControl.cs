@@ -1,4 +1,7 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+
+using Windows.UI.Xaml.Controls;
 
 namespace BandCentral.Uwp.Controls.PathControl
 {

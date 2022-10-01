@@ -10,29 +10,25 @@ namespace BandCentral.Uwp.Triggers
 {
     public class ContinuumModeTrigger : StateTriggerBase
     {
-        public static readonly DependencyProperty MaximumScreenSizeForMobileProperty = DependencyProperty.Register(
-            "MaximumScreenSizeForMobile", typeof(double), typeof(ContinuumModeTrigger), new PropertyMetadata(6d, (o, e) =>
-            {
-                ((ContinuumModeTrigger)o)?.UpdateTrigger();
-            }));
+        private Page target;
 
-        public double MaximumScreenSizeForMobile
-        {
-            get { return (double) GetValue(MaximumScreenSizeForMobileProperty); }
-            set { SetValue(MaximumScreenSizeForMobileProperty, value); }
-        }
         public ContinuumModeTrigger()
         {
             this.UpdateTrigger();
         }
 
-        private Page target;
+        public static readonly DependencyProperty MaximumScreenSizeForMobileProperty = DependencyProperty.Register(
+            nameof(MaximumScreenSizeForMobile), typeof(double), typeof(ContinuumModeTrigger), new PropertyMetadata(6d, MaxScreenSizeChanged));
+        
+        public double MaximumScreenSizeForMobile
+        {
+            get => (double) GetValue(MaximumScreenSizeForMobileProperty);
+            set => SetValue(MaximumScreenSizeForMobileProperty, value);
+        }
+
         public Page Target
         {
-            get
-            {
-                return target;
-            }
+            get => target;
             set
             {
                 if (target != value)
@@ -46,6 +42,11 @@ namespace BandCentral.Uwp.Triggers
                     this.UpdateTrigger();
                 }
             }
+        }
+
+        private static void MaxScreenSizeChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+            ((ContinuumModeTrigger)o)?.UpdateTrigger();
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)

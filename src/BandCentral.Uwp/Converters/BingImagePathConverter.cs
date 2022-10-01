@@ -1,6 +1,6 @@
-﻿using System;
+﻿using BandCentral.Models.Bing;
+using System;
 using Windows.UI.Xaml.Data;
-using BandCentral.Models.Bing;
 
 namespace BandCentral.Uwp.Converters
 {

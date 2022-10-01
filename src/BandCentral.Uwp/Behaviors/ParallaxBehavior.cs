@@ -5,6 +5,7 @@ using Windows.UI.Xaml.Hosting;
 using BandCentral.Uwp.Common;
 using Microsoft.Xaml.Interactivity;
 using Windows.Foundation.Metadata;
+using BandCentral.Models.Extensions;
 
 namespace BandCentral.Uwp.Behaviors
 {

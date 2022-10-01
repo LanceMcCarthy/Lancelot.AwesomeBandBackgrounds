@@ -1,9 +1,9 @@
-﻿using System;
+﻿using BandCentral.Models.Helpers;
+using System;
 using System.Diagnostics;
 using Windows.UI;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
-using BandCentral.Uwp.Common;
 
 namespace BandCentral.Uwp.Converters
 {

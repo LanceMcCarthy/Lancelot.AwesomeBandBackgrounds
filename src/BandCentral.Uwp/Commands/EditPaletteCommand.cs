@@ -1,10 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using BandCentral.Models.Favorites;
+using BandCentral.Uwp.Views;
+using System;
 using System.Windows.Input;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using BandCentral.Uwp.Common;
-using BandCentral.Uwp.Views;
 
 namespace BandCentral.Uwp.Commands
 {
@@ -21,10 +20,10 @@ namespace BandCentral.Uwp.Commands
 
             try
             {
-                if (parameter is FlickrFav)
+                if (parameter is FlickrFav fav)
                 {
                     //if we're going to the custom theme page using a FlickrFav context
-                    App.ViewModel.SelectedFav = (FlickrFav)parameter;
+                    App.ViewModel.SelectedFav = fav;
 
                     if (App.ViewModel.SelectedFav == null)
                         return;

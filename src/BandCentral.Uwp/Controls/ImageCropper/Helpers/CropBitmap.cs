@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using System;
 using System.IO;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
@@ -27,7 +31,7 @@ namespace BandCentral.Uwp.Controls.ImageCropper.Helpers
         /// <returns>
         /// The cropped image.
         /// </returns>
-        async public static Task<WriteableBitmap> GetCroppedBitmapAsync(StorageFile originalImageFile,
+        public static async Task<WriteableBitmap> GetCroppedBitmapAsync(StorageFile originalImageFile,
             Point startPoint, Size corpSize, double scale)
         {
             if (double.IsNaN(scale) || double.IsInfinity(scale))
@@ -65,13 +69,14 @@ namespace BandCentral.Uwp.Controls.ImageCropper.Helpers
                 }
 
                 // Get the cropped pixels.
-                byte[] pixels = await GetPixelData(decoder, startPointX, startPointY, width, height,
+                var pixels = await GetPixelData(decoder, startPointX, startPointY, width, height,
                     scaledWidth, scaledHeight);
 
                 // Stream the bytes into a WriteableBitmap
-                WriteableBitmap cropBmp = new WriteableBitmap((int)width, (int)height);
-                Stream pixStream = cropBmp.PixelBuffer.AsStream();
-                pixStream.Write(pixels, 0, (int)(width * height * 4));
+                var cropBmp = new WriteableBitmap((int)width, (int)height);
+                var pixStream = cropBmp.PixelBuffer.AsStream();
+
+                await pixStream.WriteAsync(pixels, 0, (int)(width * height * 4));
 
                 return cropBmp;
             }
@@ -80,7 +85,7 @@ namespace BandCentral.Uwp.Controls.ImageCropper.Helpers
         /// <summary>
         /// Use BitmapTransform to define the region to crop, and then get the pixel data in the region
         /// </summary>
-        async static private Task<byte[]> GetPixelData(BitmapDecoder decoder, uint startPointX, uint startPointY,
+        private static async Task<byte[]> GetPixelData(BitmapDecoder decoder, uint startPointX, uint startPointY,
             uint width, uint height)
         {
             return await GetPixelData(decoder, startPointX, startPointY, width, height,
@@ -92,11 +97,11 @@ namespace BandCentral.Uwp.Controls.ImageCropper.Helpers
         /// If you want to get the pixel data of a scaled image, set the scaledWidth and scaledHeight
         /// of the scaled image.
         /// </summary>
-        async static private Task<byte[]> GetPixelData(BitmapDecoder decoder, uint startPointX, uint startPointY,
+        private static async Task<byte[]> GetPixelData(BitmapDecoder decoder, uint startPointX, uint startPointY,
             uint width, uint height, uint scaledWidth, uint scaledHeight)
         {
-            BitmapTransform transform = new BitmapTransform();
-            BitmapBounds bounds = new BitmapBounds();
+            var transform = new BitmapTransform();
+            var bounds = new BitmapBounds();
             bounds.X = startPointX;
             bounds.Y = startPointY;
             bounds.Height = height;
@@ -107,13 +112,13 @@ namespace BandCentral.Uwp.Controls.ImageCropper.Helpers
             transform.ScaledHeight = scaledHeight;
 
             // Get the cropped pixels within the bounds of transform.
-            PixelDataProvider pix = await decoder.GetPixelDataAsync(
+            var pix = await decoder.GetPixelDataAsync(
                 BitmapPixelFormat.Bgra8,
                 BitmapAlphaMode.Straight,
                 transform,
                 ExifOrientationMode.IgnoreExifOrientation,
                 ColorManagementMode.ColorManageToSRgb);
-            byte[] pixels = pix.DetachPixelData();
+            var pixels = pix.DetachPixelData();
             return pixels;
         }
     }

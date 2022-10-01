@@ -1,4 +1,19 @@
-﻿using System;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using BandCentral.Models.Common;
+using BandCentral.Models.Extensions;
+using BandCentral.Models.Favorites;
+using BandCentral.Models.Helpers;
+using BandCentral.Models.Pictalicious;
+using BandCentral.Uwp.Controls.ImageCropper.Helpers;
+using Lumia.Imaging;
+using Microsoft.Graphics.Canvas;
+using Microsoft.Graphics.Canvas.Effects;
+using Microsoft.HockeyApp;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -19,16 +34,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using BandCentral.Models.Common;
-using BandCentral.Models.Favorites;
-using BandCentral.Models.Pictalicious;
-using BandCentral.Uwp.Common;
-using BandCentral.Uwp.Controls.ImageCropper.Helpers;
-using Lumia.Imaging;
-using Microsoft.Graphics.Canvas;
-using Microsoft.Graphics.Canvas.Effects;
-using Microsoft.HockeyApp;
-using Newtonsoft.Json;
 using CropEffect = Lumia.Imaging.Transforms.CropEffect;
 using Photo = FlickrNet.Photo;
 
@@ -36,16 +41,16 @@ namespace BandCentral.Uwp.Views
 {
     public sealed partial class PairedThemePage : Page
     {
-        #region fields
-
         public static readonly DependencyProperty SelectedPaletteBrushProperty = DependencyProperty.Register(
-            "SelectedPaletteBrush", typeof(SolidColorBrush), typeof(PairedThemePage), new PropertyMetadata(default(SolidColorBrush)));
+            nameof(SelectedPaletteBrush), typeof(SolidColorBrush), typeof(PairedThemePage), new PropertyMetadata(default(SolidColorBrush)));
 
         public SolidColorBrush SelectedPaletteBrush
         {
-            get { return (SolidColorBrush)GetValue(SelectedPaletteBrushProperty); }
-            set { SetValue(SelectedPaletteBrushProperty, value); }
+            get => (SolidColorBrush)GetValue(SelectedPaletteBrushProperty);
+            set => SetValue(SelectedPaletteBrushProperty, value);
         }
+
+        #region fields
 
         private StorageFile imageFile;
         private string selectedBandThemeColor;
@@ -58,10 +63,10 @@ namespace BandCentral.Uwp.Views
             this.InitializeComponent();
             DataContext = App.ViewModel;
 
-            HockeyClient.Current.TrackPageView("PairedThemePage");
+            HockeyClient.Current.TrackPageView(nameof(PairedThemePage));
         }
 
-        #region click and selection handlers
+        #region Event handlers
 
         private async void ThemeColorGrid_Tapped(object sender, TappedRoutedEventArgs e)
         {
@@ -179,7 +184,7 @@ namespace BandCentral.Uwp.Views
 
         #endregion
 
-        #region methods
+        #region Methods
 
         private async Task GenerateSwatchesAsync(Photo photo)
         {

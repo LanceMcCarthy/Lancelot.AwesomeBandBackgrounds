@@ -1,11 +1,15 @@
-﻿using System;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using System;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace BandCentral.Uwp.Controls
 {
-    //ORINGINAL ONE
+    // Original version, better version here https://github.com/LanceMcCarthy/UwpProjects
     public class AdaptiveGridView : GridView
     {
         public AdaptiveGridView()
@@ -36,23 +40,23 @@ namespace BandCentral.Uwp.Controls
         }
 
         public static readonly DependencyProperty HasItemsProperty = DependencyProperty.Register(
-            "HasItems", typeof(bool), typeof(AdaptiveGridView), new PropertyMetadata(default(bool)));
+            nameof(HasItems), typeof(bool), typeof(AdaptiveGridView), new PropertyMetadata(default(bool)));
 
         public bool HasItems
         {
-            get { return (bool)GetValue(HasItemsProperty); }
-            set { SetValue(HasItemsProperty, value); }
+            get => (bool)GetValue(HasItemsProperty);
+            set => SetValue(HasItemsProperty, value);
         }
 
         public double MinItemHeight
         {
-            get { return (double) GetValue(MinItemHeightProperty); }
-            set { SetValue(MinItemHeightProperty, value); }
+            get => (double) GetValue(MinItemHeightProperty);
+            set => SetValue(MinItemHeightProperty, value);
         }
 
         public static readonly DependencyProperty MinItemHeightProperty =
             DependencyProperty.Register(
-                "MinItemHeight",
+                nameof(MinItemHeight),
                 typeof(double),
                 typeof(AdaptiveGridView),
                 new PropertyMetadata(1.0, (s, a) =>
@@ -66,13 +70,13 @@ namespace BandCentral.Uwp.Controls
 
         public double MinItemWidth
         {
-            get { return (double) GetValue(MinimumItemWidthProperty); }
-            set { SetValue(MinimumItemWidthProperty, value); }
+            get => (double) GetValue(MinimumItemWidthProperty);
+            set => SetValue(MinimumItemWidthProperty, value);
         }
 
         public static readonly DependencyProperty MinimumItemWidthProperty =
             DependencyProperty.Register(
-                "MinItemWidth",
+                nameof(MinItemWidth),
                 typeof(double),
                 typeof(AdaptiveGridView),
                 new PropertyMetadata(1.0, (s, a) =>
@@ -85,8 +89,7 @@ namespace BandCentral.Uwp.Controls
 
         protected override Size MeasureOverride(Size availableSize)
         {
-            var panel = this.ItemsPanelRoot as ItemsWrapGrid;
-            if (panel != null)
+            if (this.ItemsPanelRoot is ItemsWrapGrid panel)
             {
                 var numColumns = Math.Floor(availableSize.Width / MinItemWidth);
                 numColumns = numColumns == 0 ? 1 : numColumns;

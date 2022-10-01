@@ -16,55 +16,49 @@ namespace BandCentral.Uwp.Controls
 {
     public sealed class CompositionImage : Control
     {
-        private bool _unloaded;
-        private Compositor _compositor;
-        private SpriteVisual _sprite;
-        private Uri _uri;
-        private CompositionDrawingSurface _surface;
-        private CompositionSurfaceBrush _surfaceBrush;
-        private CompositionBrush _brush;
-        private LoadTimeEffectHandler _loadEffectDelegate;
-        private CompositionStretch _stretchMode;
-        private DispatcherTimer _timer;
+        private bool unloaded;
+        private readonly Compositor compositor;
+        private SpriteVisual sprite;
+        private Uri uri;
+        private CompositionDrawingSurface surface;
+        private readonly CompositionSurfaceBrush surfaceBrush;
+        private CompositionBrush brush;
+        private CompositionStretch stretchMode;
+        private DispatcherTimer timer;
         public event RoutedEventHandler ImageOpened;
         public event RoutedEventHandler ImageFailed;
-        private TimeSpan _placeholderDelay;
-        private CompositionBrush _placeholderBrush;
-        private bool _sharedSurface;
+        private CompositionBrush placeholderBrush;
 
-        static private CompositionBrush _defaultPlaceholderBrush;
-        static private ScalarKeyFrameAnimation
-                                            _fadeOutAnimation;
-        static private Vector2KeyFrameAnimation
-                                            _scaleAnimation;
-        static bool _staticsInitialized;
+        private static CompositionBrush _defaultPlaceholderBrush;
+        private static ScalarKeyFrameAnimation _fadeOutAnimation;
+        private static bool _staticsInitialized;
 
         public CompositionImage()
         {
             this.DefaultStyleKey = typeof(CompositionImage);
             this.Background = new SolidColorBrush(Colors.Transparent);
-            this._stretchMode = CompositionStretch.Uniform;
+            this.stretchMode = CompositionStretch.Uniform;
             this.Loading += CompImage_Loading;
             this.Unloaded += CompImage_Unloaded;
             this.SizeChanged += CompImage_SizeChanged;
 
-            _compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
+            compositor = ElementCompositionPreview.GetElementVisual(this).Compositor;
 
             // Intialize the statics as needed
             if (!_staticsInitialized)
             {
-                _defaultPlaceholderBrush = _compositor.CreateColorBrush(Colors.DarkGray);
+                _defaultPlaceholderBrush = compositor.CreateColorBrush(Colors.DarkGray);
 
                 TimeSpan duration = TimeSpan.FromMilliseconds(1000);
-                _fadeOutAnimation = _compositor.CreateScalarKeyFrameAnimation();
+                _fadeOutAnimation = compositor.CreateScalarKeyFrameAnimation();
                 _fadeOutAnimation.InsertKeyFrame(0, 1);
                 _fadeOutAnimation.InsertKeyFrame(1, 0);
                 _fadeOutAnimation.Duration = duration;
 
-                _scaleAnimation = _compositor.CreateVector2KeyFrameAnimation();
-                _scaleAnimation.InsertKeyFrame(0, new Vector2(1.25f, 1.25f));
-                _scaleAnimation.InsertKeyFrame(1, new Vector2(1, 1));
-                _scaleAnimation.Duration = duration;
+                var scaleAnimation = compositor.CreateVector2KeyFrameAnimation();
+                scaleAnimation.InsertKeyFrame(0, new Vector2(1.25f, 1.25f));
+                scaleAnimation.InsertKeyFrame(1, new Vector2(1, 1));
+                scaleAnimation.Duration = duration;
 
                 _staticsInitialized = true;
             }
@@ -75,21 +69,286 @@ namespace BandCentral.Uwp.Controls
                 SurfaceLoader.Initialize(ElementCompositionPreview.GetElementVisual(this).Compositor);
             }
 
-            _placeholderDelay = TimeSpan.FromMilliseconds(50);
-            _surfaceBrush = _compositor.CreateSurfaceBrush(null);
+            PlaceholderDelay = TimeSpan.FromMilliseconds(50);
+            surfaceBrush = compositor.CreateSurfaceBrush(null);
+        }
+        
+        public Stretch Stretch
+        {
+            get
+            {
+                Stretch stretch;
+
+                switch (stretchMode)
+                {
+                    case CompositionStretch.Fill:
+                        stretch = Stretch.Fill;
+                        break;
+                    case CompositionStretch.Uniform:
+                        stretch = Stretch.Uniform;
+                        break;
+                    case CompositionStretch.UniformToFill:
+                        stretch = Stretch.UniformToFill;
+                        break;
+                    case CompositionStretch.None:
+                    default:
+                        stretch = Stretch.None;
+                        break;
+                }
+
+                return stretch;
+            }
+
+            set
+            {
+                CompositionStretch stretch;
+
+                switch (value)
+                {
+                    case Stretch.Fill:
+                        stretch = CompositionStretch.Fill;
+                        break;
+                    case Stretch.Uniform:
+                        stretch = CompositionStretch.Uniform;
+                        break;
+                    case Stretch.UniformToFill:
+                        stretch = CompositionStretch.UniformToFill;
+                        break;
+                    case Stretch.None:
+                    default:
+                        stretch = CompositionStretch.None;
+                        break;
+                }
+
+                if (stretch != stretchMode)
+                {
+                    stretchMode = stretch;
+
+                    if (surfaceBrush != null)
+                    {
+                        surfaceBrush.Stretch = stretch;
+                    }
+                }
+            }
+        }
+
+        public Uri Source
+        {
+            get => uri;
+            set
+            {
+                if (uri != value)
+                {
+                    uri = value;
+                    LoadSurface();
+                }
+            }
+        }
+
+        public bool IsContentLoaded => surface != null;
+
+        public bool SharedSurface { get; set; }
+
+        public LoadTimeEffectHandler LoadTimeEffectHandler { get; set; }
+
+        public CompositionBrush Brush
+        {
+            get => brush;
+            set
+            {
+                brush = value;
+                UpdateBrush();
+            }
+        }
+
+        public CompositionBrush PlaceholderBrush
+        {
+            get => placeholderBrush;
+            set
+            {
+                placeholderBrush = value;
+
+                if (sprite != null)
+                {
+                    // Update the loading sprite if set
+                    SpriteVisual loadingSprite = (SpriteVisual) sprite.Children.FirstOrDefault();
+                    if (loadingSprite != null)
+                    {
+                        loadingSprite.Brush = placeholderBrush;
+                    }
+                }
+            }
+        }
+
+        public CompositionSurfaceBrush SurfaceBrush => surfaceBrush;
+
+        public SpriteVisual SpriteVisual => sprite;
+
+        public TimeSpan PlaceholderDelay { get; set; }
+        
+        private void UpdateBrush()
+        {
+            surfaceBrush.Surface = surface;
+            surfaceBrush.Stretch = stretchMode;
+
+            if (sprite != null)
+            {
+                // If the active brush is not set, use the surface brush
+                if (brush != null)
+                {
+                    if (brush is CompositionEffectBrush)
+                    {
+                        //
+                        // If there is an EffectBrush set, it must supply ImageSource reference parameter for setitng
+                        // the Image content.
+                        //
+
+                        ((CompositionEffectBrush) brush).SetSourceParameter("ImageSource", surfaceBrush);
+                    }
+
+                    // Update the sprite to use the brush
+                    sprite.Brush = brush;
+                }
+                else
+                {
+                    sprite.Brush = surfaceBrush;
+                }
+            }
+        }
+
+        private async void LoadSurface()
+        {
+            // If we're clearing out the content, return
+            if (uri == null)
+            {
+                ReleaseSurface();
+                return;
+            }
+
+            try
+            {
+                // Start a timer to enable the placeholder image if requested
+                if (this.surface == null && PlaceholderDelay >= TimeSpan.Zero)
+                {
+                    timer = new DispatcherTimer
+                    {
+                        Interval = PlaceholderDelay
+                    };
+                    timer.Tick += Timer_Tick;
+                    timer.Start();
+                }
+
+                // Load the image asynchronously
+                CompositionDrawingSurface drawingSurface = await SurfaceLoader.LoadFromUri(uri, Size.Empty, LoadTimeEffectHandler);
+
+                if (this.surface != null)
+                {
+                    ReleaseSurface();
+                }
+
+                this.surface = drawingSurface;
+
+                // The surface has changed, so we need to re-measure with the new surface dimensions
+                InvalidateMeasure();
+
+                // Async operations may take a while.  If we've unloaded, return now.
+                if (unloaded)
+                {
+                    ReleaseSurface();
+                    return;
+                }
+
+                // Update the brush
+                UpdateBrush();
+
+                // Success, fire the Opened event
+                if (ImageOpened != null)
+                {
+                    ImageOpened(this, null);
+                }
+
+                //
+                // If we created the loading placeholder, now that the image has loaded 
+                // cross-fade it out.
+                //
+
+                if (sprite != null && sprite.Children.Count > 0)
+                {
+                    Debug.Assert(timer == null);
+                    StartCrossFade();
+                }
+                else if (timer != null)
+                {
+                    // We didn't end up loading the placeholder, so just stop the timer
+                    timer.Stop();
+                    timer = null;
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                ImageFailed?.Invoke(this, null);
+            }
+        }
+
+        private void Timer_Tick(object sender, object e)
+        {
+            if (timer != null)
+            {
+                Debug.Assert(sprite.Children.Count == 0, "Should not be any children");
+
+                // Create a second sprite to show while the image is still loading
+                SpriteVisual loadingSprite = compositor.CreateSpriteVisual();
+                loadingSprite = compositor.CreateSpriteVisual();
+                loadingSprite.Size = new Vector2((float) ActualWidth, (float) ActualHeight);
+                loadingSprite.Brush = placeholderBrush ?? _defaultPlaceholderBrush;
+                sprite.Children.InsertAtTop(loadingSprite);
+
+                // Stop and null out the time, no more need for it.
+                timer.Stop();
+                timer = null;
+            }
+        }
+
+        private void StartCrossFade()
+        {
+            Debug.Assert(sprite.Children.Count > 0, "Unexpected number of children");
+
+            // Start a batch so we can cleanup the loading sprite
+            CompositionScopedBatch batch = compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
+            batch.Completed += EndCrossFade;
+
+            // Animate the opacity of the loading sprite to fade it out and the texture scale just for effect
+            Visual loadingVisual = sprite.Children.LastOrDefault();
+            loadingVisual.StartAnimation("Opacity", _fadeOutAnimation);
+
+#if SDKVERSION_INSIDER
+            _surfaceBrush.StartAnimation("Scale", _scaleAnimation);
+            _surfaceBrush.CenterPoint = new Vector2((float)_surface.Size.Width *.5f, (float)_surface.Size.Height * .5f);
+#endif
+            // End the batch after those animations complete
+            batch.End();
+        }
+
+        private void EndCrossFade(object sender, CompositionBatchCompletedEventArgs args)
+        {
+            // If the sprite is still valid, remove the loading sprite from the children collection
+            if (sprite != null && sprite.Children.Count > 0)
+            {
+                sprite.Children.RemoveAll();
+            }
         }
 
         private void ReleaseSurface()
         {
-            if (_surface != null)
+            if (surface != null)
             {
                 // If no one has asked to share, dispose it to free the memory
-                if (!_sharedSurface)
+                if (!SharedSurface)
                 {
-                    _surface.Dispose();
-                    _surfaceBrush.Surface = null;
+                    surface.Dispose();
+                    surfaceBrush.Surface = null;
                 }
-                _surface = null;
+                surface = null;
             }
         }
 
@@ -98,14 +357,14 @@ namespace BandCentral.Uwp.Controls
             Size desiredSize = new Size(0, 0);
 
             // We override measure to implement similar semantics to the normal XAML Image UIElement
-            if (_surface != null)
+            if (surface != null)
             {
                 Size scaling = new Size(1, 1);
-                Size imageSize = _surface.Size;
+                Size imageSize = surface.Size;
 
                 // If we're not stretching or have infinite space, request the full surface size
-                if (!(Double.IsInfinity(availableSize.Width) && Double.IsInfinity(availableSize.Height)) &&
-                    _stretchMode != CompositionStretch.None)
+                if (!(double.IsInfinity(availableSize.Width) && double.IsInfinity(availableSize.Height)) &&
+                    stretchMode != CompositionStretch.None)
                 {
                     // Calculate the amount of horizontal and vertical scaling to fit into available space
                     scaling = new Size(availableSize.Width / imageSize.Width, availableSize.Height / imageSize.Height);
@@ -116,11 +375,11 @@ namespace BandCentral.Uwp.Controls
                     // dimension.
                     //
 
-                    if (Double.IsInfinity(availableSize.Width))
+                    if (double.IsInfinity(availableSize.Width))
                     {
                         scaling.Width = scaling.Height;
                     }
-                    else if (Double.IsInfinity(availableSize.Height))
+                    else if (double.IsInfinity(availableSize.Height))
                     {
                         scaling.Height = scaling.Width;
                     }
@@ -131,7 +390,7 @@ namespace BandCentral.Uwp.Controls
                         // based on the stretch mode.
                         //
 
-                        switch (_stretchMode)
+                        switch (stretchMode)
                         {
                             case CompositionStretch.Uniform:
                                 scaling.Width = scaling.Height = Math.Min(scaling.Width, scaling.Height);
@@ -153,11 +412,11 @@ namespace BandCentral.Uwp.Controls
             else
             {
                 // We don't have any content, so default to zero unless a specific size was requested
-                if (!Double.IsNaN(Width))
+                if (!double.IsNaN(Width))
                 {
                     desiredSize.Width = Width;
                 }
-                if (!Double.IsNaN(Height))
+                if (!double.IsNaN(Height))
                 {
                     desiredSize.Height = Height;
                 }
@@ -168,16 +427,16 @@ namespace BandCentral.Uwp.Controls
 
         private void CompImage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (_sprite != null)
+            if (sprite != null)
             {
                 // Calculate the new size
                 Vector2 size = new Vector2((float) ActualWidth, (float) ActualHeight);
 
                 // Update the sprite
-                _sprite.Size = size;
+                sprite.Size = size;
 
                 // Update the loading sprite if set
-                Visual loadingSprite = _sprite.Children.FirstOrDefault();
+                Visual loadingSprite = sprite.Children.FirstOrDefault();
                 if (loadingSprite != null)
                 {
                     loadingSprite.Size = size;
@@ -187,11 +446,11 @@ namespace BandCentral.Uwp.Controls
 
         private void CompImage_Loading(FrameworkElement sender, object args)
         {
-            _sprite = _compositor.CreateSpriteVisual();
-            _sprite.Size = new Vector2((float) ActualWidth, (float) ActualHeight);
+            sprite = compositor.CreateSpriteVisual();
+            sprite.Size = new Vector2((float) ActualWidth, (float) ActualHeight);
 
             // Reset the loading flag
-            _unloaded = false;
+            unloaded = false;
 
             // If the surface is not yet loaded, do so now
             if (!IsContentLoaded)
@@ -204,307 +463,20 @@ namespace BandCentral.Uwp.Controls
                 UpdateBrush();
             }
 
-            ElementCompositionPreview.SetElementChildVisual(this, _sprite);
+            ElementCompositionPreview.SetElementChildVisual(this, sprite);
         }
 
         private void CompImage_Unloaded(object sender, RoutedEventArgs e)
         {
-            _unloaded = true;
+            unloaded = true;
 
             ReleaseSurface();
 
-            if (_sprite != null)
+            if (sprite != null)
             {
-                _sprite.Dispose();
-                _sprite = null;
+                sprite.Dispose();
+                sprite = null;
             }
-        }
-
-        private void UpdateBrush()
-        {
-            _surfaceBrush.Surface = _surface;
-            _surfaceBrush.Stretch = _stretchMode;
-
-            if (_sprite != null)
-            {
-                // If the active brush is not set, use the surface brush
-                if (_brush != null)
-                {
-                    if (_brush is CompositionEffectBrush)
-                    {
-                        //
-                        // If there is an EffectBrush set, it must supply ImageSource reference parameter for setitng
-                        // the Image content.
-                        //
-
-                        ((CompositionEffectBrush) _brush).SetSourceParameter("ImageSource", _surfaceBrush);
-                    }
-
-                    // Update the sprite to use the brush
-                    _sprite.Brush = _brush;
-                }
-                else
-                {
-                    _sprite.Brush = _surfaceBrush;
-                }
-            }
-        }
-
-        public Stretch Stretch
-        {
-            get
-            {
-                Stretch stretch;
-
-                switch (_stretchMode)
-                {
-                    case CompositionStretch.Fill:
-                        stretch = Stretch.Fill;
-                        break;
-                    case CompositionStretch.Uniform:
-                        stretch = Stretch.Uniform;
-                        break;
-                    case CompositionStretch.UniformToFill:
-                        stretch = Stretch.UniformToFill;
-                        break;
-                    default:
-                        stretch = Stretch.None;
-                        break;
-                }
-
-                return stretch;
-            }
-
-            set
-            {
-                CompositionStretch stretch;
-                switch (value)
-                {
-                    case Stretch.Fill:
-                        stretch = CompositionStretch.Fill;
-                        break;
-                    case Stretch.Uniform:
-                        stretch = CompositionStretch.Uniform;
-                        break;
-                    case Stretch.UniformToFill:
-                        stretch = CompositionStretch.UniformToFill;
-                        break;
-                    default:
-                        stretch = CompositionStretch.None;
-                        break;
-                }
-
-                if (stretch != _stretchMode)
-                {
-                    _stretchMode = stretch;
-
-                    if (_surfaceBrush != null)
-                    {
-                        _surfaceBrush.Stretch = stretch;
-                    }
-                }
-            }
-        }
-
-        public Uri Source
-        {
-            get { return _uri; }
-            set
-            {
-                if (_uri != value)
-                {
-                    _uri = value;
-                    LoadSurface();
-                }
-            }
-        }
-
-        public bool IsContentLoaded
-        {
-            get { return _surface != null; }
-        }
-
-        public bool SharedSurface
-        {
-            get { return _sharedSurface; }
-            set { _sharedSurface = value; }
-        }
-
-        public LoadTimeEffectHandler LoadTimeEffectHandler
-        {
-            get { return _loadEffectDelegate; }
-            set
-            {
-                _loadEffectDelegate = value;
-            }
-        }
-
-        private async void LoadSurface()
-        {
-            // If we're clearing out the content, return
-            if (_uri == null)
-            {
-                ReleaseSurface();
-                return;
-            }
-
-            try
-            {
-                // Start a timer to enable the placeholder image if requested
-                if (_surface == null && _placeholderDelay >= TimeSpan.Zero)
-                {
-                    _timer = new DispatcherTimer();
-                    _timer.Interval = _placeholderDelay;
-                    _timer.Tick += Timer_Tick;
-                    _timer.Start();
-                }
-
-                // Load the image asynchronously
-                CompositionDrawingSurface surface = await SurfaceLoader.LoadFromUri(_uri, Size.Empty, _loadEffectDelegate);
-
-                if (_surface != null)
-                {
-                    ReleaseSurface();
-                }
-
-                _surface = surface;
-
-                // The surface has changed, so we need to re-measure with the new surface dimensions
-                InvalidateMeasure();
-
-                // Async operations may take a while.  If we've unloaded, return now.
-                if (_unloaded)
-                {
-                    ReleaseSurface();
-                    return;
-                }
-
-                // Update the brush
-                UpdateBrush();
-
-                // Success, fire the Opened event
-                if (ImageOpened != null)
-                {
-                    ImageOpened(this, null);
-                }
-
-                //
-                // If we created the loading placeholder, now that the image has loaded 
-                // cross-fade it out.
-                //
-
-                if (_sprite != null && _sprite.Children.Count > 0)
-                {
-                    Debug.Assert(_timer == null);
-                    StartCrossFade();
-                }
-                else if (_timer != null)
-                {
-                    // We didn't end up loading the placeholder, so just stop the timer
-                    _timer.Stop();
-                    _timer = null;
-                }
-            }
-            catch (FileNotFoundException)
-            {
-                if (ImageFailed != null)
-                {
-                    ImageFailed(this, null);
-                }
-            }
-        }
-
-        private void Timer_Tick(object sender, object e)
-        {
-            if (_timer != null)
-            {
-                Debug.Assert(_sprite.Children.Count == 0, "Should not be any children");
-
-                // Create a second sprite to show while the image is still loading
-                SpriteVisual loadingSprite = _compositor.CreateSpriteVisual();
-                loadingSprite = _compositor.CreateSpriteVisual();
-                loadingSprite.Size = new Vector2((float) ActualWidth, (float) ActualHeight);
-                loadingSprite.Brush = _placeholderBrush != null ? _placeholderBrush : _defaultPlaceholderBrush;
-                _sprite.Children.InsertAtTop(loadingSprite);
-
-                // Stop and null out the time, no more need for it.
-                _timer.Stop();
-                _timer = null;
-            }
-        }
-
-        private void StartCrossFade()
-        {
-            Debug.Assert(_sprite.Children.Count > 0, "Unexpected number of children");
-
-            // Start a batch so we can cleanup the loading sprite
-            CompositionScopedBatch batch = _compositor.CreateScopedBatch(CompositionBatchTypes.Animation);
-            batch.Completed += EndCrossFade;
-
-            // Animate the opacity of the loading sprite to fade it out and the texture scale just for effect
-            Visual loadingVisual = _sprite.Children.LastOrDefault();
-            loadingVisual.StartAnimation("Opacity", _fadeOutAnimation);
-
-#if SDKVERSION_INSIDER
-            _surfaceBrush.StartAnimation("Scale", _scaleAnimation);
-            _surfaceBrush.CenterPoint = new Vector2((float)_surface.Size.Width *.5f, (float)_surface.Size.Height * .5f);
-#endif
-            // End the batch after those animations complete
-            batch.End();
-        }
-
-        private void EndCrossFade(object sender, CompositionBatchCompletedEventArgs args)
-        {
-            // If the sprite is still valid, remove the loading sprite from the children collection
-            if (_sprite != null && _sprite.Children.Count > 0)
-            {
-                _sprite.Children.RemoveAll();
-            }
-        }
-
-        public CompositionBrush Brush
-        {
-            get { return _brush; }
-            set
-            {
-                _brush = value;
-                UpdateBrush();
-            }
-        }
-
-        public CompositionBrush PlaceholderBrush
-        {
-            get { return _placeholderBrush; }
-            set
-            {
-                _placeholderBrush = value;
-
-                if (_sprite != null)
-                {
-                    // Update the loading sprite if set
-                    SpriteVisual loadingSprite = (SpriteVisual) _sprite.Children.FirstOrDefault();
-                    if (loadingSprite != null)
-                    {
-                        loadingSprite.Brush = _placeholderBrush;
-                    }
-                }
-            }
-        }
-
-        public CompositionSurfaceBrush SurfaceBrush
-        {
-            get { return _surfaceBrush; }
-        }
-
-        public SpriteVisual SpriteVisual
-        {
-            get { return _sprite; }
-        }
-
-        public TimeSpan PlaceholderDelay
-        {
-            get { return _placeholderDelay; }
-            set { _placeholderDelay = value; }
         }
     }
 }

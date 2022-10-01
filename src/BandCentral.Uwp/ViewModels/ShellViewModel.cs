@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CommonHelpers.Common;
+using Intense.Presentation;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Xaml;
-using Intense.Presentation;
 
 namespace BandCentral.Uwp.ViewModels
 {
-    public class ShellViewModel : NotifyPropertyChanged
+    public class ShellViewModel : ViewModelBase
     {
-        private NavigationItemCollection topItems = new NavigationItemCollection();
+        private readonly NavigationItemCollection topItems = new NavigationItemCollection();
+        private readonly NavigationItemCollection bottomItems = new NavigationItemCollection();
         private NavigationItem selectedTopItem;
-        private NavigationItemCollection bottomItems = new NavigationItemCollection();
         private NavigationItem selectedBottomItem;
         private bool isSplitViewPaneOpen;
 
@@ -29,16 +27,16 @@ namespace BandCentral.Uwp.ViewModels
 
         public bool IsSplitViewPaneOpen
         {
-            get { return this.isSplitViewPaneOpen; }
-            set { Set(ref this.isSplitViewPaneOpen, value); }
+            get => this.isSplitViewPaneOpen;
+            set => SetProperty(ref this.isSplitViewPaneOpen, value);
         }
 
         public NavigationItem SelectedTopItem
         {
-            get { return this.selectedTopItem; }
+            get => this.selectedTopItem;
             set
             {
-                if (Set(ref this.selectedTopItem, value) && value != null)
+                if (SetProperty(ref this.selectedTopItem, value) && value != null)
                 {
                     OnSelectedItemChanged(true);
                 }
@@ -47,10 +45,10 @@ namespace BandCentral.Uwp.ViewModels
 
         public NavigationItem SelectedBottomItem
         {
-            get { return this.selectedBottomItem; }
+            get => this.selectedBottomItem;
             set
             {
-                if (Set(ref this.selectedBottomItem, value) && value != null)
+                if (SetProperty(ref this.selectedBottomItem, value) && value != null)
                 {
                     OnSelectedItemChanged(false);
                 }
@@ -59,7 +57,7 @@ namespace BandCentral.Uwp.ViewModels
 
         public NavigationItem SelectedItem
         {
-            get { return this.selectedTopItem ?? this.selectedBottomItem; }
+            get => this.selectedTopItem ?? this.selectedBottomItem;
             set
             {
                 this.SelectedTopItem = this.topItems.FirstOrDefault(m => m == value);
@@ -69,10 +67,7 @@ namespace BandCentral.Uwp.ViewModels
 
         public Type SelectedPageType
         {
-            get
-            {
-                return this.SelectedItem?.PageType;
-            }
+            get => this.SelectedItem?.PageType;
             set
             {
                 // select associated menu item
@@ -81,15 +76,9 @@ namespace BandCentral.Uwp.ViewModels
             }
         }
 
-        public NavigationItemCollection TopItems
-        {
-            get { return this.topItems; }
-        }
+        public NavigationItemCollection TopItems => this.topItems;
 
-        public NavigationItemCollection BottomItems
-        {
-            get { return this.bottomItems; }
-        }
+        public NavigationItemCollection BottomItems => this.bottomItems;
 
         private void OnSelectedItemChanged(bool top)
         {
@@ -100,8 +89,8 @@ namespace BandCentral.Uwp.ViewModels
             else {
                 this.SelectedTopItem = null;
             }
-            OnPropertyChanged("SelectedItem");
-            OnPropertyChanged("SelectedPageType");
+            OnPropertyChanged(nameof(SelectedItem));
+            OnPropertyChanged(nameof(SelectedPageType));
 
             // auto-close split view pane (only when not in widestate)
             if (!IsWideState())

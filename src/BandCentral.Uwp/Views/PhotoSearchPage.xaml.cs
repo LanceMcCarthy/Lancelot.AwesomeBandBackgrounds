@@ -1,10 +1,27 @@
-﻿using System;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using BandCentral.Models.Common;
+using BandCentral.Models.Extensions;
+using BandCentral.Models.Favorites;
+using BandCentral.Models.Helpers;
+using BandCentral.Uwp.Common;
+using BandCentral.Uwp.ViewModels;
+using Lumia.Imaging;
+using Lumia.Imaging.Transforms;
+using Microsoft.HockeyApp;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Telerik.Core;
+using Telerik.UI.Xaml.Controls.Data;
 using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Storage;
@@ -15,56 +32,42 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using BandCentral.Uwp.Common;
-using BandCentral.Uwp.ViewModels;
-using Lumia.Imaging;
-using Lumia.Imaging.Transforms;
-using Telerik.Core;
-using Telerik.UI.Xaml.Controls.Data;
-using Size = Windows.Foundation.Size;
-using System.Diagnostics;
-using BandCentral.Models.Common;
-using Microsoft.HockeyApp;
-using Newtonsoft.Json;
 using Photo = FlickrNet.Photo;
+using Size = Windows.Foundation.Size;
 
 namespace BandCentral.Uwp.Views
 {
     public sealed partial class PhotoSearchPage : Page
     {
-        #region fields
-
         public static readonly DependencyProperty FlickrViewModelProperty = DependencyProperty.Register(
-            "FlickrViewModel", typeof(FlickrViewModel), typeof(PhotoSearchPage), new PropertyMetadata(new FlickrViewModel()));
+            nameof(FlickrViewModel), typeof(FlickrViewModel), typeof(PhotoSearchPage), new PropertyMetadata(new FlickrViewModel()));
 
         public FlickrViewModel FlickrViewModel
         {
-            get { return (FlickrViewModel)GetValue(FlickrViewModelProperty); }
-            set { SetValue(FlickrViewModelProperty, value); }
+            get => (FlickrViewModel)GetValue(FlickrViewModelProperty);
+            set => SetValue(FlickrViewModelProperty, value);
         }
 
         public static readonly DependencyProperty IsPreviewGridVisibleProperty = DependencyProperty.Register(
-            "IsPreviewGridVisible", typeof(bool), typeof(PhotoSearchPage), new PropertyMetadata(default(bool)));
+            nameof(IsPreviewGridVisible), typeof(bool), typeof(PhotoSearchPage), new PropertyMetadata(default(bool)));
 
         public bool IsPreviewGridVisible
         {
-            get { return (bool)GetValue(IsPreviewGridVisibleProperty); }
-            set { SetValue(IsPreviewGridVisibleProperty, value); }
+            get => (bool)GetValue(IsPreviewGridVisibleProperty);
+            set => SetValue(IsPreviewGridVisibleProperty, value);
         }
 
         public static readonly DependencyProperty SearchHistoryProperty = DependencyProperty.Register(
-            "SearchHistory", typeof(List<string>), typeof(PhotoSearchPage), new PropertyMetadata(default(List<string>)));
+            nameof(SearchHistory), typeof(List<string>), typeof(PhotoSearchPage), new PropertyMetadata(default(List<string>)));
 
         public List<string> SearchHistory
         {
-            get { return (List<string>) GetValue(SearchHistoryProperty); }
-            set { SetValue(SearchHistoryProperty, value); }
+            get => (List<string>) GetValue(SearchHistoryProperty);
+            set => SetValue(SearchHistoryProperty, value);
         }
 
         readonly ApplicationDataContainer localSettings;
-
-        #endregion
-
+        
         public PhotoSearchPage()
         {
             this.InitializeComponent();
@@ -643,7 +646,5 @@ namespace BandCentral.Uwp.Views
         }
 
         #endregion
-
-        
     }
 }

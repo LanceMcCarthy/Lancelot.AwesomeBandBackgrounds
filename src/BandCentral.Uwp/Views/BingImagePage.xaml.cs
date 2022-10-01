@@ -1,4 +1,18 @@
-﻿using System;
+﻿// Lance McCarthy 2013-2023 MIT
+// Free to use, maintain attribution to original
+// https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds
+
+using BandCentral.Models.Bing;
+using BandCentral.Models.Helpers;
+using BandCentral.Models.Secrets;
+using BandCentral.Uwp.Common;
+using BandCentral.Uwp.ViewModels;
+using BandCentral.UwpBackgroundTasks;
+using Lumia.Imaging;
+using Lumia.Imaging.Transforms;
+using Lumia.InteropServices.WindowsRuntime;
+using Microsoft.HockeyApp;
+using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -7,27 +21,17 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Storage;
+using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Imaging;
-using BandCentral.Uwp.Common;
-using Lumia.Imaging;
-using Lumia.Imaging.Transforms;
-using Lumia.InteropServices.WindowsRuntime;
-using WriteableBitmapExtensions = Windows.UI.Xaml.Media.Imaging.WriteableBitmapExtensions;
-using Windows.ApplicationModel.Background;
-using Windows.UI;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using BandCentral.Models.Bing;
-using BandCentral.Models.Secrets;
-using BandCentral.Uwp.ViewModels;
-//using BandCentral.UwpBackgroundTasks;
-using Microsoft.HockeyApp;
-using Microsoft.VisualBasic;
+using WriteableBitmapExtensions = Windows.UI.Xaml.Media.Imaging.WriteableBitmapExtensions;
 
 namespace BandCentral.Uwp.Views
 {
@@ -264,7 +268,7 @@ namespace BandCentral.Uwp.Views
                     case BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity:
                     case BackgroundAccessStatus.AllowedSubjectToSystemPolicy:
                         // TODO This needs to be re-implemented after riuntime component classes are fixed
-                        //await BackgroundTaskEngine.RegisterTaskRequiringInternetAsync(BingConstants.BingTaskName, typeof(BingImageTask).FullName, (uint) 240);
+                        await BackgroundTaskEngine.RegisterTaskRequiringInternetAsync(BingConstants.BingTaskName, typeof(BingImageTask).FullName, (uint) 240);
                         UpdateStatus($"Bing Image of the Day task is running");
                         localSettings.Values[BingConstants.BingTaskLastSetKey] = DateTime.Now.ToString(CultureInfo.InvariantCulture);
                         return true;

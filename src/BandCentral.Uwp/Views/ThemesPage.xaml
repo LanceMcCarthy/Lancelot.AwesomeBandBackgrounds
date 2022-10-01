@@ -1,14 +1,13 @@
 ﻿<Page x:Name="Page"
       x:Class="BandCentral.Uwp.Views.ThemesPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="using:BandCentral.Uwp.Views"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:data="using:Telerik.UI.Xaml.Controls.Data"
-      xmlns:userControls="using:BandCentral.Uwp.UserControls"
-      xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+      xmlns:customColorPicker="using:BandCentral.Uwp.Controls.CustomColorPicker"
       xmlns:triggers="using:BandCentral.Uwp.Triggers"
+      xmlns:data="using:Telerik.UI.Xaml.Controls.Data"
+      xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
       d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}"
       mc:Ignorable="d">
 
@@ -106,7 +105,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                
+
                 <ScrollViewer HorizontalScrollMode="Enabled"
                               HorizontalScrollBarVisibility="Visible">
                     <Grid x:Name="PreviewGrid"
@@ -335,7 +334,7 @@
                                               ItemTap="ThemeHxListBox_OnItemTap"
                                               EmptyContent="no previous themes"
                                               EmptyContentDisplayMode="DataSourceEmpty"
-                                              Margin="0" >
+                                              Margin="0">
                         <data:RadDataBoundListBox.ListHeaderTemplate>
                             <DataTemplate>
                                 <Grid x:Name="ColorSelectionGrid"
@@ -621,7 +620,7 @@
 
             <CommandBar x:Name="ThemeCommandBar"
                         Grid.Row="1"
-                        VerticalAlignment="Bottom" >
+                        VerticalAlignment="Bottom">
                 <AppBarButton x:Name="LinkUnlinkAppBarButton"
                               Label="link similar"
                               Icon="Link"
@@ -646,11 +645,11 @@
                 </CommandBar.SecondaryCommands>
             </CommandBar>
 
-            <userControls:ColorPicker x:Name="Picker"
-                                      ColorSelectionChanged="ColorPicker_OnColorSelectionChanged"
-                                      Visibility="Collapsed"
-                                      Grid.Row="0"
-                                      Grid.RowSpan="2" />
+            <customColorPicker:ColorPicker x:Name="Picker"
+                                           ColorSelectionChanged="ColorPicker_OnColorSelectionChanged"
+                                           Visibility="Collapsed"
+                                           Grid.Row="0"
+                                           Grid.RowSpan="2" />
         </Grid>
 
         <primitives:RadBusyIndicator IsActive="{Binding IsBusy}"
@@ -757,7 +756,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        
+
         <!-- old mobile view
         <VisualState.Setters>
                         <Setter Target="HeaderGrid.Visibility"

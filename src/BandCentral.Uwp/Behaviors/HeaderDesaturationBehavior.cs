@@ -5,6 +5,7 @@ using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
+using BandCentral.Models.Extensions;
 using BandCentral.Uwp.Common;
 using Microsoft.Graphics.Canvas.Effects;
 using Microsoft.Xaml.Interactivity;

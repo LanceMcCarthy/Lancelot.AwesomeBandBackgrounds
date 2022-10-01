@@ -1,9 +1,9 @@
-﻿using System;
+﻿using BandCentral.Models.Favorites;
+using BandCentral.Uwp.Views;
+using System;
 using System.Windows.Input;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using BandCentral.Uwp.Common;
-using BandCentral.Uwp.Views;
 
 namespace BandCentral.Uwp.Commands
 {
@@ -20,19 +20,19 @@ namespace BandCentral.Uwp.Commands
 
             try
             {
-                if(parameter is FlickrNet.Photo)
+                switch (parameter)
                 {
-                    //when triggered from search page, only a PixPhoto object can be passed
-                    App.ViewModel.SelectedFlickrPhoto = (FlickrNet.Photo)parameter;
-                    (Window.Current.Content as Shell)?.RootFrame?.Navigate(typeof(PhotoDetailsPage));
+                    case FlickrNet.Photo photo:
+                        //when triggered from search page, only a PixPhoto object can be passed
+                        App.ViewModel.SelectedFlickrPhoto = photo;
+                        (Window.Current.Content as Shell)?.RootFrame?.Navigate(typeof(PhotoDetailsPage));
+                        break;
+                    case FlickrFav fav:
+                        //when a FlickrFav is available, get the PixPhoto object from the fav
+                        App.ViewModel.SelectedFlickrPhoto = fav.Photo;
+                        (Window.Current.Content as Shell)?.RootFrame?.Navigate(typeof(PhotoDetailsPage));
+                        break;
                 }
-                else if (parameter is FlickrFav)
-                {
-                    //when a FlickrFav is available, get the PixPhoto object from the fav
-                    App.ViewModel.SelectedFlickrPhoto = ((FlickrFav) parameter).Photo;
-                    (Window.Current.Content as Shell)?.RootFrame?.Navigate(typeof(PhotoDetailsPage));
-                }
-                
             }
             catch (Exception ex)
             {

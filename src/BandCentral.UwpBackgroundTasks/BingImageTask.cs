@@ -17,8 +17,8 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml.Media.Imaging;
-using BandCentral.UwpBackgroundTasks.Helpers;
-using BandCentral.UwpBackgroundTasks.Secrets;
+using BandCentral.Models.Bing;
+using BandCentral.Models.Secrets;
 
 namespace BandCentral.UwpBackgroundTasks
 {

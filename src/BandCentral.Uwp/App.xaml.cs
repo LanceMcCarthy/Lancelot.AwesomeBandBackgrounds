@@ -1,4 +1,9 @@
-﻿using System;
+﻿using BandCentral.Models.Common;
+using BandCentral.Models.Helpers;
+using BandCentral.Uwp.ViewModels;
+using BandCentral.Uwp.Views;
+using Microsoft.HockeyApp;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -17,13 +22,8 @@ using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
-using BandCentral.Uwp.Common;
-using BandCentral.Uwp.ViewModels;
-using BandCentral.Uwp.Views;
-using Microsoft.HockeyApp;
-using Microsoft.Services.Store.Engagement;
+using BandCentral.Models.Secrets;
 using UnhandledExceptionEventArgs = Windows.UI.Xaml.UnhandledExceptionEventArgs;
 
 namespace BandCentral.Uwp
@@ -64,7 +64,7 @@ namespace BandCentral.Uwp
         {
 
             HockeyClient.Current.Configure(
-                "961aa2466b5c42059bcbd00aa80a9fc8",
+                    GeneralConstants.HockeyAppClientId,
                 new TelemetryConfiguration
                 {
                     Collectors = WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.UnhandledException,
@@ -311,8 +311,7 @@ namespace BandCentral.Uwp
                     string voiceCommandName = speechRecognitionResult.RulePath[0];
                     string textSpoken = speechRecognitionResult.Text;
 
-                    // The commandMode is either "voice" or "text", and it indictes how the voice command
-                    // was entered by the user.
+                    // The commandMode is either "voice" or "text", and it indicates how the voice command was entered by the user.
                     // Apps should respect "text" mode by providing feedback in silent form.
                     string commandMode = this.SemanticInterpretation("commandMode", speechRecognitionResult);
 
@@ -412,12 +411,12 @@ namespace BandCentral.Uwp
 
         #endregion
 
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
 
-        async void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private async void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             try
             {

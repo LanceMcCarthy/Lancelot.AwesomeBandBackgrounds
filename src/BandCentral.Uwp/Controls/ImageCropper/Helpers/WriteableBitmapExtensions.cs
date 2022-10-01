@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Original source WinRT XAML Toolkit
+// http://winrtxamltoolkit.codeplex.com/SourceControl/changeset/view/0657c67a93d5#WinRTXamlToolkit/Imaging/WriteableBitmapSaveExtensions.cs
+
+using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -6,9 +9,6 @@ using System.Threading.Tasks;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
-
-// Comes from here:
-// http://winrtxamltoolkit.codeplex.com/SourceControl/changeset/view/0657c67a93d5#WinRTXamlToolkit/Imaging/WriteableBitmapSaveExtensions.cs
 
 namespace BandCentral.Uwp.Controls.ImageCropper.Helpers
 {
