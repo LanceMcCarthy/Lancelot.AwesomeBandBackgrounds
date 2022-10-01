@@ -1,0 +1,568 @@
+﻿<Page x:Name="Page"
+      x:Class="BandCentral.Uwp.Views.BackgroundRotatorPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:extensions="using:BandCentral.Models.Extensions"
+      xmlns:behaviors="using:BandCentral.Uwp.Behaviors"
+      xmlns:controls="using:BandCentral.Uwp.Controls"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+      d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <Storyboard x:Name="StatusUpdateStory">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                           Storyboard.TargetName="CurrentStatusTextBlock">
+                <EasingDoubleKeyFrame KeyTime="0"
+                                      Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4"
+                                      Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7"
+                                      Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                           Storyboard.TargetName="StatusRectangle">
+                <EasingDoubleKeyFrame KeyTime="0"
+                                      Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4"
+                                      Value="1" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7"
+                                      Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="1" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <CollectionViewSource IsSourceGrouped="True"
+                              x:Name="CollectionViewSource" />
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="HeaderGrid"
+              Height="48"
+              Background="{StaticResource BlueAgainBlueBrush}">
+            <TextBlock Text="Background Rotator"
+                       FontFamily="Century Gothic"
+                       HorizontalAlignment="Center"
+                       FontSize="24"
+                       VerticalAlignment="Center"
+                       Foreground="{StaticResource LightBrush}" />
+            <Button Visibility="{Binding DisconnectedMode, Converter={StaticResource BoolToVisibilityConverter}}"
+                    Background="Red"
+                    Margin="10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center">
+                <Button.Content>
+                    <SymbolIcon Symbol="Important"
+                                Foreground="White" />
+                </Button.Content>
+                <Button.Flyout>
+                    <Flyout>
+                        <Grid>
+                            <TextBlock Text="You are in Disconnected Mode" />
+                        </Grid>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+        </Grid>
+
+        <Grid x:Name="StatusGrid"
+              Grid.Row="1"
+              Background="{StaticResource BlueAgainGrayBrush}">
+            <Rectangle x:Name="StatusRectangle"
+                       Fill="Red" />
+            <TextBlock x:Name="CurrentStatusTextBlock"
+                       FontFamily="Century Gothic"
+                       Foreground="{StaticResource LightBrush}"
+                       Text="Background Rotator is currently NOT running"
+                       TextWrapping="Wrap"
+                       Margin="0,5,0,5"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center">
+            </TextBlock>
+        </Grid>
+
+        <Grid x:Name="ContentGrid"
+              Grid.Row="2">
+            <Pivot x:Name="MainPivot"
+                   SelectionChanged="MainPivot_SelectionChanged">
+                <PivotItem x:Name="FavsPivotItem"
+                           Header="rotating photos"
+                           Margin="0">
+                    <Grid>
+                        <Border x:Name="NoItemsBorder"
+                                MinWidth="305"
+                                Visibility="{Binding ElementName=FavoritesGridView, Path=HasItems, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Background="{ThemeResource SystemControlBackgroundChromeBlackMediumBrush}">
+                            <TextBlock Margin="10"
+                                       Foreground="White"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap">
+                        		<Run FontWeight="Bold"
+                                     Text="You have no background favs" />
+                        		<LineBreak />
+                        		<Run Text="Open the search page to start adding favs!" />
+                            </TextBlock>
+                        </Border>
+
+                        <Border x:Name="AutoFavsDisabledBorder"
+                                Visibility="Visible"
+                                MinWidth="305"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Background="{ThemeResource SystemControlBackgroundChromeBlackMediumBrush}">
+                            <TextBlock Margin="10"
+                                       Foreground="White"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap">
+                        		<Run FontWeight="Bold"
+                                     Text="Favs background task is turned off " />
+                        		<LineBreak />
+                        		<Run Text="Go to the Settings tab to enable it--&gt;" />
+                            </TextBlock>
+                        </Border>
+
+                        <controls:AdaptiveGridView x:Name="FavoritesGridView"
+                                                   ItemsSource="{Binding Source={StaticResource CollectionViewSource}}"
+                                                   IsEnabled="{Binding AutoFavsEnabled}"
+                                                   SelectionChanged="FavoritesGridView_OnSelectionChanged"
+                                                   SelectionMode="None"
+                                                   IsItemClickEnabled="True"
+                                                   ItemClick="FavoritesGridView_OnItemClick"
+                                                   MinItemWidth="{Binding MeTileSize.Width}"
+                                                   MinItemHeight="{Binding MeTileSize.Height}"
+                                                   HorizontalAlignment="Center"
+                                                   Margin="5,0,0,0">
+                            <controls:AdaptiveGridView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.HeaderTemplate>
+                                        <DataTemplate>
+                                            <Grid Padding="5"
+                                                  Background="{ThemeResource SystemControlDisabledAccentBrush}">
+                                                <TextBlock Text="Background Favs"
+                                                           FontFamily="Century Gothic"
+                                                           FontWeight="Bold"
+                                                           HorizontalAlignment="Center"
+                                                           Visibility="{Binding Key, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                           Foreground="{ThemeResource SystemControlBackgroundAltHighBrush}" />
+                                                <TextBlock Text="Available Favs"
+                                                           FontFamily="Century Gothic"
+                                                           FontWeight="Bold"
+                                                           HorizontalAlignment="Center"
+                                                           Visibility="{Binding Key, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
+                                                           Foreground="{ThemeResource SystemControlBackgroundAltHighBrush}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </GroupStyle.HeaderTemplate>
+                                    <GroupStyle.HeaderContainerStyle>
+                                        <Style TargetType="GridViewHeaderItem">
+                                            <Setter Property="HorizontalContentAlignment"
+                                                    Value="Stretch" />
+                                            <!--<Setter Property="Margin"
+                                                    Value="0,0,0,0"/>-->
+                                            <Setter Property="Padding"
+                                                    Value="0,15,5,0" />
+                                        </Style>
+                                    </GroupStyle.HeaderContainerStyle>
+                                </GroupStyle>
+                            </controls:AdaptiveGridView.GroupStyle>
+                            <controls:AdaptiveGridView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid x:Name="BaseGrid"
+                                          Background="{ThemeResource SystemControlPageBackgroundBaseMediumBrush}">
+
+                                        <Image Stretch="UniformToFill"
+                                               Source="{Binding LocalImageFilePath}" />
+
+                                        <Grid Background="{ThemeResource SystemControlBackgroundAltMediumHighBrush}"
+                                              VerticalAlignment="Bottom"
+                                              HorizontalAlignment="Stretch">
+                                            <ToggleSwitch OnContent="Use Custom Theme: ON"
+                                                          FontFamily="Century Gothic"
+                                                          IsEnabled="{Binding HasCustomTheme}"
+                                                          IsOn="{Binding UseCustomTheme, Mode=TwoWay}"
+                                                          Toggled="PairedThemeToggleSwitch_OnToggled"
+                                                          Margin="5,0,5,0">
+                                                <ToggleSwitch.OffContent>
+                                                    <TextBlock Text="Use Custom Theme: OFF"
+                                                               Visibility="{Binding HasCustomTheme, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                                </ToggleSwitch.OffContent>
+                                            </ToggleSwitch>
+                                            <Button Command="{Binding ElementName=Page, Path=DataContext.EditPaletteCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Visibility="{Binding HasCustomTheme, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
+                                                    Padding="0"
+                                                    Background="#CC000000"
+                                                    VerticalAlignment="Stretch"
+                                                    HorizontalAlignment="Stretch">
+                                                <Button.Content>
+                                                    <TextBlock Text="No custom theme, click here to create one."
+                                                               Foreground="White"
+                                                               HorizontalAlignment="Center" />
+                                                </Button.Content>
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </controls:AdaptiveGridView.ItemTemplate>
+                            <controls:AdaptiveGridView.ItemContainerTransitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition />
+                                </TransitionCollection>
+                            </controls:AdaptiveGridView.ItemContainerTransitions>
+                            <interactivity:Interaction.Behaviors>
+                                <behaviors:ParallaxBehavior ParallaxContent="{Binding ElementName=StatusGrid}"
+                                                            ParallaxMultiplier="-0.2"
+                                                            ClampMax="28.6"
+                                                            UseOpacity="True" />
+                                <behaviors:PivotParallaxBehavior ParallaxContent="{Binding ElementName=MainPivot}"
+                                                                 ParallaxMultiplier="-0.4"
+                                                                 ClampMax="30" />
+                            </interactivity:Interaction.Behaviors>
+                        </controls:AdaptiveGridView>
+                    </Grid>
+                </PivotItem>
+
+                <PivotItem x:Name="SettingsPivotItem"
+                           Header="settings">
+                    <ScrollViewer HorizontalScrollMode="Disabled">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel x:Name="IapPanel"
+                                        Visibility="{Binding IapBackgroundTasks, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
+                                        Margin="0,0,0,10">
+                                <TextBlock TextWrapping="Wrap"
+                                           Margin="0,0,0,10">
+                                    <Run FontWeight="Bold"
+                                         FontSize="16"
+                                         Text="Background Tasks Unlock: " />
+                                    <Run />
+                                    <LineBreak />
+                                    <Run Text="Background updating is a paid feature of the app" />
+                                </TextBlock>
+                                <Button x:Name="UnlockTasksButton"
+                                        Content="Unlock all background tasks (permanent)"
+                                        HorizontalAlignment="Left"
+                                        Click="UnlockTasksButton_OnClick"
+                                        Foreground="White"
+                                        Background="{ThemeResource SystemControlHighlightAccentBrush}" />
+                            </StackPanel>
+
+                            <TextBlock Text="Rotator Settings"
+                                       FontFamily="Century Gothic"
+                                       Margin="0,0,0,0"
+                                       Style="{StaticResource TitleTextBlockStyle}"
+                                       Visibility="Collapsed"
+                                       Grid.Row="1" />
+
+                            <ToggleSwitch x:Name="AutoFavsEnabledToggle"
+                                          Toggled="AutoFavsEnabledToggle_OnToggled"
+                                          FontFamily="Century Gothic"
+                                          IsOn="{Binding AutoFavsEnabled, Mode=TwoWay}"
+                                          IsEnabled="{Binding IapBackgroundTasks}"
+                                          Margin="0,0,0,10"
+                                          OnContent="Enabled"
+                                          OffContent="Disabled"
+                                          Grid.Row="2">
+                                <ToggleSwitch.Header>
+                                    <StackPanel>
+                                        <TextBlock Text="Background Rotator"
+                                                   FontFamily="Century Gothic" />
+                                        <TextBlock Text="Disabling will clear background rotator photos list and remove background task"
+                                                   FontFamily="Century Gothic"
+                                                   TextWrapping="Wrap"
+                                                   FontSize="12"
+                                                   Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" />
+                                    </StackPanel>
+                                </ToggleSwitch.Header>
+                            </ToggleSwitch>
+
+                            <ToggleSwitch x:Name="AutoFavNotificationMuteToggle"
+                                          IsEnabled="{Binding IsOn, ElementName=AutoFavsEnabledToggle}"
+                                          FontFamily="Century Gothic"
+                                          IsOn="{Binding AutoFavNotificationMute, Mode=TwoWay}"
+                                          Margin="0,0,0,10"
+                                          Grid.Row="3"
+                                          OnContent="Muted"
+                                          OffContent="Normal">
+                                <ToggleSwitch.Header>
+                                    <StackPanel>
+                                        <TextBlock Text="Notification Mute"
+                                                   FontFamily="Century Gothic" />
+                                        <TextBlock Text="This setting will mute notifications when your Band is updated from the background task"
+                                                   TextWrapping="Wrap"
+                                                   FontFamily="Century Gothic"
+                                                   FontSize="12"
+                                                   Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}" />
+                                    </StackPanel>
+                                </ToggleSwitch.Header>
+                            </ToggleSwitch>
+
+                            <StackPanel x:Name="TimingPanel"
+                                        Grid.Row="4"
+                                        Margin="0,0,0,20">
+                                <ComboBox x:Name="FrequencyComboBox"
+                                          IsEnabled="{Binding AutoFavsEnabled}"
+                                          SelectionChanged="FrequencyComboBox_OnSelectionChanged"
+                                          FontFamily="Century Gothic"
+                                          Margin="0,0,0,20"
+                                          HorizontalAlignment="Left">
+                                    <ComboBox.Header>
+                                        <StackPanel>
+                                            <TextBlock Text="Update frequency"
+                                                       FontFamily="Century Gothic" />
+                                            <TextBlock Text="Minutes in between Band updates"
+                                                       FontFamily="Century Gothic"
+                                                       FontSize="12"
+                                                       Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}" />
+                                        </StackPanel>
+                                    </ComboBox.Header>
+                                </ComboBox>
+
+                                <ToggleSwitch x:Name="QuietHoursToggle"
+                                              IsEnabled="{Binding AutoFavsEnabled}"
+                                              IsOn="False"
+                                              FontFamily="Century Gothic"
+                                              Margin="0,0,0,0"
+                                              Grid.Row="2"
+                                              OnContent="On"
+                                              OffContent="Off"
+                                              Toggled="QuietHoursToggled"
+                                              Loaded="QuietHoursToggle_Loaded">
+                                    <ToggleSwitch.Header>
+                                        <StackPanel>
+                                            <TextBlock Text="Quiet hours"
+                                                       FontFamily="Century Gothic" />
+                                            <TextBlock Text="Band will not be updated during quiet hours"
+                                                       FontFamily="Century Gothic"
+                                                       FontSize="13.333"
+                                                       Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}" />
+                                        </StackPanel>
+                                    </ToggleSwitch.Header>
+                                </ToggleSwitch>
+
+                                <TimePicker x:Name="QuietHourStartPicker"
+                                            Header="Start"
+                                            FontFamily="Century Gothic"
+                                            Visibility="{Binding IsOn, ElementName=QuietHoursToggle, Converter={StaticResource BoolToVisibilityConverter}}"
+                                            Margin="0,0,0,10"
+                                            Time="23:0:0"
+                                            TimeChanged="BeginTimeChanged"
+                                            Loaded="QuietHourStartPicker_Loaded"
+                                            HorizontalAlignment="Left" />
+
+                                <TimePicker x:Name="QuietHourEndPicker"
+                                            Header="End"
+                                            FontFamily="Century Gothic"
+                                            Visibility="{Binding IsOn, ElementName=QuietHoursToggle, Converter={StaticResource BoolToVisibilityConverter}}"
+                                            Time="8:0:0"
+                                            TimeChanged="EndTimeChanged"
+                                            Loaded="QuietHourEndPicker_Loaded" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="5">
+                                <TextBlock Text="Background Task Information"
+                                           FontFamily="Century Gothic"
+                                           Margin="0,0,0,0"
+                                           FontWeight="Bold" />
+                                <TextBlock Text="Last run status sessage:"
+                                           FontSize="13.333"
+                                           FontFamily="Century Gothic" />
+                                <TextBlock x:Name="LastStatusTextBlock"
+                                           Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"
+                                           Text="no data to report"
+                                           FontFamily="Century Gothic"
+                                           Margin="0,0,0,5"
+                                           FontSize="13.333"
+                                           TextWrapping="Wrap" />
+                                <TextBlock Text="Last run attempted:"
+                                           FontSize="13.333"
+                                           FontFamily="Century Gothic" />
+                                <TextBlock x:Name="LastAttemptTextBlock"
+                                           Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"
+                                           Text="no data to report"
+                                           FontSize="13.333"
+                                           FontFamily="Century Gothic"
+                                           Margin="0,0,0,5" />
+                                <TextBlock Text="Last success:"
+                                           FontSize="13.333"
+                                           FontFamily="Century Gothic" />
+                                <TextBlock x:Name="LastSuccessTextBlock"
+                                           Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"
+                                           Text="no data to report"
+                                           FontSize="13.333"
+                                           FontFamily="Century Gothic"
+                                           Margin="0,0,0,20" />
+                            </StackPanel>
+
+                            <Rectangle Grid.Row="1"
+                                       Grid.RowSpan="5"
+                                       Visibility="{Binding IapBackgroundTasks, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
+                                       Fill="{ThemeResource SystemControlHighlightBaseMediumLowBrush}" />
+                        </Grid>
+                    </ScrollViewer>
+                </PivotItem>
+            </Pivot>
+        </Grid>
+
+        <Grid x:Name="HelpGrid"
+              Visibility="Collapsed"
+              extensions:XamlExtensions.IsVisible="{Binding IsChecked, ElementName=AppBarHelpButton}"
+              Grid.Row="0"
+              Grid.RowSpan="3"
+              Background="{ThemeResource SystemControlHighlightAltAltHighBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Text="Help"
+                       FontFamily="Century Gothic"
+                       Style="{StaticResource HeaderTextBlockStyle}"
+                       Margin="10,0" />
+            <Rectangle Height="2"
+                       Fill="{ThemeResource SystemControlForegroundAccentBrush}"
+                       VerticalAlignment="Bottom" />
+            <StackPanel Grid.Row="1"
+                        Margin="10,0">
+                <TextBlock TextWrapping="Wrap"
+                           FontSize="16"
+                           Margin="0,10,0,0">
+                    <Run FontWeight="Bold"
+                         Text="Step 1: " />
+                    <Run Text="Begin by turning on the background task,go to the settings tab to enable it. " />
+                </TextBlock>
+                <TextBlock TextWrapping="Wrap"
+                           FontSize="16"
+                           Margin="0,10,0,0">
+                    <Run FontWeight="Bold"
+                         Text="Step 2: " />
+                    <Run Text="You can add or remove a favorite from the background task by simply selecting it. " />
+                    <LineBreak />
+                    <Run />
+                    <LineBreak />
+                    <Run Text="When you select the first one, the list will become grouped. This lets you easily see what favs are being used for background Band updates." />
+                    <LineBreak />
+                    <Run />
+                    <LineBreak />
+                    <Run Text="Other settings like " />
+                    <Run FontWeight="Bold"
+                         Text="Quiet Hours " />
+                    <Run Text="and " />
+                    <Run FontWeight="Bold"
+                         Text="Update Frequency " />
+                    <Run Text="are available on the settings tab" />
+                </TextBlock>
+                <TextBlock TextWrapping="Wrap"
+                           FontSize="16"
+                           Margin="0,30,0,0">
+                    <Run FontWeight="Bold"
+                         Text="Custom theme: " />
+                    <Run Text="If you also want your custom theme for that favorite to be applied, click the toggle button." />
+                    <LineBreak />
+                    <Run />
+                    <LineBreak />
+                    <Run Text="If you do not have a custom theme for that Favorite yet, you will see a button instead of a toggle. Click that button to create a custom theme, then come back here to enable it for the background task" />
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <CommandBar x:Name="BottomCommandBar"
+                    Grid.Row="3"
+                    VerticalAlignment="Bottom">
+            <AppBarToggleButton x:Name="AppBarHelpButton"
+                                IsChecked="False"
+                                Icon="Help"
+                                Label="show help" />
+            <!--<AppBarButton x:Name="DeleteAppBarButton"
+                          IsEnabled="{Binding AutoFavsEnabled}"
+                          Icon="Delete"
+                          Visibility="Collapsed"
+                          Label="Remove"
+                          Click="DeleteAppBarButton_OnClick" />-->
+            <!--<AppBarToggleButton x:Name="MultiSelectAppbarButton"
+                                Label="Select photos"
+                                Icon="Bullets"
+                                Click="MultiSelectAppbarButton_OnClick" />-->
+            <!--<AppBarButton x:Name="AddNewAppBarButton"
+                          IsEnabled="{Binding AutoFavsEnabled}"
+                          Label="Add"
+                          Icon="Add"
+                          Click="AddNewAppBarButton_OnClick">
+                <AppBarButton.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem x:Name="PickFavoriteMenuItem"
+                                        Text="Pick a photo from your favorites"
+                                        Click="PickFavoriteMenuItem_OnClick" />
+                        
+                <MenuFlyoutItem x:Name="PickFileMenuItem"
+                                        Text="Pick a photo file from device"
+                                        Click="PickFileMenuItem_OnClick" />
+                
+                    </MenuFlyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>-->
+        </CommandBar>
+
+        <primitives:RadBusyIndicator IsActive="{Binding IsBusy}"
+                                     Content="{Binding IsBusyMessage}"
+                                     Background="#7F000000"
+                                     AnimationStyle="AnimationStyle7"
+                                     Grid.Row="1"
+                                     Grid.RowSpan="3"
+                                     Foreground="White"
+                                     d:IsHidden="True" />
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowStates">
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1024" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="MediumState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HeaderGrid.Visibility"
+                                Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HeaderGrid.Visibility"
+                                Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</Page>

@@ -1,0 +1,177 @@
+﻿<UserControl x:Name="Control"
+             x:Class="BandCentral.Uwp.Controls.FiveHundredPixSearch"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:BandCentral.Uwp.Controls"
+             mc:Ignorable="d"
+             RequestedTheme="Light"
+             d:DesignHeight="500"
+             d:DesignWidth="400">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="ControlPanel"
+              Grid.Row="0"
+              Background="{ThemeResource AppBarBackgroundThemeBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
+            <TextBox x:Name="TermTextBox"
+                     Text="{Binding ElementName=Control, Path=SearchTerm, Mode=TwoWay}"
+                     Header="enter a search term"
+                     Margin="10,0,0,10" />
+            
+            <Button x:Name="ExecuteSearchButton"
+                    Click="ExecuteSearchButton_OnClick"
+                    HorizontalAlignment="Stretch"
+                    BorderThickness="0"
+                    Grid.Column="1"
+                    Height="55"
+                    Width="55"
+                    Margin="10,0"
+                    Background="#FF0259C1"
+                    BorderBrush="#33A49C9C" >
+                <SymbolIcon Symbol="Zoom"
+                            Foreground="White" />
+            </Button>
+
+            <Grid Grid.Row="1"
+                  Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}"
+                  VerticalAlignment="Bottom"
+                  Grid.ColumnSpan="2">
+                <StackPanel Orientation="Horizontal"
+                            Margin="10,2,10,1">
+                    <TextBlock Text="Current Page:"
+                               Margin="0,0,5,0"
+                               Foreground="{ThemeResource AppBarItemPressedForegroundThemeBrush}" />
+                    <TextBlock Text="{Binding ElementName=Control, Path=CurrentPage}"
+                               Margin="0,0,10,0"
+                               Foreground="{ThemeResource AppBarItemPressedForegroundThemeBrush}" />
+
+                    <TextBlock Text="Total Pages:"
+                               Margin="0,0,5,0"
+                               Foreground="{ThemeResource AppBarItemPressedForegroundThemeBrush}" />
+                    <TextBlock Text="{Binding ElementName=Control, Path=TotalPages}"
+                               Margin="0,0,10,0"
+                               Foreground="{ThemeResource AppBarItemPressedForegroundThemeBrush}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Margin="0,2,10,0">
+                    <TextBlock Text="Loaded Photos:"
+                               Margin="0,0,5,0"
+                               Foreground="{ThemeResource AppBarItemPressedForegroundThemeBrush}" />
+                    <TextBlock Text="{Binding ElementName=Control, Path=Photos.Count}"
+                               Margin="0,0,10,0"
+                               Foreground="{ThemeResource AppBarItemPressedForegroundThemeBrush}" />
+                    <TextBlock Text="Total Photos:"
+                               Margin="0,0,5,0"
+                               Foreground="{ThemeResource AppBarItemPressedForegroundThemeBrush}" />
+                    <TextBlock Text="{Binding ElementName=Control, Path=TotalPhotos}"
+                               Margin="0,0,0,0"
+                               Foreground="{ThemeResource AppBarItemPressedForegroundThemeBrush}" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <GridView ItemsSource="{Binding ElementName=Control, Path=Photos}"
+                  SelectionChanged="Selector_OnSelectionChanged"
+                  SelectedItem="{Binding ElementName=Control, Path=SelectedPhoto}"
+                  Grid.Row="1">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <controls:NetworkImage ImageUrl="{Binding image_url}"
+                                            Grid.ColumnSpan="2" />
+                        <!--<StackPanel Grid.Row="1" Grid.Column="0">
+                            <TextBlock Text="{Binding name}" />
+                            <TextBlock Text="{Binding times_viewed}" />
+                            <TextBlock Text="{Binding rating}" />
+                        </StackPanel>
+                        <Grid x:Name="SocialSharePanel"
+                              Grid.Row="1"
+                              Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid x:Name="PinterestGrid"
+                                  Width="32"
+                                  Height="32">
+                                <Path Data="M16.353505,4.196167E-05C24.042396,-0.012957573 30.797299,3.0220385 31.812284,8.4920309 33.072267,15.302022 27.91134,22.678012 18.672472,22.148012 16.168509,22.003013 15.117523,21.082014 13.154552,20.196015 12.074567,24.400009 10.754585,28.431004 6.8486423,30.536001 5.6416588,24.18201 8.6186161,19.410016 10.001596,14.344023 7.643631,11.398027 10.284592,5.4700351 15.256521,6.9310331 21.374434,8.7270305 9.9595966,17.883018 17.622487,19.026017 25.623373,20.220015 28.889326,8.7200305 23.928397,4.9800358 16.7595,-0.42095661 3.0606956,4.8560357 4.7456722,12.588026 5.1556664,14.478023 7.7856274,15.052022 5.7966557,17.660018 1.2077217,16.90602 -0.1612587,14.219023 0.01473999,10.637028 0.29873466,4.7740359 7.1106377,0.67004108 13.94254,0.1030426 14.752528,0.035042763 15.558517,0.001042366 16.353505,4.196167E-05z"
+                                      Stretch="Uniform"
+                                      Fill="#FFFFFFFF"
+                                      Width="16"
+                                      Height="16" />
+                            </Grid>
+                            <Grid x:Name="TwitterGrid"
+                                  Grid.Row="1"
+                                  Grid.Column="0"
+                                  Width="32"
+                                  Height="32">
+                                <Path Data="M22.154999,0C24.042999,-1.7628554E-07 25.749008,0.65798962 26.947006,1.7119909 28.442001,1.4689947 29.848007,1.0179904 31.115997,0.39599609 30.626007,1.662995 29.585007,2.724992 28.229004,3.3959822 29.557007,3.2650008 30.822998,2.9739849 32,2.5419931 31.119995,3.6299912 30.007004,4.5850088 28.723999,5.3489863 28.737,5.581988 28.742996,5.8159968 28.742996,6.0510127 28.742996,13.215994 22.139008,21.478999 10.063995,21.478999 6.3560028,21.478999 2.9059982,20.581018 0,19.042016 0.51399994,19.092004 1.0370026,19.118005 1.5660019,19.118005 4.6419983,19.118005 7.4729996,18.251001 9.7189941,16.796991 6.8470001,16.753015 4.4220047,15.184989 3.586998,13.030996 3.987999,13.094992 4.3990021,13.128988 4.8219986,13.128988 5.4209976,13.128988 6.0009995,13.062002 6.5510025,12.938009 3.5480042,12.439993 1.2850037,10.249013 1.2850037,7.6219975 1.2850037,7.5989873 1.2850037,7.5760075 1.2860031,7.5540044 2.1709976,7.9600102 3.1839981,8.2029917 4.2600021,8.2320139 2.4980011,7.2589909 1.3390045,5.5999934 1.3390045,3.7180037 1.3390045,2.724992 1.663002,1.7929999 2.2280045,0.99299669 5.4660034,4.2729971 10.302994,6.4309875 15.759995,6.6580078 15.647995,6.2610046 15.589996,5.8470027 15.589996,5.4219844 15.589996,2.4279947 18.529007,-1.7628554E-07 22.154999,0z"
+                                      Stretch="Uniform"
+                                      Fill="#FFFFFFFF"
+                                      Width="16"
+                                      Height="16" />
+                            </Grid>
+                            <Grid x:Name="FacebookGrid"
+                                  Grid.Row="2"
+                                  Grid.Column="0"
+                                  Width="32"
+                                  Height="32">
+                                <Path Data="M1.6459961,0L30.005003,0C30.913999,0,31.650999,0.81900024,31.650999,1.8289948L31.650999,30.170998C31.650999,31.181999,30.913999,32,30.005003,32L21.817991,32 21.817991,18.851997 25.751982,18.851997 25.751982,14.581001 21.817991,14.581001 21.817991,13.150002C21.817991,12.110001,22.645994,11.266998,23.670988,11.266998L25.751982,11.266998 25.751982,6.9980011 21.246977,6.9980011C18.509979,6.9980011,16.291992,9.2490005,16.291992,12.027L16.291992,14.581001 12.742003,14.581001 12.742003,18.851997 16.291992,18.851997 16.291992,32 1.6459961,32C0.73699956,32,7.5509888E-08,31.181999,0,30.170998L0,1.8289948C7.5509888E-08,0.81900024,0.73699956,0,1.6459961,0z"
+                                      Stretch="Uniform"
+                                      Fill="#FFFFFFFF"
+                                      Width="16"
+                                      Height="16" />
+                            </Grid>
+                            <TextBlock Grid.Row="0"
+                                       Grid.Column="1"
+                                       Text="{Binding share_counts.pinterest}" />
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="1"
+                                       Text="{Binding share_counts.twitter}" />
+                            <TextBlock Grid.Row="2"
+                                       Grid.Column="1"
+                                       Text="{Binding share_counts.facebook}" />
+                        </Grid>-->
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="Padding"
+                            Value="10"/>
+                </Style>
+            </GridView.ItemContainerStyle>
+        </GridView>
+
+    </Grid>
+</UserControl>

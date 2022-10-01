@@ -7,29 +7,22 @@ The ultimate Microsoft Band companion app. Access millions of amazing, high defi
 
 ## Features
 
-### PHOTOS
-- Microsoft Band 1 and Band 2 support
-- Millions of photos at your fingertips in an infinite scrolling list
-- Choose a photo from your phone's folders (local and cloud)
-- Instant preview of how image looks on your band
-- Crop and apply dozens of amazing effects to photos
-- Very fast: search, pick and set your background in seconds.
-- Full Favorites list experience, with the ability to set background even faster
-- Automatic detection for Microsoft Band 1 or Microsoft Band 2
-- Automatic image resolution for Band model (no resizing images needed)
-
-### THEMES
-- Pick your theme colors from professional palettes
-- Theme History to quickly set any past themes you want to use again
-
-### VALUE
-- 100% FREE
-- No ads
-- UWP app coming soon with Continuum support
-
-### Beta features (see Settings page in the app):
-- Use 500px photo search and Bing Image of the Day as image sources
-- Cloud backup and restore favorites from cloud
+- **Multi-device support**: Automatic detection for Microsoft Band 1 or Microsoft Band 2
+- **Stylish Themes**:
+  - Pick your theme colors from professional palettes
+  - Theme History to quickly set any past themes you want to use again
+- **Image sources**: Millions of photos at your fingertips in an infinite scrolling list from a variety of available sources:
+  - Flicker
+  - 500px
+  - Bing
+  - OneDrive
+  - Local files on your phone
+- **Preview**: Get an instant preview of how image looks on your band before you apply it
+- **Effects**: Crop and apply dozens of amazing effects to photos
+- **Speed**: search, pick and set your background in seconds.
+- **Favorites**: Full Favorites list experience, with the ability to set background even faster
+- **Background Updates**: The background task can update the image automatically for you
+- **Backups**: Cloud backup and restore favorites from cloud
 
 Your feedback shapes the evolution of this app, because we care deeply about your experience in the app. Keep the wonderful comments coming!
 

@@ -1,0 +1,487 @@
+﻿<Page x:Name="Page"
+      x:Class="BandCentral.Uwp.Views.PairedThemePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:extensions="using:BandCentral.Models.Extensions"
+      xmlns:controls="using:BandCentral.Uwp.Controls"
+      xmlns:converters="using:BandCentral.Uwp.Converters"
+      xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+      d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:HexToBrushConverter x:Key="HexToBrushConverter" />
+        <Storyboard x:Name="StepTwoStoryboard"
+                    AutoReverse="True">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                          Storyboard.TargetName="StepTwoBorder">
+                <EasingColorKeyFrame KeyTime="0"
+                                     Value="#E5FFFFFF" />
+                <EasingColorKeyFrame KeyTime="0:0:0.3"
+                                     Value="#FFE8C800" />
+                <EasingColorKeyFrame KeyTime="0:0:0.65"
+                                     Value="Red" />
+                <EasingColorKeyFrame KeyTime="0:0:1"
+                                     Value="#FFFFF300" />
+                <EasingColorKeyFrame KeyTime="0:0:1.3"
+                                     Value="Red" />
+                <EasingColorKeyFrame KeyTime="0:0:1.6"
+                                     Value="#FFFFDC00" />
+                <EasingColorKeyFrame KeyTime="0:0:2"
+                                     Value="Red" />
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="StepThreeStoryboard"
+                    AutoReverse="True">
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                          Storyboard.TargetName="StepThreeBorder">
+                <EasingColorKeyFrame KeyTime="0"
+                                     Value="#E5FFFFFF" />
+                <EasingColorKeyFrame KeyTime="0:0:0.3"
+                                     Value="#FFE8C800" />
+                <EasingColorKeyFrame KeyTime="0:0:0.65"
+                                     Value="Red" />
+                <EasingColorKeyFrame KeyTime="0:0:1"
+                                     Value="#FFFFF300" />
+                <EasingColorKeyFrame KeyTime="0:0:1.3"
+                                     Value="Red" />
+                <EasingColorKeyFrame KeyTime="0:0:1.6"
+                                     Value="#FFFFDC00" />
+                <EasingColorKeyFrame KeyTime="0:0:2"
+                                     Value="Red" />
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid x:Name="ContentRoot">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="TopGrid"
+                  Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Border Background="{ThemeResource SystemControlBackgroundChromeBlackMediumBrush}"
+                        VerticalAlignment="Top">
+                    <TextBlock Text="Edit Custom Theme"
+                               FontFamily="Century Gothic"
+                               HorizontalAlignment="Center"
+                               Margin="0,2,0,4"
+                               Foreground="{ThemeResource SystemControlBackgroundAltHighBrush}" />
+                </Border>
+
+                <Grid x:Name="PhotoGrid"
+                      Background="{ThemeResource SystemControlBackgroundListMediumBrush}"
+                      Grid.Row="1">
+
+                    <Image x:Name="SourceImage"
+                           Width="{Binding ListItemSize.Width}"
+                           Height="{Binding ListItemSize.Height}"
+                           Source="{Binding SelectedFav.LocalImageFilePath, FallbackValue=Images/ImageLoadingPreview.png}" />
+                </Grid>
+
+                <Grid x:Name="ColorSelectionGrid"
+                      Grid.Row="2"
+                      DataContext="{Binding SelectedFav.Theme}"
+                      Margin="10,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Border x:Name="StepThreeBorder"
+                            BorderThickness="0,2,0,0"
+                            Grid.Row="0"
+                            Grid.ColumnSpan="3"
+                            BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
+                            Margin="0,5">
+                        <Border.Background>
+                            <SolidColorBrush Color="{StaticResource SystemAltHighColor}" />
+                        </Border.Background>
+                        <TextBlock Text="Step 3: Select a Band Theme color to apply the selected Palette color"
+                                   FontSize="12"
+                                   FontFamily="Century Gothic"
+                                   Margin="5,5,0,5" />
+                    </Border>
+
+                    <Grid x:Name="BaseColorGrid"
+                          Tapped="ThemeColorGrid_Tapped"
+                          Tag="Base"
+                          Background="{Binding BaseBrush, FallbackValue=DarkGray}"
+                          Margin="0,0,5,5"
+                          Grid.Row="1">
+                        <TextBlock Text="Base Color"
+                                   Foreground="{StaticResource LightBrush}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Bottom"
+                                   FontFamily="Century Gothic"
+                                   FontSize="11"
+                                   Margin="0,0,0,5"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center" />
+                        <Path Data="M6.9478922,7.0470004L9.6886292,9.2383013 12.428207,7.0470004 19.375999,11.251 0,11.251z M19.585001,1.0830001L19.585001,10.221 13.061,6.2626729z M0,1.0830001L6.5219998,6.2626729 0,10.221z M0,0L19.376001,0 9.6886301,7.7509999z"
+                              Stretch="Uniform"
+                              Fill="#FFFFFFFF"
+                              Width="20"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Margin="0,10,0,20" />
+                    </Grid>
+                    <Grid x:Name="HighlightColorGrid"
+                          Tapped="ThemeColorGrid_Tapped"
+                          Tag="Highlight"
+                          Background="{Binding HighlightBrush, FallbackValue=DarkGray}"
+                          Grid.Column="1"
+                          Grid.Row="1"
+                          Margin="0,0,0,5">
+                        <TextBlock Text="Highlight Color"
+                                   Foreground="{StaticResource LightBrush}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Bottom"
+                                   FontFamily="Century Gothic"
+                                   FontSize="11"
+                                   Margin="0,0,0,5"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center" />
+                        <Path Data="M6.9478922,7.0470004L9.6886292,9.2383013 12.428207,7.0470004 19.375999,11.251 0,11.251z M19.585001,1.0830001L19.585001,10.221 13.061,6.2626729z M0,1.0830001L6.5219998,6.2626729 0,10.221z M0,0L19.376001,0 9.6886301,7.7509999z"
+                              Stretch="Uniform"
+                              Fill="#FFFFFFFF"
+                              Width="20"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Margin="0,10,0,20" />
+                    </Grid>
+                    <Grid x:Name="SecondaryColorGrid"
+                          Tapped="ThemeColorGrid_Tapped"
+                          Tag="Secondary"
+                          Background="{Binding SecondaryBrush, FallbackValue=DarkGray}"
+                          Grid.Column="2"
+                          Grid.Row="1"
+                          Margin="5,0,0,5">
+                        <TextBlock Text="Secondary Color"
+                                   Foreground="{StaticResource LightBrush}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Bottom"
+                                   FontFamily="Century Gothic"
+                                   FontSize="11"
+                                   Margin="0,0,0,5"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center" />
+                        <Path Data="M6.9478922,7.0470004L9.6886292,9.2383013 12.428207,7.0470004 19.375999,11.251 0,11.251z M19.585001,1.0830001L19.585001,10.221 13.061,6.2626729z M0,1.0830001L6.5219998,6.2626729 0,10.221z M0,0L19.376001,0 9.6886301,7.7509999z"
+                              Stretch="Uniform"
+                              Fill="#FFFFFFFF"
+                              Width="20"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Margin="0,10,0,20" />
+                    </Grid>
+
+                    <Grid x:Name="LowlightGrid"
+                          Tapped="ThemeColorGrid_Tapped"
+                          Tag="LowLight"
+                          Background="{Binding LowLightBrush, FallbackValue=DarkGray}"
+                          Margin="0,0,5,0"
+                          Grid.Row="2">
+                        <TextBlock Text="Lowlight Color"
+                                   Foreground="{StaticResource LightBrush}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Bottom"
+                                   FontFamily="Century Gothic"
+                                   FontSize="11"
+                                   Margin="0,0,0,5"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center" />
+                        <Path Data="M6.9478922,7.0470004L9.6886292,9.2383013 12.428207,7.0470004 19.375999,11.251 0,11.251z M19.585001,1.0830001L19.585001,10.221 13.061,6.2626729z M0,1.0830001L6.5219998,6.2626729 0,10.221z M0,0L19.376001,0 9.6886301,7.7509999z"
+                              Stretch="Uniform"
+                              Fill="#FFFFFFFF"
+                              Width="20"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Margin="0,10,0,20" />
+                    </Grid>
+                    <Grid x:Name="HighContrastGrid"
+                          Tapped="ThemeColorGrid_Tapped"
+                          Tag="HighContrast"
+                          Background="{Binding HighContrastBrush, FallbackValue=DarkGray}"
+                          Grid.Row="2"
+                          Grid.Column="1"
+                          Margin="0">
+                        <TextBlock Text="High Contrast Color"
+                                   FontFamily="Century Gothic"
+                                   FontSize="11"
+                                   Margin="0,0,0,5"
+                                   Foreground="{StaticResource LightBrush}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Bottom"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center" />
+                        <Path Data="M6.9478922,7.0470004L9.6886292,9.2383013 12.428207,7.0470004 19.375999,11.251 0,11.251z M19.585001,1.0830001L19.585001,10.221 13.061,6.2626729z M0,1.0830001L6.5219998,6.2626729 0,10.221z M0,0L19.376001,0 9.6886301,7.7509999z"
+                              Stretch="Uniform"
+                              Fill="#FFFFFFFF"
+                              Width="20"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Margin="0,10,0,20" />
+                    </Grid>
+                    <Grid x:Name="MutedColorGrid"
+                          Tapped="ThemeColorGrid_Tapped"
+                          Tag="Muted"
+                          Background="{Binding MutedBrush, FallbackValue=DarkGray}"
+                          Margin="5,0,0,0"
+                          Grid.Row="2"
+                          Grid.Column="2">
+                        <TextBlock Text="Muted Color"
+                                   Foreground="{StaticResource LightBrush}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Bottom"
+                                   FontFamily="Century Gothic"
+                                   FontSize="11"
+                                   Margin="0,0,0,5"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center" />
+                        <Path Data="M6.9478922,7.0470004L9.6886292,9.2383013 12.428207,7.0470004 19.375999,11.251 0,11.251z M19.585001,1.0830001L19.585001,10.221 13.061,6.2626729z M0,1.0830001L6.5219998,6.2626729 0,10.221z M0,0L19.376001,0 9.6886301,7.7509999z"
+                              Stretch="Uniform"
+                              Fill="#FFFFFFFF"
+                              Width="20"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Margin="0,10,0,20" />
+                    </Grid>
+
+                    <Grid Grid.Row="3"
+                          Grid.ColumnSpan="3"
+                          BorderBrush="{ThemeResource SystemControlBackgroundListMediumBrush}"
+                          BorderThickness="1"
+                          Background="{Binding ElementName=Page, Path=SelectedPaletteBrush}"
+                          Height="50"
+                          Margin="0,10">
+                        <Grid Background="{ThemeResource SystemControlBackgroundListMediumBrush}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Top">
+                            <TextBlock Text="Selected Palette Color"
+                                       FontFamily="Century Gothic"
+                                       Foreground="{ThemeResource SystemControlForegroundAltHighBrush}"
+                                       Margin="5,0" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <Grid x:Name="BackgroundBlurOverlayGrid"
+                  Background="{ThemeResource SystemControlBackgroundAltMediumLowBrush}"
+                  Grid.Row="1" />
+
+            <controls:AdaptiveGridView x:Name="ThemesListView"
+                                       Grid.Row="1"
+                                       Margin="10,0"
+                                       MinItemWidth="{Binding MeTileSize.Width}"
+                                       MinItemHeight="{Binding MeTileSize.Height}">
+                <controls:AdaptiveGridView.Header>
+                    <Grid>
+                        <Border x:Name="StepTwoBorder"
+                                BorderThickness="0,2,0,0"
+                                Grid.Row="0"
+                                Grid.ColumnSpan="3"
+                                Background="{ThemeResource SystemControlForegroundAltHighBrush}"
+                                BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
+                                Margin="0,5">
+                            <TextBlock Text="Step 2: Select a color from one of the palettes below"
+                                       FontSize="12"
+                                       FontFamily="Century Gothic"
+                                       Margin="5,5,0,5" />
+                        </Border>
+                    </Grid>
+                </controls:AdaptiveGridView.Header>
+                <controls:AdaptiveGridView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Background="{ThemeResource SystemControlBackgroundAltMediumLowBrush}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Margin="10"
+                                       FontFamily="Century Gothic"
+                                       TextTrimming="CharacterEllipsis"
+                                       FontSize="16">
+                                <Run Text="{Binding Title, FallbackValue=Title}"
+                                     FontWeight="Bold" />
+                                <Run Text=" by " />
+                                <Run Text="{Binding Author, FallbackValue=Author}" />
+                            </TextBlock>
+                            <!--<StackPanel Orientation="Horizontal"
+                                        Margin="10"
+                                        Grid.Row="0">
+                                <TextBlock Text="{Binding Title, FallbackValue=Title}"
+                                           FontFamily="Century Gothic"
+                                           FontSize="16" />
+                                <TextBlock Text="by" />
+                                <TextBlock Text="{Binding Author, FallbackValue=Author}"
+                                           Margin="5,0,0,0" />
+                            </StackPanel>-->
+                            <!--<input:RadRating Value="{Binding Rating}"
+                                             VerticalAlignment="Top"
+                                             HorizontalAlignment="Right"
+                                             Margin="10"
+                                             Grid.Row="0" />-->
+                            <Grid Grid.Row="1"
+                                  Background="{ThemeResource SystemControlPageBackgroundListLowBrush}">
+                                <GridView Margin="10,10,10,10"
+                                          ItemsSource="{Binding Colors}"
+                                          SelectionMode="None"
+                                          IsItemClickEnabled="True"
+                                          ItemClick="PaletteColor_OnItemClick"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                          ScrollViewer.HorizontalScrollMode="Auto"
+                                          ScrollViewer.VerticalScrollMode="Disabled">
+                                    <GridView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Rectangle Width="50"
+                                                       Height="50"
+                                                       Fill="{Binding Converter={StaticResource HexToBrushConverter}}" />
+                                        </DataTemplate>
+                                    </GridView.ItemTemplate>
+                                </GridView>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </controls:AdaptiveGridView.ItemTemplate>
+            </controls:AdaptiveGridView>
+
+            <Grid x:Name="StepOneGrid"
+                  Visibility="Collapsed"
+                  Background="{ThemeResource SystemControlBackgroundListMediumBrush}"
+                  Grid.Row="1">
+                <Button x:Name="GeneratePalettesButton"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                        Click="GeneratePalettesButton_OnClick"
+                        HorizontalAlignment="Center">
+                    <Button.Content>
+                        <Border x:Name="StepOneBorder">
+                            <TextBlock Text="Step 1: Click here to generate palettes"
+                                       TextWrapping="Wrap"
+                                       FontFamily="Century Gothic" />
+                        </Border>
+                    </Button.Content>
+                </Button>
+            </Grid>
+
+            <Grid x:Name="HelpGrid"
+                  Visibility="Collapsed"
+                  extensions:XamlExtensions.IsVisible="{Binding IsChecked, ElementName=AppBarHelpButton}"
+                  Grid.Row="0"
+                  Grid.RowSpan="2"
+                  Background="{ThemeResource SystemControlHighlightAltAltHighBrush}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Help"
+                           FontFamily="Century Gothic"
+                           Style="{StaticResource HeaderTextBlockStyle}"
+                           Margin="10,0" />
+                <Rectangle Height="2"
+                           Fill="{ThemeResource SystemControlForegroundAccentBrush}"
+                           VerticalAlignment="Bottom" />
+                <StackPanel Grid.Row="1"
+                            Margin="10,0">
+                    <TextBlock TextWrapping="Wrap"
+                               FontFamily="Century Gothic"
+                               FontSize="16"
+                               Margin="0,10,0,0">
+                        <Run FontWeight="Bold"
+                             Text="Step 1: " />
+                        <Run Text="Start by tapping the 'Click here to generate palette' button. A list of palettes will be generated in the cloud for your photo. " />
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap"
+                               FontFamily="Century Gothic"
+                               FontSize="16"
+                               Margin="0,10,0,0">
+                        <Run FontWeight="Bold"
+                             Text="Step 2: " />
+                        <Run Text="Choose a color from any of the generated palettes." />
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap"
+                               FontFamily="Century Gothic"
+                               FontSize="16"
+                               Margin="0,10,0,0">
+                        <Run FontWeight="Bold"
+                             Text="Step 3: " />
+                        <Run Text="Select any of the Band theme color slots to apply the palette color. Repeat this process until your Theme is complete" />
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap"
+                               FontFamily="Century Gothic"
+                               FontSize="16"
+                               Margin="0,10,0,0">
+                        <Run FontWeight="Bold"
+                             Text="Step 4: " />
+                        <Run Text="Select the " />
+                        <Run FontWeight="Bold"
+                             Text="&quot;Save&quot; " />
+                        <Run Text="button when you're done. This theme will now be paired to your pavorite." />
+                    </TextBlock>
+                    <TextBlock TextWrapping="Wrap"
+                               FontFamily="Century Gothic"
+                               FontSize="16"
+                               Margin="0,10,0,0">
+                        <Run FontWeight="Bold"
+                             Text="Send theme to Band: " />
+                        <Run Text="Use the " />
+                        <Run FontWeight="Bold"
+                             Text="&quot;Set&quot; " />
+                        <Run Text="button to send the theme to your Band. " />
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+
+            <CommandBar Grid.Row="2"
+                        VerticalAlignment="Bottom">
+                <AppBarToggleButton x:Name="AppBarHelpButton"
+                                    IsChecked="False"
+                                    Icon="Help"
+                                    Label="show help" />
+                <AppBarButton x:Name="SetBackgroundButton"
+                              Icon="SetLockscreen"
+                              Label="Set Band Background"
+                              Command="{Binding SendToBandCommand}"
+                              CommandParameter="{Binding SelectedFav}" />
+                <AppBarButton x:Name="SetThemeButton"
+                              Icon="Upload"
+                              Label="Set Band Theme"
+                              Click="SetThemeButton_OnClick" />
+                <AppBarButton Icon="Save"
+                              Label="Save Theme"
+                              Click="SaveButton_OnClick" />
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton x:Name="RegeneratePalettesButton"
+                                  Label="regenerate palettes"
+                                  Click="RegeneratePalettesButton_OnClick" />
+                </CommandBar.SecondaryCommands>
+            </CommandBar>
+        </Grid>
+
+        <primitives:RadBusyIndicator IsActive="{Binding IsBusy}"
+                                     Content="{Binding IsBusyMessage}"
+                                     Background="#7F000000"
+                                     AnimationStyle="AnimationStyle7"
+                                     Foreground="White"
+                                     d:IsHidden="True" />
+    </Grid>
+</Page>

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
+  <Identity Name="61469LanceLotSoftware.AwesomeBandBackgrounds" Publisher="CN=51B5A8B2-5D86-4826-BBE2-C92E963A4C02" Version="10.0.4.0" />
+  <mp:PhoneIdentity PhoneProductId="20f734de-417b-4f75-886a-12a7496add33" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Properties>
+    <DisplayName>Awesome Band Backgrounds</DisplayName>
+    <PublisherDisplayName>Lancelot Software</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="BandCentral.Uwp.App">
+      <uap:VisualElements DisplayName="Awesome Band" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="An app for customization of the Microsoft Band" BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\Square71x71Logo.png" Square310x310Logo="Assets\Square310x310Logo.png">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="wide310x150Logo" />
+            <uap:ShowOn Tile="square310x310Logo" />
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#3F4B58" />
+      </uap:VisualElements>
+      <Extensions>
+        <Extension Category="windows.backgroundTasks" EntryPoint="BandCentral.UwpBackgroundTasks.BingImageTask">
+          <BackgroundTasks>
+            <Task Type="timer" />
+          </BackgroundTasks>
+        </Extension>
+        <Extension Category="windows.updateTask" EntryPoint="BandCentral.UwpBackgroundTasks.UpdateTask" />
+        <Extension Category="windows.backgroundTasks" EntryPoint="BandCentral.UwpBackgroundTasks.BackgroundRotatorTask">
+          <BackgroundTasks>
+            <Task Type="timer" />
+          </BackgroundTasks>
+        </Extension>
+        <uap:Extension Category="windows.appService" EntryPoint="BandCentral.UwpBackgroundTasks.CortanaVoiceCommandService">
+          <uap:AppService Name="CortanaVoiceCommandService"/>
+        </uap:Extension>
+        <uap:Extension Category="windows.personalAssistantLaunch"/>
+      </Extensions>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClientServer" />
+    <Capability Name="privateNetworkClientServer" />
+    <DeviceCapability Name="proximity" />
+    <DeviceCapability Name="bluetooth.rfcomm">
+      <Device Id="any">
+        <!-- Used by the Microsoft Band SDK -->
+        <Function Type="serviceId:A502CA9A-2BA5-413C-A4E0-13804E47B38F" />
+        <!-- Used by the Microsoft Band SDK -->
+        <Function Type="serviceId:C742E1A2-6320-5ABC-9643-D206C677E580" />
+      </Device>
+    </DeviceCapability>
+  </Capabilities>
+</Package>

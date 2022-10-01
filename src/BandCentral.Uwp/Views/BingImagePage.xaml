@@ -1,0 +1,288 @@
+﻿<Page x:Class="BandCentral.Uwp.Views.BingImagePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:behaviors="using:BandCentral.Uwp.Behaviors"
+      xmlns:controls="using:BandCentral.Uwp.Controls"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:primitives="using:Telerik.UI.Xaml.Controls.Primitives"
+      d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <Storyboard x:Name="ShowPreviewStoryboard">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)"
+                                           Storyboard.TargetName="PreviewGrid">
+                <EasingDoubleKeyFrame KeyTime="0"
+                                      Value="196" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5"
+                                      Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseInOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="HidePreviewStoryboard">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)"
+                                           Storyboard.TargetName="PreviewGrid">
+                <EasingDoubleKeyFrame KeyTime="0"
+                                      Value="0" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5"
+                                      Value="196">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CircleEase EasingMode="EaseInOut" />
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="HeaderGrid"
+              Height="48"
+              Background="{StaticResource BlueAgainBlueBrush}">
+            <TextBlock Text="Bing Image Of the Day"
+                       FontFamily="Century Gothic"
+                       HorizontalAlignment="Center"
+                       FontSize="24"
+                       VerticalAlignment="Center"
+                       Foreground="{StaticResource LightBrush}" />
+            <Button Visibility="{Binding DisconnectedMode, Converter={StaticResource BoolToVisibilityConverter}}"
+                    Background="Red"
+                    Margin="10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center">
+                <Button.Content>
+                    <SymbolIcon Symbol="Important"
+                                Foreground="White" />
+                </Button.Content>
+                <Button.Flyout>
+                    <Flyout>
+                        <Grid>
+                            <TextBlock Text="You are in Disconnected Mode" />
+                        </Grid>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="StatusBorder"
+                  Background="Red">
+                <TextBlock x:Name="CurrentStatusTextBlock"
+                           FontFamily="Century Gothic"
+                           Foreground="White"
+                           Text="Bing Image of the Day task is not running"
+                           TextWrapping="Wrap"
+                           HorizontalAlignment="Center"
+                           Margin="0,5,0,5" />
+            </Grid>
+
+            <Pivot x:Name="MainPivot"
+                   Grid.Row="1">
+                <PivotItem Header="Bing Images">
+                    <controls:BingImages SelectionChanged="BingImages_OnSelectionChanged">
+                        <interactivity:Interaction.Behaviors>
+                            <behaviors:ParallaxBehavior ParallaxContent="{Binding ElementName=StatusBorder}"
+                                                        ParallaxMultiplier="-0.2"
+                                                        ClampMax="28.6"
+                                                        UseOpacity="True" />
+                            <behaviors:PivotParallaxBehavior ParallaxContent="{Binding ElementName=MainPivot}"
+                                                             ParallaxMultiplier="-0.4"
+                                                             ClampMax="30" />
+                        </interactivity:Interaction.Behaviors>
+                    </controls:BingImages>
+                </PivotItem>
+                <PivotItem Header="Background Task">
+                    <ScrollViewer HorizontalScrollMode="Disabled">
+                        <Grid Margin="0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel x:Name="IapPanel"
+                                        Visibility="{Binding IapBackgroundTasks, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
+                                        Margin="0,0,0,10">
+                                <TextBlock TextWrapping="Wrap"
+                                           Margin="0,0,0,10">
+                                    <Run FontWeight="Bold"
+                                         FontSize="16"
+                                         Text="Background Tasks Unlock: " />
+                                    <Run />
+                                    <LineBreak />
+                                    <Run Text="Background updating is a paid feature of the app" />
+                                </TextBlock>
+                                <Button x:Name="UnlockTasksButton"
+                                        Content="Unlock all background tasks (permanent)"
+                                        HorizontalAlignment="Left"
+                                        Click="UnlockTasksButton_OnClick"
+                                        Foreground="White"
+                                        Background="{ThemeResource SystemControlHighlightAccentBrush}" />
+                            </StackPanel>
+
+                            <ToggleSwitch x:Name="BingTaskEnabledToggle"
+                                          IsEnabled="{Binding IapBackgroundTasks}"
+                                          Toggled="BingTaskEnabledToggle_OnToggled"
+                                          FontFamily="Century Gothic"
+                                          OnContent="Enabled"
+                                          OffContent="Disabled"
+                                          Margin="0,0,0,10"
+                                          Grid.Row="1">
+                                <ToggleSwitch.Header>
+                                    <StackPanel>
+                                        <TextBlock Text="Bing Image background task"
+                                                   FontFamily="Century Gothic" />
+                                        <TextBlock Text="Update your Band once a day with the current Bing image of the day. "
+                                                   FontFamily="Century Gothic"
+                                                   TextWrapping="Wrap"
+                                                   FontSize="12"
+                                                   Foreground="{ThemeResource SystemControlForegroundBaseMediumBrush}" />
+                                    </StackPanel>
+                                </ToggleSwitch.Header>
+                            </ToggleSwitch>
+
+                            <ToggleSwitch x:Name="BingTaskNotificationMuteToggle"
+                                          IsEnabled="{Binding IsOn, ElementName=BingTaskEnabledToggle}"
+                                          FontFamily="Century Gothic"
+                                          IsOn="{Binding AutoFavNotificationMute, Mode=TwoWay}"
+                                          Margin="0,0,0,10"
+                                          Grid.Row="2"
+                                          OnContent="Muted"
+                                          OffContent="Normal">
+                                <ToggleSwitch.Header>
+                                    <StackPanel>
+                                        <TextBlock Text="Notifications Mute"
+                                                   FontFamily="Century Gothic" />
+                                        <TextBlock Text="Do not show a notification after the Band is updated"
+                                                   FontFamily="Century Gothic"
+                                                   FontSize="12"
+                                                   Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}" />
+                                    </StackPanel>
+                                </ToggleSwitch.Header>
+                            </ToggleSwitch>
+
+                            <StackPanel Grid.Row="3">
+                                <TextBlock Text="Background Task Information"
+                                           FontFamily="Century Gothic"
+                                           Margin="0,0,0,5"
+                                           FontWeight="Bold" />
+                                <TextBlock Text="Last run status sessage:"
+                                           FontSize="13.333"
+                                           FontFamily="Century Gothic" />
+                                <TextBlock x:Name="LastStatusTextBlock"
+                                           Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"
+                                           Text="no data to report"
+                                           FontFamily="Century Gothic"
+                                           Margin="0,0,0,5"
+                                           FontSize="13.333"
+                                           TextWrapping="Wrap" />
+                                <TextBlock Text="Last run attempted:"
+                                           FontSize="13.333"
+                                           FontFamily="Century Gothic" />
+                                <TextBlock x:Name="LastAttemptTextBlock"
+                                           Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"
+                                           Text="no data to report"
+                                           FontSize="13.333"
+                                           FontFamily="Century Gothic"
+                                           Margin="0,0,0,5" />
+                                <TextBlock Text="Last success:"
+                                           FontSize="13.333"
+                                           FontFamily="Century Gothic" />
+                                <TextBlock x:Name="LastSuccessTextBlock"
+                                           Foreground="{StaticResource SystemControlForegroundBaseMediumBrush}"
+                                           Text="no data to report"
+                                           FontSize="13.333"
+                                           FontFamily="Century Gothic"
+                                           Margin="0,0,0,10" />
+                            </StackPanel>
+
+                            <Rectangle Grid.Row="1"
+                                       Grid.RowSpan="3"
+                                       Visibility="{Binding IapBackgroundTasks, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
+                                       Fill="{ThemeResource SystemControlHighlightBaseMediumLowBrush}" />
+                        </Grid>
+                    </ScrollViewer>
+                </PivotItem>
+            </Pivot>
+        </Grid>
+
+        <Grid x:Name="PreviewGrid"
+              Grid.Row="1"
+              HorizontalAlignment="Stretch"
+              Background="{ThemeResource SystemControlBackgroundBaseMediumHighBrush}"
+              RenderTransformOrigin="0.5,0.5"
+              VerticalAlignment="Bottom">
+            <Grid.RenderTransform>
+                <CompositeTransform TranslateY="196" />
+            </Grid.RenderTransform>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Image x:Name="ChosenImage"
+                   Margin="10"
+                   HorizontalAlignment="Center"
+                   Width="{Binding MeTileSize.Width}"
+                   Height="{Binding MeTileSize.Height}" />
+            <CommandBar x:Name="ImageCommandBar"
+                        Grid.Row="1">
+                <AppBarButton x:Name="SendToBandButton"
+                              Icon="SetLockscreen"
+                              Label="send to band"
+                              IsEnabled="False"
+                              Click="SendToBandButton_OnClick" />
+                <AppBarButton x:Name="HideButton"
+                              Icon="Cancel"
+                              Label="clear"
+                              Click="HideButton_OnClick" />
+            </CommandBar>
+        </Grid>
+
+        <primitives:RadBusyIndicator IsActive="{Binding IsBusy}"
+                                     Content="{Binding IsBusyMessage}"
+                                     IndicatorAnimationStyle="{StaticResource DownloadingAnimationStyle}"
+                                     Background="#7F000000"
+                                     Grid.Row="0"
+                                     Grid.RowSpan="2"
+                                     Foreground="White"
+                                     d:IsHidden="True" />
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowStates">
+                <VisualState x:Name="MediumState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HeaderGrid.Visibility"
+                                Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HeaderGrid.Visibility"
+                                Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</Page>

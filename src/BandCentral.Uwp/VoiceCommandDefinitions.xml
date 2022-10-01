@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+  <CommandSet xml:lang="en-us" Name="BandCentralCommandSet_en-us">
+    <AppName> Awesome Band </AppName>
+    <Example> Awesome Band update my background with Bing </Example>
+
+    <Command Name="showFavorites">
+      <Example> show my favorties list </Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> show [me] [the] [my] {photoType} [photos] list</ListenFor>
+      <ListenFor RequireAppName="ExplicitlySpecified"> show [me] [my] {builtin:AppName} {photoType} list</ListenFor>
+      <Feedback> Showing you the {photoType} list </Feedback>
+      <Navigate />
+    </Command>
+
+    <Command Name="updateBandBackground">
+      <Example> Update my Band background with a Bing image </Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> update [my] Band [background] with [a] [the] {photoType} [of] [the] [day]</ListenFor>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> update [my] Band [background] using [a] {photoType} [of] [the] [day]</ListenFor>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> update [my] Band [background] with my last {photoType}</ListenFor>
+      <Feedback> Updating your Band with a {photoType} </Feedback>
+      <VoiceCommandService Target="CortanaVoiceCommandService"/>
+    </Command>
+
+    <Command Name="updateBandBackgroundAndTheme">
+      <Example> Show trip to London </Example>
+      <ListenFor RequireAppName="BeforeOrAfterPhrase"> update [my] [Band] theme </ListenFor>
+      <ListenFor RequireAppName="ExplicitlySpecified"> update [me] [my] {builtin:AppName} theme </ListenFor>
+      <Feedback> Updating your Band Background and theme </Feedback>
+      <VoiceCommandService Target="CortanaVoiceCommandService"/>
+    </Command>
+
+    <PhraseList Label="photoType">
+      <Item>Favorite</Item>
+      <Item>Favorites</Item>
+      <Item>Fav</Item>
+      <Item>Favs</Item>
+      <Item>Bing Images</Item>
+      <Item>Bing Image</Item>
+      <Item>Bing</Item>
+    </PhraseList>
+  </CommandSet>
+</VoiceCommands>

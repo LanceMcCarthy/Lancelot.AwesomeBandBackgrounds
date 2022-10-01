@@ -1,0 +1,131 @@
+﻿<UserControl x:Class="BandCentral.Uwp.UserControls.InAppPurchaseManager"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:BandCentral.Uwp.UserControls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}"
+             mc:Ignorable="d"
+             d:DesignHeight="500"
+             d:DesignWidth="400">
+
+    <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+        <Grid Width="310"
+              Margin="0,10,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBlock x:Name="TitleTextBlock"
+                           Text="Unlockables"
+                           TextWrapping="Wrap"
+                           Margin="0,0,0,0"
+                           Style="{StaticResource TitleTextBlockStyle}" />
+
+                <!-- Task unlock -->
+                <TextBlock TextWrapping="Wrap"
+                           Margin="0,0,0,10">
+        		<Run FontWeight="Bold"
+                     FontSize="16"
+                     Text="Background Tasks Unlock: " />
+        		<Run />
+        		<LineBreak />
+        		<Run Text="Automatically update your Band using:" />
+        		<LineBreak />
+        		<Run Text="- The Bing™ Image of the Day" />
+        		<LineBreak />
+        		<Run Text="- Your pre-selected favorites" />
+                </TextBlock>
+                <Button x:Name="UnlockTasksButton"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        Click="UnlockTasksButton_OnClick">
+                    <Button.Content>
+                        <Grid Background="White"
+                              Margin="5,0,5,0"
+                              Padding="5,2,5,2">
+                            <TextBlock Text="purchased"
+                                       Foreground="Green"
+                                       Visibility="{Binding IapBackgroundTasks, Converter={StaticResource BoolToVisibilityConverter}}"
+                                       HorizontalAlignment="Center" />
+                            <TextBlock Text="click here to unlock"
+                                       Foreground="red"
+                                       Visibility="{Binding IapBackgroundTasks, Converter={StaticResource InvertedBoolToVisibilityConverter}}"
+                                       HorizontalAlignment="Center" />
+                        </Grid>
+                    </Button.Content>
+                </Button>
+
+                <!-- Donations -->
+                <TextBlock TextWrapping="Wrap"
+                           Margin="0,10,0,10">
+        		<Run FontWeight="Bold"
+                     FontSize="16"
+                     Text="Developer donations: " />
+        		<Run />
+        		<LineBreak />
+        		<Run Text="Help support the developer's efforts to keep bringing you a one-of-a-kind experience" />
+                </TextBlock>
+                <Button x:Name="DonateSmallButton"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        Click="DonateSmallButton_OnClick"
+                        Margin="0,0,0,10">
+                    <Button.Content>
+                        <Grid Background="White"
+                              Margin="5,0,5,0"
+                              Padding="5,2,5,2">
+                            <TextBlock Text="small donation"
+                                       Foreground="Green"
+                                       HorizontalAlignment="Center" />
+                        </Grid>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="DonateMediumButton"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        Click="DonateMediumButton_OnClick"
+                        Margin="0,0,0,10">
+                    <Button.Content>
+                        <Grid Background="White"
+                              Margin="5,0,5,0"
+                              Padding="5,2,5,2">
+                            <TextBlock Text="medium donation"
+                                       Foreground="Green"
+                                       HorizontalAlignment="Center" />
+                        </Grid>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="DonateLargeButton"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        Click="DonateLargeButton_OnClick">
+                    <Button.Content>
+                        <Grid Background="{ThemeResource SystemControlBackgroundAltHighBrush}"
+                              Margin="5,0,5,0"
+                              Padding="5,2,5,2">
+                            <TextBlock Text="large donation"
+                                       Foreground="Green"
+                                       HorizontalAlignment="Center" />
+                        </Grid>
+                    </Button.Content>
+                </Button>
+
+                <TextBlock x:Name="ResultTextBlock"
+                           TextWrapping="Wrap"
+                           Margin="0,20,0,0" />
+            </StackPanel>
+
+            <Button x:Name="DoneButton"
+                    Content="close"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Stretch"
+                    Margin="0,10,0,10"
+                    Click="DoneButton_OnClick"
+                    Grid.Row="1" />
+        </Grid>
+
+
+    </Grid>
+</UserControl>
