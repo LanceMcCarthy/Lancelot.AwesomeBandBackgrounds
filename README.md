@@ -1,9 +1,11 @@
-# AwesomeBandBackgrounds
+# Awesome Band Backgrounds
+
 The ultimate Microsoft Band companion app. Access millions of amazing, high definition wallpaper photos and dozens of professional palette-based themes.
 
 ## Installation Options
 
 - [Microsoft Store](https://www.microsoft.com/en-us/p/awesome-band-backgrounds/9nblggh3g0sn)
+- Source Code: See the [Developer Note](#developer-note) section for important information.
 
 ## Features
 
@@ -37,3 +39,8 @@ Your feedback shapes the evolution of this app, because we care deeply about you
 ![image](https://user-images.githubusercontent.com/3520532/190918171-21b7aed9-f4d0-4ad8-8c1d-52b584ae1356.png)
 ![image](https://user-images.githubusercontent.com/3520532/190918181-48c7d535-dd28-461c-a458-c24f58a4e9d0.png)
 
+## Developer Note
+
+I have open sourced this to give back to the community the hundreds and hundreds of hours of work over the years. From custom controls, to UI features, these are available in the source in the `src/` subfolder. You can compile the projects locally and interact with everything in the VS 2022 designer. While preparing this for open source, I have put a lot of recent work into compatibility with modern tools.
+
+However, if you want to actually run and use this app from code (instead of installing from the Store), you will need to get your own API keys with the various services. These values are set in the various constants files in the [src/BandCentral.Models/Secrets](https://github.com/LanceMcCarthy/Lancelot.AwesomeBandBackgrounds/tree/main/src/BandCentral.Models/Secrets) folder.
